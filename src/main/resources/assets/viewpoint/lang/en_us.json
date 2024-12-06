@@ -1,0 +1,106 @@
+{
+	"gui.viewpoint.name": "Perspective",
+	"gui.viewpoint.version": "%s %s",
+	"gui.viewpoint.license": "Licensed under LGPL-3.0-or-later.",
+
+	"gui.viewpoint.toasts.title": "%s: %s",
+
+	"gui.viewpoint.toasts.keybinding_conflicts.title": "Conflicting Keybinding",
+	"gui.viewpoint.toasts.keybinding_conflicts.description": "Keybinding conflicts have been detected that could affect Perspective.\nPlease take a moment to review and adjust your keybindings as needed.",
+
+	"gui.viewpoint.config.reload": "Reloaded Config!",
+
+	"gui.viewpoint.config.config": "Config",
+
+	"gui.viewpoint.config.zoom": "Zoom",
+
+	"gui.viewpoint.config.zoom.level": "Zoom Level: %s",
+
+	"gui.viewpoint.config.zoom.increment_size": "Increment Multiplier: %s",
+	"gui.viewpoint.config.zoom.increment_size.hover": "Sets the multiplier of zoom adjustment when using the scroll wheel.",
+
+	"gui.viewpoint.config.zoom.type": "Scale: %s",
+	"gui.viewpoint.config.zoom.type.hover": "%s",
+	"gui.viewpoint.config.zoom.type.linear": "Linear",
+	"gui.viewpoint.config.zoom.type.linear.hover": "Uniform difference between zoom levels.",
+	"gui.viewpoint.config.zoom.type.logarithmic": "Logarithmic",
+	"gui.viewpoint.config.zoom.type.logarithmic.hover": "Proportional difference between zoom levels.",
+
+	"gui.viewpoint.config.zoom.transition": "Transition: %s",
+	"gui.viewpoint.config.zoom.transition.smooth": "Smooth",
+	"gui.viewpoint.config.zoom.transition.instant": "Instant",
+
+	"gui.viewpoint.config.zoom.scale_mode": "Mode: %s",
+	"gui.viewpoint.config.zoom.scale_mode.scaled": "Scaled",
+	"gui.viewpoint.config.zoom.scale_mode.vanilla": "Unscaled",
+	"gui.viewpoint.config.zoom.scale_mode.hover": "%s",
+	"gui.viewpoint.config.zoom.scale_mode.scaled.hover": "Mouse movements and some visual effects scale when zooming.",
+	"gui.viewpoint.config.zoom.scale_mode.vanilla.hover": "Mouse movements and visual effects remain unscaled when zooming.",
+
+	"gui.viewpoint.config.zoom.hide_hud": "Hide HUD: %s",
+
+	"gui.viewpoint.config.zoom.show_percentage": "Show Percentage: %s",
+
+	"gui.viewpoint.config.zoom.smooth_speed_in": "Smooth Speed In: %s",
+	"gui.viewpoint.config.zoom.smooth_speed_out": "Smooth Speed Out: %s",
+
+	"gui.viewpoint.config.zoom.enabled": "Allow Zoom: %s",
+	"gui.viewpoint.config.zoom.enabled.hover": "%s",
+	"gui.viewpoint.config.zoom.enabled.true.hover": "§rZoom is §a§lenabled§r and will function normally.",
+	"gui.viewpoint.config.zoom.enabled.false.hover": "§rZoom is §c§ldisabled§r and will not function unless re-enabled.",
+
+	"gui.viewpoint.config.zoom.reset": "Reset on Release: %s",
+	"gui.viewpoint.config.zoom.reset.hover": "%s",
+	"gui.viewpoint.config.zoom.reset.true.hover": "Zoom Level will reset when toggling zoom off.",
+	"gui.viewpoint.config.zoom.reset.false.hover": "Zoom Level will remain the same after toggling zoom off.",
+
+	"gui.viewpoint.config.zoom.cinematic": "Cinematic: %s",
+
+	"gui.viewpoint.config.hold_perspective": "Hold Perspective",
+	"gui.viewpoint.config.hold_perspective.back.multiplier": "Back Multiplier: %s",
+	"gui.viewpoint.config.hold_perspective.back.multiplier.hover": "Sets how far away the camera is when using Hold Perspective Back.",
+	"gui.viewpoint.config.hold_perspective.front.multiplier": "Front Multiplier: %s",
+	"gui.viewpoint.config.hold_perspective.front.multiplier.hover": "Sets how far away the camera is when using Hold Perspective Front.",
+	"gui.viewpoint.config.hold_perspective.back.hide_hud": "Back Hide HUD: %s",
+	"gui.viewpoint.config.hold_perspective.front.hide_hud": "Front Hide HUD: %s",
+
+	"gui.viewpoint.config.reset": "Reset to Default",
+	"gui.viewpoint.config.back": "Back",
+	"gui.viewpoint.config.next": "Next",
+
+	"gui.viewpoint.message.zoom_level": "Zoom: %s",
+
+	"gui.viewpoint.keybindings.category.viewpoint": "viewpoint",
+	
+	"gui.viewpoint.keybindings.keybinding.hold_perspective_third_person_back": "Hold Third Person Back",
+
+	"gui.viewpoint.keybindings.keybinding.hold_perspective_third_person_front": "Hold Third Person Front",
+
+	"gui.viewpoint.keybindings.keybinding.hold_zoom": "Hold Zoom",
+
+	"gui.viewpoint.keybindings.keybinding.open_config": "Open Config",
+
+	"gui.viewpoint.keybindings.keybinding.set_perspective_first_person": "Set First Person",
+
+	"gui.viewpoint.keybindings.keybinding.set_perspective_third_person_back": "Set Third Person Back",
+
+	"gui.viewpoint.keybindings.keybinding.set_perspective_third_person_front": "Set Third Person Front",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_zoom_cinematic": "Toggle Cinematic Zoom",
+
+	"gui.viewpoint.variable.endisable.on": "Enabled",
+	"gui.viewpoint.variable.endisable.off": "Disabled",
+
+	"gui.viewpoint.variable.onff.on": "ON",
+	"gui.viewpoint.variable.onff.off": "OFF",
+
+	"gui.viewpoint.variable.blur.on": "\uD83D\uDE48",
+	"gui.viewpoint.variable.blur.off": "\uD83D\uDC35",
+
+	"gui.viewpoint.variable.disable_screen_mode.on": "*",
+	"gui.viewpoint.variable.disable_screen_mode.off": "",
+
+	"gui.viewpoint.config.error": "ERROR"
+}
