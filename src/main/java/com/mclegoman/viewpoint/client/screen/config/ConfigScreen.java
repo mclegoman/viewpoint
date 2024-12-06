@@ -43,7 +43,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide_hud.hide_vignette", new Object[]{com.mclegoman.viewpoint.client.translation.Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("hide_hud_hide_vignette"), com.mclegoman.viewpoint.client.translation.Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig("hide_hud_hide_vignette", !(boolean) ConfigHelper.getConfig("hide_hud_hide_vignette"));
 			this.refresh = true;
-		}).width(300).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hide_hud.hide_vignette", true))).build(), 2);
+		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hide_hud.hide_vignette", true))).build(), 2);
 		gridAdder.add(new EmptyWidget(20, 20), 2);
 		gridAdder.add(new EmptyWidget(20, 20), 2);
 		return grid;

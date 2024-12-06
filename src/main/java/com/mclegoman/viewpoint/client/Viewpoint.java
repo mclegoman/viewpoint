@@ -7,6 +7,7 @@
 
 package com.mclegoman.viewpoint.client;
 
+import com.mclegoman.viewpoint.client.contributor.Contributor;
 import com.mclegoman.viewpoint.client.keybindings.Keybindings;
 import com.mclegoman.viewpoint.client.util.Tick;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
@@ -21,6 +22,7 @@ public class Viewpoint implements ClientModInitializer {
 	public void onInitializeClient() {
 		try {
 			Data.version.sendToLog(LogType.INFO, Translation.getString("Initializing {}", Data.version.getName()));
+			Contributor.init();
 			Zoom.init();
 			Keybindings.init();
 			Tick.init();
