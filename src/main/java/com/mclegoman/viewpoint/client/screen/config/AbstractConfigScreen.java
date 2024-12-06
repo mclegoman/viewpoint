@@ -126,6 +126,8 @@ public abstract class AbstractConfigScreen extends Screen {
 		context.drawTextWithShadow(textRenderer, licenceText, this.width - this.textRenderer.getWidth(licenceText) - 2, this.height - 10, 0xFFFFFF);
 		getLogoWidget(this.width / 2 - 128, 30).renderWidget(context, mouseX, mouseY, delta);
 		context.drawCenteredTextWithShadow(textRenderer, getPageTitle(), this.width / 2, 78, 0xFFFFFF);
+		context.drawCenteredTextWithShadow(textRenderer, com.mclegoman.viewpoint.luminance.Translation.getText("gui.viewpoint.perspective.fork", true), this.width / 2, 2, 0xFFFFFF);
+		context.drawCenteredTextWithShadow(textRenderer, com.mclegoman.viewpoint.luminance.Translation.getText("gui.viewpoint.perspective.use", true), this.width / 2, 12, 0xFFFFFF);
 	}
 	public Screen getRefreshScreen() {
 		return this;

@@ -64,6 +64,9 @@
 	"gui.viewpoint.config.hold_perspective.back.hide_hud": "Back Hide HUD: %s",
 	"gui.viewpoint.config.hold_perspective.front.hide_hud": "Front Hide HUD: %s",
 
+	"gui.viewpoint.config.hide_hud.hide_vignette": "Hide Vignette on Hide Hud: %s",
+	"gui.viewpoint.config.hide_hud.hide_vignette.hover": "When enabled, the vignette will also be hidden when Hide Hud is enabled (usually whilst using Zoom or Hold Perspective).",
+
 	"gui.viewpoint.config.reset": "Reset to Default",
 	"gui.viewpoint.config.back": "Back",
 	"gui.viewpoint.config.next": "Next",
@@ -102,5 +105,8 @@
 	"gui.viewpoint.variable.disable_screen_mode.on": "*",
 	"gui.viewpoint.variable.disable_screen_mode.off": "",
 
-	"gui.viewpoint.config.error": "ERROR"
+	"gui.viewpoint.config.error": "ERROR",
+
+	"gui.viewpoint.perspective.fork": "viewpoint is a partial fork of Perspective.",
+	"gui.viewpoint.perspective.use": "It's recommended to use Perspective when possible."
 }

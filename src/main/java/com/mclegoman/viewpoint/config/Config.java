@@ -33,6 +33,7 @@ public class Config {
 	protected static double holdPerspectiveFrontMultiplier;
 	protected static boolean holdPerspectiveBackHideHud;
 	protected static boolean holdPerspectiveFrontHideHud;
+	protected static boolean hideHudVignette;
 	protected static final Object[] options;
 
 	protected static void init() {
@@ -56,13 +57,14 @@ public class Config {
 		configProvider.add(new Couple<>("zoom_scale_mode", "scaled"));
 		configProvider.add(new Couple<>("zoom_hide_hud", true));
 		configProvider.add(new Couple<>("zoom_show_percentage", false));
-		configProvider.add(new Couple<>("zoom_type", "perspective:logarithmic"));
+		configProvider.add(new Couple<>("zoom_type", "viewpoint:logarithmic"));
 		configProvider.add(new Couple<>("zoom_reset", false));
 		configProvider.add(new Couple<>("zoom_cinematic", false));
 		configProvider.add(new Couple<>("hold_perspective_back_multiplier", 1.0D));
 		configProvider.add(new Couple<>("hold_perspective_front_multiplier", 1.0D));
 		configProvider.add(new Couple<>("hold_perspective_back_hide_hud", true));
 		configProvider.add(new Couple<>("hold_perspective_front_hide_hud", true));
+		configProvider.add(new Couple<>("hide_hud_hide_vignette", false));
 	}
 
 	protected static void assign() {
@@ -82,6 +84,7 @@ public class Config {
 		holdPerspectiveFrontHideHud = config.getOrDefault("hold_perspective_front_hide_hud", true);
 		holdPerspectiveBackMultiplier = config.getOrDefault("hold_perspective_back_multiplier", 1.0D);
 		holdPerspectiveFrontMultiplier = config.getOrDefault("hold_perspective_front_multiplier", 1.0D);
+		hideHudVignette = config.getOrDefault("hide_hud_hide_vignette", false);
 	}
 
 	protected static void save() {
@@ -102,6 +105,7 @@ public class Config {
 		configProvider.setConfig("hold_perspective_front_multiplier", holdPerspectiveFrontMultiplier);
 		configProvider.setConfig("hold_perspective_back_hide_hud", holdPerspectiveBackHideHud);
 		configProvider.setConfig("hold_perspective_front_hide_hud", holdPerspectiveFrontHideHud);
+		configProvider.setConfig("hide_hud_hide_vignette", hideHudVignette);
 		configProvider.saveConfig(Data.version, id);
 	}
 	static {
@@ -120,7 +124,8 @@ public class Config {
 				holdPerspectiveBackMultiplier,
 				holdPerspectiveFrontMultiplier,
 				holdPerspectiveBackHideHud,
-				holdPerspectiveFrontHideHud
+				holdPerspectiveFrontHideHud,
+				hideHudVignette
 		};
 	}
 }

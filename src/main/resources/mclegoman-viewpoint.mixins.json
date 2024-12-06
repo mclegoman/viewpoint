@@ -3,9 +3,12 @@
 	"package": "com.mclegoman.viewpoint.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
+		"client.hud.ChatHudMixin",
+		"client.hud.HeldItemRendererMixin",
+		"client.hud.InGameHudMixin",
+		"client.perspective.CameraMixin",
 		"client.zoom.GameRendererMixin",
-		"client.zoom.MouseMixin",
-		"client.perspective.CameraMixin"
+		"client.zoom.MouseMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -97,13 +97,14 @@ public class ConfigHelper {
 			configChanged.add(setConfig("zoom_scale_mode", "scaled"));
 			configChanged.add(setConfig("zoom_hide_hud", true));
 			configChanged.add(setConfig("zoom_show_percentage", false));
-			configChanged.add(setConfig("zoom_type", "perspective:logarithmic"));
+			configChanged.add(setConfig("zoom_type", "viewpoint:logarithmic"));
 			configChanged.add(setConfig("zoom_reset", false));
 			configChanged.add(setConfig("zoom_cinematic", false));
 			configChanged.add(setConfig("hold_perspective_back_multiplier", MathHelper.clamp(1.0D, 0.5D, 4.0D)));
 			configChanged.add(setConfig("hold_perspective_front_multiplier", MathHelper.clamp(1.0D, 0.5D, 4.0D)));
 			configChanged.add(setConfig("hold_perspective_back_hide_hud", true));
 			configChanged.add(setConfig("hold_perspective_front_hide_hud", true));
+			configChanged.add(setConfig("hide_hud_hide_vignette", false));
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");
 		}
@@ -177,6 +178,10 @@ public class ConfigHelper {
 					Config.holdPerspectiveFrontHideHud = (boolean) value;
 					configChanged = true;
 				}
+				case "hide_hud_hide_vignette" -> {
+					Config.hideHudVignette = (boolean) value;
+					configChanged = true;
+				}
 				default -> {
 					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", key));
 				}
@@ -236,6 +241,9 @@ public class ConfigHelper {
 			}
 			case "hold_perspective_front_hide_hud" -> {
 				return Config.holdPerspectiveFrontHideHud;
+			}
+			case "hide_hud_hide_vignette" -> {
+				return Config.hideHudVignette;
 			}
 			default -> {
 				Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Key", key));
