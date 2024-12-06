@@ -1,4 +1,6 @@
-![](./logo.png)
+![](https://raw.githubusercontent.com/mclegoman/viewpoint/refs/heads/1.21.4/assets/logo.png)
+[Download from Modrinth](https://modrinth.com/mod/viewpoint)
+
 ## About
 Viewpoint is a minimal version of [Perspective](https://modrinth.com/mod/mclegoman-perspective) with only the zoom and hold perspective features.
 
