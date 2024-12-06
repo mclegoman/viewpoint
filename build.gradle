@@ -12,13 +12,13 @@ base {
 }
 loom {
 	mods {
-		"perspective" {
+		"viewpoint" {
 			sourceSet("main")
 		}
 	}
 }
 runClient.doFirst {
-	args += ['--username', "Perspective${new Random().nextInt(1000)}"]
+	args += ['--username', "viewpoint${new Random().nextInt(1000)}"]
 }
 repositories {
 	maven { url 'https://jitpack.io' }
