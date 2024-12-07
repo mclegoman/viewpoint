@@ -34,6 +34,12 @@ public class Config {
 	protected static boolean holdPerspectiveBackHideHud;
 	protected static boolean holdPerspectiveFrontHideHud;
 	protected static boolean hideHudVignette;
+	protected static boolean versionOverlay;
+	protected static boolean positionOverlay;
+	protected static String timeOverlay;
+	protected static boolean dayOverlay;
+	protected static boolean biomeOverlay;
+	protected static boolean cpsOverlay;
 	protected static final Object[] options;
 
 	protected static void init() {
@@ -65,6 +71,12 @@ public class Config {
 		configProvider.add(new Couple<>("hold_perspective_back_hide_hud", true));
 		configProvider.add(new Couple<>("hold_perspective_front_hide_hud", true));
 		configProvider.add(new Couple<>("hide_hud_hide_vignette", false));
+		configProvider.add(new Couple<>("version_overlay", false));
+		configProvider.add(new Couple<>("position_overlay", false));
+		configProvider.add(new Couple<>("time_overlay", false));
+		configProvider.add(new Couple<>("day_overlay", false));
+		configProvider.add(new Couple<>("biome_overlay", false));
+		configProvider.add(new Couple<>("cps_overlay", false));
 	}
 
 	protected static void assign() {
@@ -85,6 +97,12 @@ public class Config {
 		holdPerspectiveBackMultiplier = config.getOrDefault("hold_perspective_back_multiplier", 1.0D);
 		holdPerspectiveFrontMultiplier = config.getOrDefault("hold_perspective_front_multiplier", 1.0D);
 		hideHudVignette = config.getOrDefault("hide_hud_hide_vignette", false);
+		versionOverlay = config.getOrDefault("version_overlay", false);
+		positionOverlay = config.getOrDefault("position_overlay", false);
+		timeOverlay = config.getOrDefault("time_overlay", "false");
+		dayOverlay = config.getOrDefault("day_overlay", false);
+		biomeOverlay = config.getOrDefault("biome_overlay", false);
+		cpsOverlay = config.getOrDefault("cps_overlay", false);
 	}
 
 	protected static void save() {
@@ -106,6 +124,12 @@ public class Config {
 		configProvider.setConfig("hold_perspective_back_hide_hud", holdPerspectiveBackHideHud);
 		configProvider.setConfig("hold_perspective_front_hide_hud", holdPerspectiveFrontHideHud);
 		configProvider.setConfig("hide_hud_hide_vignette", hideHudVignette);
+		configProvider.setConfig("version_overlay", versionOverlay);
+		configProvider.setConfig("position_overlay", positionOverlay);
+		configProvider.setConfig("time_overlay", timeOverlay);
+		configProvider.setConfig("day_overlay", dayOverlay);
+		configProvider.setConfig("biome_overlay", biomeOverlay);
+		configProvider.setConfig("cps_overlay", cpsOverlay);
 		configProvider.saveConfig(Data.version, id);
 	}
 	static {
@@ -125,7 +149,13 @@ public class Config {
 				holdPerspectiveFrontMultiplier,
 				holdPerspectiveBackHideHud,
 				holdPerspectiveFrontHideHud,
-				hideHudVignette
+				hideHudVignette,
+				versionOverlay,
+				positionOverlay,
+				timeOverlay,
+				dayOverlay,
+				biomeOverlay,
+				cpsOverlay
 		};
 	}
 }

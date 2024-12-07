@@ -20,6 +20,9 @@
   "entrypoints": {
     "client": [
       "com.mclegoman.viewpoint.client.Viewpoint"
+    ],
+    "modmenu": [
+      "com.mclegoman.viewpoint.compat.ModMenuCompat"
     ]
   },
   "mixins": [
@@ -39,8 +42,11 @@
   "custom": {
     "modmenu": {
       "links": {
-        "mclegoman.donate": "https://ko-fi.com/mclegoman"
+        "dannytaylor.donate": "https://ko-fi.com/mclegoman"
       }
+    },
+    "catalogue": {
+      "configFactory": "com.mclegoman.viewpoint.compat.CatalogueCompat"
     }
   }
 }

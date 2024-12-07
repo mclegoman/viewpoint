@@ -105,6 +105,12 @@ public class ConfigHelper {
 			configChanged.add(setConfig("hold_perspective_back_hide_hud", true));
 			configChanged.add(setConfig("hold_perspective_front_hide_hud", true));
 			configChanged.add(setConfig("hide_hud_hide_vignette", false));
+			configChanged.add(setConfig("version_overlay", false));
+			configChanged.add(setConfig("position_overlay", false));
+			configChanged.add(setConfig("time_overlay", "false"));
+			configChanged.add(setConfig("day_overlay", false));
+			configChanged.add(setConfig("biome_overlay", false));
+			configChanged.add(setConfig("cps_overlay", false));
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");
 		}
@@ -182,6 +188,30 @@ public class ConfigHelper {
 					Config.hideHudVignette = (boolean) value;
 					configChanged = true;
 				}
+				case "version_overlay" -> {
+					Config.versionOverlay = (boolean) value;
+					configChanged = true;
+				}
+				case "position_overlay" -> {
+					Config.positionOverlay = (boolean) value;
+					configChanged = true;
+				}
+				case "time_overlay" -> {
+					Config.timeOverlay = (String) value;
+					configChanged = true;
+				}
+				case "day_overlay" -> {
+					Config.dayOverlay = (boolean) value;
+					configChanged = true;
+				}
+				case "biome_overlay" -> {
+					Config.biomeOverlay = (boolean) value;
+					configChanged = true;
+				}
+				case "cps_overlay" -> {
+					Config.cpsOverlay = (boolean) value;
+					configChanged = true;
+				}
 				default -> {
 					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", key));
 				}
@@ -244,6 +274,24 @@ public class ConfigHelper {
 			}
 			case "hide_hud_hide_vignette" -> {
 				return Config.hideHudVignette;
+			}
+			case "version_overlay" -> {
+				return Config.versionOverlay;
+			}
+			case "position_overlay" -> {
+				return Config.positionOverlay;
+			}
+			case "time_overlay" -> {
+				return Config.timeOverlay;
+			}
+			case "day_overlay" -> {
+				return Config.dayOverlay;
+			}
+			case "biome_overlay" -> {
+				return Config.biomeOverlay;
+			}
+			case "cps_overlay" -> {
+				return Config.cpsOverlay;
 			}
 			default -> {
 				Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Key", key));

@@ -1,1 +1,0 @@
-![](https://mclegoman.com/images/7/70/Perspective_Logo.png)  

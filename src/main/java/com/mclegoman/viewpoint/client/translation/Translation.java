@@ -12,6 +12,9 @@ import net.minecraft.text.MutableText;
 import net.minecraft.util.StringIdentifiable;
 
 public class Translation extends com.mclegoman.viewpoint.luminance.Translation {
+	public static MutableText getTimeOverlayTranslation(String namespace, String key) {
+		return getConfigTranslation(namespace, "time_overlay.type." + key);
+	}
 	public static MutableText getVariableTranslation(String namespace, boolean toggle, Type type) {
 		return toggle ? getTranslation(namespace, "variable." + type.asString() + ".on") : getTranslation(namespace, "variable." + type.asString() + ".off");
 	}

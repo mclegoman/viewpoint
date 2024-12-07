@@ -9,12 +9,12 @@ package com.mclegoman.viewpoint.client.screen.config;
 
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.screen.config.hold_perspective.HoldPerspectiveConfigScreen;
+import com.mclegoman.viewpoint.client.screen.config.overlays.OverlaysConfigScreen;
 import com.mclegoman.viewpoint.client.screen.config.zoom.ZoomConfigScreen;
 import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.config.ConfigHelper;
 import com.mclegoman.viewpoint.luminance.LogType;
 import com.mclegoman.viewpoint.luminance.Translation;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
@@ -40,11 +40,11 @@ public class ConfigScreen extends AbstractConfigScreen {
 		GridWidget.Adder gridAdder = grid.createAdder(2);
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom"), (button) -> ClientData.minecraft.setScreen(new ZoomConfigScreen(getRefreshScreen(), false, false, 1))).build());
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective"), (button) -> ClientData.minecraft.setScreen(new HoldPerspectiveConfigScreen(getRefreshScreen(), false, false, 1))).build());
+		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "overlays"), (button) -> ClientData.minecraft.setScreen(new OverlaysConfigScreen(getRefreshScreen(), false, false, 1))).width(304).build(), 2);
 		gridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hide_hud.hide_vignette", new Object[]{com.mclegoman.viewpoint.client.translation.Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("hide_hud_hide_vignette"), com.mclegoman.viewpoint.client.translation.Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig("hide_hud_hide_vignette", !(boolean) ConfigHelper.getConfig("hide_hud_hide_vignette"));
 			this.refresh = true;
 		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hide_hud.hide_vignette", true))).build(), 2);
-		gridAdder.add(new EmptyWidget(20, 20), 2);
 		gridAdder.add(new EmptyWidget(20, 20), 2);
 		return grid;
 	}

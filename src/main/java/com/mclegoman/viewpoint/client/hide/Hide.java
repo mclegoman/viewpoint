@@ -12,7 +12,6 @@ import com.mclegoman.viewpoint.client.zoom.Zoom;
 import com.mclegoman.viewpoint.config.ConfigHelper;
 
 public class Hide {
-	public static final String[] hideCrosshairModes = new String[]{"vanilla", "dynamic", "hidden"};
 	public static boolean shouldHideHud(HideHudTypes type) {
 		switch (type) {
 			case zoom -> {return Zoom.isZooming() && (boolean) ConfigHelper.getConfig("zoom_hide_hud");}

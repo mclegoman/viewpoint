@@ -8,6 +8,34 @@ Viewpoint is a minimal version of [Perspective](https://modrinth.com/mod/mclegom
     - `fabric-lifecycle-events-v1`
 - Java 21 or later. (Built with the Microsoft build of OpenJDK 21.0.2)
 
+## Features  
+- Zoom  
+  - Logarithmic and Linear Zoom Scales  
+  - Smooth and Instant Transitions  
+  - Scaled and Unscaled Mouse and FOV effects  
+  - Cinematic Mouse  
+- Hold Perspective  
+  - Switch to a perspective whilst using a keybinding  
+  - Distance Multiplier  
+- Set Perspective  
+  - Switch to a perspective after using a keybinding  
+- Take Panoramic Screenshot  
+  - Saves screenshots required for a panorama at the following directory: `%rundir%/panoramas/`  
+    - Unlike Perspective, viewpoint **does not** save the screenshots as a resource pack.  
+- Overlays  
+  - Version    
+    - This renders the current version in the top left of the screen similarly to how beta minecraft did  
+  - Position  
+    - Renders current position similarly to bedrock  
+  - Time  
+    - Renders the current time in the same style as the position overlay  
+  - Day
+    - Renders the current day count in the same style as the position overlay  
+  - Biome  
+    - Renders the current biome in the same style as the position overlay  
+  - CPS  
+    - Renders the current cps in the same style as the position overlay
+
 #
 Licensed under LGPL-3.0-or-later.
 

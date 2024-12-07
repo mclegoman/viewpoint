@@ -8,6 +8,7 @@
 package com.mclegoman.viewpoint.mixin.client.hud;
 
 import com.mclegoman.viewpoint.client.hud.HUDHelper;
+import com.mclegoman.viewpoint.client.hud.Overlays;
 import com.mclegoman.viewpoint.config.ConfigHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.LayeredDrawer;
@@ -31,5 +32,9 @@ public abstract class InGameHudMixin {
 			}
 			ci.cancel();
 		}
+	}
+	@Inject(at = @At("RETURN"), method = "render")
+	private void perspective$renderOverlays(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+		Overlays.renderOverlays(context);
 	}
 }

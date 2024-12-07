@@ -7,7 +7,9 @@
 
 package com.mclegoman.viewpoint.client.util;
 
+import com.mclegoman.viewpoint.client.hud.HUDHelper;
 import com.mclegoman.viewpoint.client.keybindings.Keybindings;
+import com.mclegoman.viewpoint.client.panorama.Panorama;
 import com.mclegoman.viewpoint.client.perspective.Perspective;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
 import com.mclegoman.viewpoint.config.ConfigHelper;
@@ -21,6 +23,8 @@ public class Tick {
 				Keybindings.tick();
 				Perspective.tick();
 				Zoom.tick();
+				Panorama.tick();
+				HUDHelper.tick();
 			}
 		});
 	}

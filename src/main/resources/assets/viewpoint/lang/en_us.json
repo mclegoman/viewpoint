@@ -1,5 +1,5 @@
 {
-	"gui.viewpoint.name": "Perspective",
+	"gui.viewpoint.name": "viewpoint",
 	"gui.viewpoint.version": "%s %s",
 	"gui.viewpoint.license": "Licensed under LGPL-3.0-or-later.",
 
@@ -93,6 +93,8 @@
 
 	"gui.viewpoint.keybindings.keybinding.toggle_zoom_cinematic": "Toggle Cinematic Zoom",
 
+	"gui.viewpoint.keybindings.keybinding.take_pano_screenshot": "Take Panoramic Screenshot",
+
 	"gui.viewpoint.variable.endisable.on": "Enabled",
 	"gui.viewpoint.variable.endisable.off": "Disabled",
 
@@ -108,5 +110,47 @@
 	"gui.viewpoint.config.error": "ERROR",
 
 	"gui.viewpoint.perspective.fork": "viewpoint is a partial fork of Perspective.",
-	"gui.viewpoint.perspective.use": "It's recommended to use Perspective when possible."
+	"gui.viewpoint.perspective.use": "It's recommended to use Perspective when possible.",
+
+	"dannytaylor.donate": "Ko-Fi",
+
+	"gui.viewpoint.config.overlays": "Overlays",
+
+	"gui.viewpoint.config.overlays.version_overlay": "Version Overlay: %s",
+
+	"gui.viewpoint.config.overlays.position_overlay": "Position Overlay: %s",
+
+	"gui.viewpoint.config.overlays.time_overlay": "Time Overlay: %s",
+
+	"gui.viewpoint.config.overlays.day_overlay": "Day Overlay: %s",
+
+	"gui.viewpoint.config.overlays.biome_overlay": "Biome Overlay: %s",
+
+	"gui.viewpoint.config.overlays.cps_overlay": "CPS Overlay: %s",
+	
+	"gui.viewpoint.config.time_overlay.type.false": "OFF",
+	"gui.viewpoint.config.time_overlay.type.twelve_hour": "12 Hour",
+	"gui.viewpoint.config.time_overlay.type.twenty_four_hour": "24 Hour",
+
+	"gui.viewpoint.position.title": "Position",
+	"gui.viewpoint.position.description": "%s, %s, %s",
+
+	"gui.viewpoint.version_overlay": "Minecraft %s",
+	"gui.viewpoint.position_overlay": "%s: %s",
+	"gui.viewpoint.time_overlay": "Time of day: %s:%s%s",
+	"gui.viewpoint.time_overlay.am": " am",
+	"gui.viewpoint.time_overlay.pm": " pm",
+	"gui.viewpoint.day_overlay": "Days played: %s",
+	"gui.viewpoint.biome_overlay": "Biome: %s",
+	"gui.viewpoint.cps_overlay": "CPS: %s:%s:%s",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_version_overlay": "Toggle Version Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_position_overlay": "Toggle Position Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_day_overlay": "Toggle Day Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_biome_overlay": "Toggle Biome Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_cps_overlay": "Toggle CPS Overlay"
 }

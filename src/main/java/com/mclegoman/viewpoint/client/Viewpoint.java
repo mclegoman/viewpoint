@@ -8,7 +8,9 @@
 package com.mclegoman.viewpoint.client;
 
 import com.mclegoman.viewpoint.client.contributor.Contributor;
+import com.mclegoman.viewpoint.client.hud.Overlays;
 import com.mclegoman.viewpoint.client.keybindings.Keybindings;
+import com.mclegoman.viewpoint.client.panorama.Panorama;
 import com.mclegoman.viewpoint.client.util.Tick;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
 import com.mclegoman.viewpoint.common.data.Data;
@@ -25,6 +27,8 @@ public class Viewpoint implements ClientModInitializer {
 			Contributor.init();
 			Zoom.init();
 			Keybindings.init();
+			Panorama.init();
+			Overlays.init();
 			Tick.init();
 			ConfigHelper.init();
 		} catch (Exception error) {
