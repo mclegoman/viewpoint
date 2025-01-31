@@ -18,7 +18,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Smoother;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,8 +34,6 @@ public class Zoom {
 	public static float fov = 70.0F;
 	public static float zoomFOV = 70.0F;
 	public static double timeDelta = Double.MIN_VALUE;
-	public static Smoother smoothX = new Smoother();
-	public static Smoother smoothY = new Smoother();
 	public static void addZoomType(Identifier identifier) {
 		if (!zoomTypes.contains(identifier)) zoomTypes.add(identifier);
 	}
@@ -51,10 +48,6 @@ public class Zoom {
 	public static void tick() {
 		try {
 			if (Keybindings.toggleZoom.wasPressed()) isZooming = !isZooming;
-			if (Keybindings.toggleZoomCinematic.wasPressed()) {
-				resetCinematicZoom();
-				ConfigHelper.setConfig("zoom_cinematic", !(boolean) ConfigHelper.getConfig("zoom_cinematic"));
-			}
 			if (!isZooming()) {
 				if ((boolean) ConfigHelper.getConfig("zoom_reset")) {
 					if (getRawZoomLevel() != getDefaultZoomLevel()) {
@@ -66,18 +59,10 @@ public class Zoom {
 					ConfigHelper.saveConfig();
 					hasUpdated = false;
 				}
-				resetCinematicZoom();
 			}
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to tick zoom: {}", error));
 		}
-	}
-	public static void resetCinematicZoom() {
-		smoothX = new Smoother();
-		smoothY = new Smoother();
-	}
-	public static double getMouseSensitivity() {
-		return Math.pow(ClientData.minecraft.options.getMouseSensitivity().getValue() * 0.6000000238418579F + 0.20000000298023224F, 3.0F) * 8.0F;
 	}
 	public static boolean isZooming() {
 		return canZoom() && ClientData.minecraft.player != null && (isZooming != Keybindings.holdZoom.isPressed());
@@ -87,9 +72,6 @@ public class Zoom {
 	}
 	public static boolean isScaled() {
 		return ConfigHelper.getConfig("zoom_scale_mode").equals("scaled");
-	}
-	public static boolean isSmoothCamera() {
-		return (boolean) ConfigHelper.getConfig("zoom_cinematic");
 	}
 	public static void updateMultiplier() {
 		try {
@@ -143,7 +125,7 @@ public class Zoom {
 			boolean updated = false;
 			for (int i = 0; i < multiplier; i++) {
 				if (!(getRawZoomLevel() <= 0) || !(getRawZoomLevel() >= 100)) {
-					ConfigHelper.setConfig("zoom_level", getRawZoomLevel() + amount);
+					ConfigHelper.setConfig("zoom_level", getRawZoomLevel() + amount, false);
 					updated = true;
 					hasUpdated = true;
 				}

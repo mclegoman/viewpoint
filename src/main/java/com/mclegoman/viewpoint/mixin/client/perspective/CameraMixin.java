@@ -16,10 +16,12 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(priority = 100, value = Camera.class)
 public abstract class CameraMixin {
-	@Shadow protected abstract float clipToSpace(float f);
 	@Shadow private boolean thirdPerson;
-	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;clipToSpace(F)F"), method = "update")
-	private float perspective$update(float original) {
+
+	@Shadow protected abstract double clipToSpace(double desiredCameraDistance);
+
+	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;clipToSpace(D)D"), method = "update")
+	private double perspective$update(double original) {
 		if (this.thirdPerson && Perspective.isHoldingPerspective()) {
 			if (Perspective.isHoldingPerspectiveBack()) {
 				return Perspective.getHoldPerspectiveBackMultiplier() != 1.0F ? this.clipToSpace(original * Perspective.getHoldPerspectiveBackMultiplier()) : original;

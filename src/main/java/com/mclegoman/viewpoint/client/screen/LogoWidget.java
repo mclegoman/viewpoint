@@ -3,7 +3,6 @@ package com.mclegoman.viewpoint.client.screen;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -24,6 +23,6 @@ public class LogoWidget extends ClickableWidget {
 		return false;
 	}
 	public static void renderLogo(DrawContext context, int x, int y, int width, int height) {
-		context.drawTexture(RenderLayer::getGuiTextured, texture, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
+		context.drawTexture(texture, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875), width, height);
 	}
 }

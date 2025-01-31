@@ -78,14 +78,10 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig("zoom_reset", !(boolean) ConfigHelper.getConfig("zoom_reset"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.reset", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.reset." + ConfigHelper.getConfig("zoom_reset"), true)}, true))).build(), 1);
-		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.cinematic", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("zoom_cinematic"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("zoom_cinematic", !(boolean) ConfigHelper.getConfig("zoom_cinematic"));
-			this.refresh = true;
-		}).build(), 1);
 		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("zoom_enabled"), Translation.Type.ONFF)}), (button) -> {
 			ConfigHelper.setConfig("zoom_enabled", !(boolean) ConfigHelper.getConfig("zoom_enabled"));
 			this.refresh = true;
-		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled." + ConfigHelper.getConfig("zoom_enabled"), true)}, true))).build(), 1);
+		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled." + ConfigHelper.getConfig("zoom_enabled"), true)}, true))).width(300).build(), 2);
 		return zoomGrid;
 	}
 	private GridWidget createPageTwo() {

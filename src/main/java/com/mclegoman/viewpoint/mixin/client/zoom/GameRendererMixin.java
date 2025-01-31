@@ -31,8 +31,8 @@ public abstract class GameRendererMixin {
 
 	@Shadow @Final private Camera camera;
 
-	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)F"), method = "renderHand")
-	private float perspective$renderHand(float fov) {
+	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"), method = "renderHand")
+	private double perspective$renderHand(double fov) {
 		return Zoom.canZoom() ? Zoom.fov : fov;
 	}
 	@Inject(method = "updateFovMultiplier", at = @At("TAIL"))
@@ -40,16 +40,16 @@ public abstract class GameRendererMixin {
 		if (Zoom.canZoom()) Zoom.updateMultiplier();
 	}
 	@ModifyReturnValue(method = "getFov", at = @At("RETURN"))
-	private float perspective$getFov(float fov) {
+	private double perspective$getFov(double fov) {
 		if (this.camera != null && Zoom.canZoom()) {
-			Zoom.fov = fov;
+			Zoom.fov = (float) fov;
 			double newFOV = fov;
 			if (!this.isRenderingPanorama()) {
 				if (ConfigHelper.getConfig("zoom_transition").equals("instant")) {
 					newFOV *= Zoom.getMultiplier();
 				}
 				if (ConfigHelper.getConfig("zoom_transition").equals("smooth")) {
-					newFOV *= MathHelper.lerp(ClientData.minecraft.getRenderTickCounter().getTickDelta(true), Zoom.getPrevMultiplier(), Zoom.getMultiplier());
+					newFOV *= MathHelper.lerp(ClientData.minecraft.getTickDelta(), Zoom.getPrevMultiplier(), Zoom.getMultiplier());
 				}
 			}
 			if (Zoom.getZoomType().equals(Zoom.Logarithmic.getIdentifier())) Zoom.zoomFOV = Zoom.Logarithmic.getLimitFOV(newFOV);
@@ -71,8 +71,8 @@ public abstract class GameRendererMixin {
 		if (Zoom.canZoom()) {
 			if (Zoom.isScaled()) {
 				if (ClientData.minecraft.player != null) {
-					float f = ClientData.minecraft.player.distanceMoved - ClientData.minecraft.player.lastDistanceMoved;
-					float g = -(ClientData.minecraft.player.distanceMoved + f * tickDelta);
+					float f = ClientData.minecraft.player.strideDistance - ClientData.minecraft.player.prevStrideDistance;
+					float g = -(ClientData.minecraft.player.strideDistance + f * tickDelta);
 					float h = (float) (MathHelper.lerp(tickDelta, ClientData.minecraft.player.prevStrideDistance, ClientData.minecraft.player.strideDistance) * Math.max(Zoom.getMultiplier(), 0.001));
 					matrices.translate(MathHelper.sin(g * 3.1415927F) * h * 0.5F, -Math.abs(MathHelper.cos(g * 3.1415927F) * h), 0.0F);
 					matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.sin(g * 3.1415927F) * h * 3.0F));

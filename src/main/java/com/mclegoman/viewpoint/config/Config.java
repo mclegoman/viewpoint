@@ -28,7 +28,6 @@ public class Config {
 	protected static boolean zoomShowPercentage;
 	protected static String zoomType;
 	protected static boolean zoomReset;
-	protected static boolean zoomCinematic;
 	protected static double holdPerspectiveBackMultiplier;
 	protected static double holdPerspectiveFrontMultiplier;
 	protected static boolean holdPerspectiveBackHideHud;
@@ -91,7 +90,6 @@ public class Config {
 		zoomShowPercentage = config.getOrDefault("zoom_show_percentage", false);
 		zoomType = config.getOrDefault("zoom_type", "viewpoint:logarithmic");
 		zoomReset = config.getOrDefault("zoom_reset", false);
-		zoomCinematic = config.getOrDefault("zoom_cinematic", false);
 		holdPerspectiveBackHideHud = config.getOrDefault("hold_perspective_back_hide_hud", true);
 		holdPerspectiveFrontHideHud = config.getOrDefault("hold_perspective_front_hide_hud", true);
 		holdPerspectiveBackMultiplier = config.getOrDefault("hold_perspective_back_multiplier", 1.0D);
@@ -118,7 +116,6 @@ public class Config {
 		configProvider.setConfig("zoom_show_percentage", zoomShowPercentage);
 		configProvider.setConfig("zoom_type", zoomType);
 		configProvider.setConfig("zoom_reset", zoomReset);
-		configProvider.setConfig("zoom_cinematic", zoomCinematic);
 		configProvider.setConfig("hold_perspective_back_multiplier", holdPerspectiveBackMultiplier);
 		configProvider.setConfig("hold_perspective_front_multiplier", holdPerspectiveFrontMultiplier);
 		configProvider.setConfig("hold_perspective_back_hide_hud", holdPerspectiveBackHideHud);
@@ -144,7 +141,6 @@ public class Config {
 				zoomShowPercentage,
 				zoomType,
 				zoomReset,
-				zoomCinematic,
 				holdPerspectiveBackMultiplier,
 				holdPerspectiveFrontMultiplier,
 				holdPerspectiveBackHideHud,

@@ -151,7 +151,7 @@ public abstract class AbstractConfigScreen extends Screen {
 		return new LogoWidget(x, y, getLogoTexture());
 	}
 	public Identifier getLogoTexture() {
-		return Identifier.of("viewpoint:textures/logo.png");
+		return new Identifier("viewpoint:textures/logo.png");
 	}
 	public boolean saveOnClose() {
 		return this.saveOnClose;

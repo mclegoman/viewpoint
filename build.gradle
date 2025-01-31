@@ -47,7 +47,7 @@ dependencies {
 	mappings("net.fabricmc:yarn:${project.mappings}:v2")
 	modImplementation("net.fabricmc:fabric-loader:${project.fabric_loader}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api}")
-	modImplementation("com.terraformersmc:modmenu:${project.modmenu}")
+	modCompileOnly("com.terraformersmc:modmenu:${project.modmenu}")
 }
 
 processResources {

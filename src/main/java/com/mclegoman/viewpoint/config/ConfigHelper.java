@@ -117,6 +117,9 @@ public class ConfigHelper {
 		return configChanged.contains(true);
 	}
 	public static boolean setConfig(String key, Object value) {
+		return setConfig(key, value, true);
+	}
+	public static boolean setConfig(String key, Object value, boolean shouldSave) {
 		boolean configChanged = false;
 		try {
 			switch (key) {
@@ -162,10 +165,6 @@ public class ConfigHelper {
 				}
 				case "zoom_reset" -> {
 					Config.zoomReset = (boolean) value;
-					configChanged = true;
-				}
-				case "zoom_cinematic" -> {
-					Config.zoomCinematic = (boolean) value;
 					configChanged = true;
 				}
 				case "hold_perspective_back_multiplier" -> {
@@ -216,7 +215,7 @@ public class ConfigHelper {
 					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", key));
 				}
 			}
-			if (configChanged) saveConfigs();
+			if (shouldSave && configChanged) saveConfigs();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: {}", key, error));
 		}
@@ -256,9 +255,6 @@ public class ConfigHelper {
 			}
 			case "zoom_reset" -> {
 				return Config.zoomReset;
-			}
-			case "zoom_cinematic" -> {
-				return Config.zoomCinematic;
 			}
 			case "hold_perspective_back_multiplier" -> {
 				return MathHelper.clamp(Config.holdPerspectiveBackMultiplier, 0.5D, 4.0D);

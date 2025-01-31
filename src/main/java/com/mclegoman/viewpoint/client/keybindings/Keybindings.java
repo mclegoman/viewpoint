@@ -24,7 +24,6 @@ public class Keybindings {
 	public static final KeyBinding setPerspectiveThirdPersonBack;
 	public static final KeyBinding setPerspectiveThirdPersonFront;
 	public static final KeyBinding toggleZoom;
-	public static final KeyBinding toggleZoomCinematic;
 	public static final KeyBinding takePanoScreenshot;
 	public static final KeyBinding toggleVerOverlay;
 	public static final KeyBinding togglePosOverlay;
@@ -43,7 +42,6 @@ public class Keybindings {
 				setPerspectiveThirdPersonBack = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "set_perspective_third_person_back", GLFW.GLFW_KEY_UNKNOWN),
 				setPerspectiveThirdPersonFront = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "set_perspective_third_person_front", GLFW.GLFW_KEY_UNKNOWN),
 				toggleZoom = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN),
-				toggleZoomCinematic = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_zoom_cinematic", GLFW.GLFW_KEY_UNKNOWN),
 				takePanoScreenshot = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "take_pano_screenshot", GLFW.GLFW_KEY_UNKNOWN),
 				toggleVerOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_version_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				togglePosOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),

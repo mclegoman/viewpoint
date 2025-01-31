@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class IdentifierHelper {
 	public static Identifier identifierFromString(String identifier) {
-		return Identifier.of(identifier);
+		return new Identifier(identifier);
 	}
 	public static String stringFromIdentifier(Identifier identifier) {
 		return identifier.toString();

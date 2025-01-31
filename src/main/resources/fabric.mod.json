@@ -30,7 +30,7 @@
   ],
   "depends": {
     "minecraft": [
-      "~1.21.4"
+      "1.20.5-alpha.24.12.potato"
     ],
     "fabric-key-binding-api-v1": "*",
     "fabric-lifecycle-events-v1": "*",
