@@ -13,19 +13,18 @@ import com.mclegoman.viewpoint.client.panorama.Panorama;
 import com.mclegoman.viewpoint.client.perspective.Perspective;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
 import com.mclegoman.viewpoint.config.ConfigHelper;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class Tick {
 	public static void init() {
-		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
-			if (ConfigHelper.isFinishedInitializing()) {
-				ConfigHelper.tick();
-				Keybindings.tick();
-				Perspective.tick();
-				Zoom.tick();
-				Panorama.tick();
-				HUDHelper.tick();
-			}
-		});
+	}
+	public static void tick() {
+		if (ConfigHelper.isFinishedInitializing()) {
+			ConfigHelper.tick();
+			Keybindings.tick();
+			Perspective.tick();
+			Zoom.tick();
+			Panorama.tick();
+			HUDHelper.tick();
+		}
 	}
 }

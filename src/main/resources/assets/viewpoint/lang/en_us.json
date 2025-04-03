@@ -135,7 +135,7 @@
 	"gui.viewpoint.position.title": "Position",
 	"gui.viewpoint.position.description": "%s, %s, %s",
 
-	"gui.viewpoint.version_overlay": "Minecraft %s",
+	"gui.viewpoint.version_overlay": "Craftmine %s",
 	"gui.viewpoint.position_overlay": "%s: %s",
 	"gui.viewpoint.time_overlay": "Time of day: %s:%s%s",
 	"gui.viewpoint.time_overlay.am": " am",
@@ -152,5 +152,7 @@
 
 	"gui.viewpoint.keybindings.keybinding.toggle_biome_overlay": "Toggle Biome Overlay",
 
-	"gui.viewpoint.keybindings.keybinding.toggle_cps_overlay": "Toggle CPS Overlay"
+	"gui.viewpoint.keybindings.keybinding.toggle_cps_overlay": "Toggle CPS Overlay",
+
+	"biome.minecraft.hub": "Hub"
 }

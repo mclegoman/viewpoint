@@ -26,14 +26,13 @@
     ]
   },
   "mixins": [
-    "mclegoman-viewpoint.mixins.json"
+    "mclegoman-viewpoint.mixins.json",
+    "fabric_key_binding_api_v1.mixins.json"
   ],
   "depends": {
     "minecraft": [
       "~1.21.5"
     ],
-    "fabric-key-binding-api-v1": "*",
-    "fabric-lifecycle-events-v1": "*",
     "java": ">=21"
   },
   "breaks": {

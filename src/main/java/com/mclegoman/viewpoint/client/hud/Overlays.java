@@ -91,7 +91,7 @@ public class Overlays {
 				if (ClientData.minecraft.player != null && ClientData.minecraft.world != null) {
 					String biome = ClientData.minecraft.world.getBiome(ClientData.minecraft.player.getBlockPos()).getKeyOrValue().map((biomeKey) -> biomeKey.getValue().toString(), (biome_) -> "[unregistered " + biome_ + "]");
 					overlayTexts.add(Translation.getTranslation(Data.version.getID(), "biome_overlay", new Object[]{
-							Translation.getText("biome." + IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, biome) + "." + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, biome), true)
+							Text.translatableWithFallback("biome." + IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, biome) + "." + (IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, biome).contains("/") ? IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, biome).substring(IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, biome).indexOf("/") + 1) : IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, biome)), biome)
 					}));
 				}
 			}
