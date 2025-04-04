@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Overlays {
+	public static boolean canRender;
 	private static final List<String> timeOverlayTypes = new ArrayList<>();
 	public static void init() {
 		timeOverlayTypes.add("false");

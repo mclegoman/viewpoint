@@ -8,7 +8,7 @@
 package com.mclegoman.viewpoint.luminance;
 
 import com.mclegoman.viewpoint.client.data.ClientData;
-import com.mclegoman.viewpoint.fabric_key_binding_api_v1.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 

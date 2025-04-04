@@ -7,13 +7,16 @@
 
 package com.mclegoman.viewpoint.mixin.client.hud;
 
+import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.hud.HUDHelper;
 import com.mclegoman.viewpoint.client.hud.Overlays;
 import com.mclegoman.viewpoint.config.ConfigHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.LayeredDrawer;
+import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,6 +26,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(priority = 100, value = InGameHud.class)
 public abstract class InGameHudMixin {
 	@Shadow protected abstract void renderMiscOverlays(DrawContext context, RenderTickCounter tickCounter);
+
+	@Shadow @Final private ChatHud chatHud;
+
 	@Inject(at = @At("HEAD"), method = "render", cancellable = true)
 	private void perspective$render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 		if (HUDHelper.shouldHideHUD()) {
@@ -33,8 +39,13 @@ public abstract class InGameHudMixin {
 			ci.cancel();
 		}
 	}
-	@Inject(at = @At("RETURN"), method = "render")
-	private void perspective$renderOverlays(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-		Overlays.renderOverlays(context);
+	@Inject(method = "render", at = @At("RETURN"))
+	private void perspective$before(DrawContext drawContext, RenderTickCounter renderTickCounter, CallbackInfo ci) {
+		if (ClientData.minecraft.currentScreen != null) {
+			Overlays.canRender = false;
+			Overlays.renderOverlays(drawContext);
+		} else {
+			Overlays.canRender = true;
+		}
 	}
 }
