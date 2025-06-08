@@ -28,10 +28,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererMixin {
 	@Shadow
 	public abstract boolean isRenderingPanorama();
-
 	@Shadow @Final private Camera camera;
-
-	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)F", ordinal = 1), method = "renderWorld")
+	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)F"), method = "renderHand")
 	private float perspective$renderHand(float fov) {
 		return Zoom.canZoom() ? Zoom.fov : fov;
 	}

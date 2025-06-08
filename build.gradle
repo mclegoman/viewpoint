@@ -15,6 +15,7 @@ loom {
 			sourceSet("main")
 		}
 	}
+	accessWidenerPath = file("src/main/resources/viewpoint.accesswidener")
 }
 
 runClient.doFirst {

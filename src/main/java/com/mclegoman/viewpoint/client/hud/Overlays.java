@@ -16,9 +16,10 @@ import com.mclegoman.viewpoint.client.util.Position;
 import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.config.ConfigHelper;
 import com.mclegoman.viewpoint.config.value.QualityToggle;
+import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.LayeredDrawerWrapper;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
@@ -51,10 +52,6 @@ public class Overlays {
 		timeOverlayTypes.add("twenty_four_hour");
 		Mouse.ProcessCPS.register(Identifier.of(Data.version.getID(), "cps_overlay"), () -> (boolean)ConfigHelper.getConfig("cps_overlay"));
 		createVariables();
-
-		HudElementRegistry.addLast(Identifier.of(Data.version.getID(), "overlays"), (context, tickCounter) -> {
-			renderOverlays(context, tickCounter);
-		});
 	}
 	private static void createVariables() {
 		Events.Variables.register(Identifier.of(Data.version.getID(), "position"), (tickCounter, args) -> {
@@ -120,7 +117,7 @@ public class Overlays {
 		if (!ClientData.minecraft.getDebugHud().shouldShowDebugHud() && !ClientData.minecraft.options.hudHidden && !HUDHelper.shouldHideHUD()) {
 			// Version Overlay
 			if ((boolean) ConfigHelper.getConfig("version_overlay")) {
-                context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().name()}), 2, 2, 0xFFFFFFFF);
+                context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xFFFFFFFF);
             }
 			// Other Overlays
 			int y = 40;
@@ -192,7 +189,90 @@ public class Overlays {
 		return getLookingAtFallbackText();
 	}
 	private static Text getLookingAtEntity(EntityHitResult hitResult, QualityToggle quality, LivingEntity entity) {
-		return hitResult.getEntity().getType().getName();
+		switch (quality) {
+			case fast -> {
+				return hitResult.getEntity().getType().getName();
+			}
+			case fancy -> {
+				Optional<Text> variant = getLookingAtEntityVariant(hitResult.getEntity());
+				return Translation.getCombinedText((MutableText) variant.orElse(Text.empty()), (variant.isPresent() ? Text.literal(" ") : Text.empty()), (MutableText) hitResult.getEntity().getType().getName());
+			}
+		}
+		return getLookingAtFallbackText();
+	}
+	private static Optional<Text> getLookingAtEntityVariant(Entity entity) {
+		switch (entity) {
+			case ParrotEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case FoxEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case PaintingEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().getIdAsString().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case RabbitEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case VillagerEntity holderEntity -> {
+				String profession = holderEntity.getVillagerData().profession().getIdAsString().toLowerCase();
+				Identifier variant = Identifier.of(holderEntity.getVillagerData().type().getIdAsString().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath())), !profession.equals("none") ? Text.literal(" ") : Text.empty(), !profession.equals("none") ? Text.translatable("merchant.level." + holderEntity.getVillagerData().level()) : Text.empty(), !profession.equals("none") ? Text.literal(" ") : Text.empty(), !profession.equals("none") ? Text.translatableWithFallback(holderEntity.getType().getTranslationKey() + ".profession", Translation.getTitleCase(profession)) : Text.empty()));
+			}
+			case MooshroomEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case HorseEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getHorseColor().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case SalmonEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case LlamaEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case AxolotlEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case FrogEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().getIdAsString().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case WolfEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().getIdAsString().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case CatEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getVariant().getIdAsString().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			case TropicalFishEntity holderEntity -> {
+				return Optional.of(Translation.getCombinedText((MutableText) holderEntity.getVariety().getText()));
+			}
+			case ShulkerEntity holderEntity -> {
+				Identifier variant = holderEntity.getColor() != null ? Identifier.of(holderEntity.getColor().name().toLowerCase()) : null;
+				return variant != null ? Optional.of(Translation.getCombinedText(variant != null ? Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath())) : Text.empty())) : Optional.empty();
+			}
+			case SheepEntity holderEntity -> {
+				Identifier variant = Identifier.of(holderEntity.getColor().name().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+			}
+			default -> {
+			}
+		}
+		return Optional.empty();
+	}
+	private static String getLookingAtIdVariantTranslationKey(Entity entity, Identifier variant) {
+		return variant.toTranslationKey(entity.getType().getTranslationKey() + ".variant");
 	}
 	private static Text getBlock(BlockHitResult hitResult, QualityToggle quality, LivingEntity entity, RenderTickCounter tickCounter) {
 		switch (quality) {

@@ -80,7 +80,7 @@ public class Panorama {
 						final float pitch = ClientData.minecraft.player.getPitch();
 						final float yaw = ClientData.minecraft.player.getYaw();
 						ClientData.minecraft.player.setYaw(0.0F);
-						ClientData.minecraft.player.sendMessage(ClientData.minecraft.takePanorama(file), false);
+						ClientData.minecraft.player.sendMessage(ClientData.minecraft.takePanorama(file, 4192, 4192), false);
 						ClientData.minecraft.player.setPitch(pitch);
 						ClientData.minecraft.player.setYaw(yaw);
 					}

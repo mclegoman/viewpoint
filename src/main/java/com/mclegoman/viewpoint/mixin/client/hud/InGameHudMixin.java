@@ -10,11 +10,14 @@ package com.mclegoman.viewpoint.mixin.client.hud;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.hud.HUDHelper;
+import com.mclegoman.viewpoint.client.hud.Overlays;
 import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.config.ConfigHelper;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,6 +48,10 @@ public abstract class InGameHudMixin {
 			ci.cancel();
 		}
 	}
+	@Inject(at = @At("RETURN"), method = "render")
+	private void perspective$renderOverlays(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+		Overlays.renderOverlays(context, tickCounter);
+	}
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/GameOptions;getAttackIndicator()Lnet/minecraft/client/option/SimpleOption;"), method = "renderHotbar")
 	private void perspective$renderArmorHud(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci, @Local int l) {
 		if ((boolean)ConfigHelper.getConfig("armor_overlay")) {
@@ -52,14 +59,14 @@ public abstract class InGameHudMixin {
 			if (player != null) {
 				int x = (context.getScaledWindowWidth() / 2) + (ClientData.minecraft.options.getMainArm().getValue().getOpposite().equals(Arm.LEFT) ? 98 : -180);
 				int y = context.getScaledWindowHeight() - 22;
-				context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, Identifier.of(Data.version.getID(), "hud/armor"), x, y, 82, 22);
-				if (player.getEquippedStack(EquipmentSlot.HEAD).isEmpty()) context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, Identifier.of("container/slot/helmet"), x + 3, y + 3, 16, 16);
+				context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of(Data.version.getID(), "hud/armor"), x, y, 82, 22);
+				if (player.getEquippedStack(EquipmentSlot.HEAD).isEmpty()) context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of("container/slot/helmet"), x + 3, y + 3, 16, 16);
 				else this.renderHotbarItem(context, x + 3, y + 3, tickCounter, player, player.getEquippedStack(EquipmentSlot.HEAD), l++);
-				if (player.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, Identifier.of("container/slot/chestplate"), x + 23, y + 3, 16, 16);
+				if (player.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of("container/slot/chestplate"), x + 23, y + 3, 16, 16);
 				else this.renderHotbarItem(context, x + 23, y + 3, tickCounter, player, player.getEquippedStack(EquipmentSlot.CHEST), l++);
-				if (player.getEquippedStack(EquipmentSlot.LEGS).isEmpty()) context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, Identifier.of("container/slot/leggings"), x + 43, y + 3, 16, 16);
+				if (player.getEquippedStack(EquipmentSlot.LEGS).isEmpty()) context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of("container/slot/leggings"), x + 43, y + 3, 16, 16);
 				else this.renderHotbarItem(context, x + 43, y + 3, tickCounter, player, player.getEquippedStack(EquipmentSlot.LEGS), l++);
-				if (player.getEquippedStack(EquipmentSlot.FEET).isEmpty()) context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, Identifier.of("container/slot/boots"), x + 63, y + 3, 16, 16);
+				if (player.getEquippedStack(EquipmentSlot.FEET).isEmpty()) context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of("container/slot/boots"), x + 63, y + 3, 16, 16);
 				else this.renderHotbarItem(context, x + 63, y + 3, tickCounter, player, player.getEquippedStack(EquipmentSlot.FEET), l++);
 			}
 		}
