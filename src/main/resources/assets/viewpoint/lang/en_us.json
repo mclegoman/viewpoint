@@ -174,5 +174,10 @@
 	"gui.viewpoint.keybindings.keybinding.toggle_totems_overlay": "Toggle Totems Overlay",
 	
 	"gui.viewpoint.quality.fast": "Fast",
-	"gui.viewpoint.quality.fancy": "Fancy"
+	"gui.viewpoint.quality.fancy": "Fancy",
+
+	"gui.viewpoint.config.hold_perspective.increment_size": "Increment Multiplier: %s",
+	"gui.viewpoint.config.hold_perspective.increment_size.hover": "Sets the multiplier of hold perspective multiplier adjustment when using the scroll wheel.",
+
+	"gui.viewpoint.keybindings.keybinding.adjust_hold_perspective": "Adjust Hold Perspective"
 }

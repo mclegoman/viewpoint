@@ -11,6 +11,7 @@
     "client.hud.InGameHudMixin",
     "client.hud.MinecraftClientMixin",
     "client.perspective.CameraMixin",
+    "client.perspective.MouseMixin",
     "client.zoom.GameRendererMixin",
     "client.zoom.MouseMixin"
   ],

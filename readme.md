@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/mclegoman/viewpoint/refs/heads/1.21.4/assets/logo.png)
+![](./assets/logo.png)
 [Download from Modrinth](https://modrinth.com/mod/viewpoint)
 
 ## About
@@ -34,9 +34,17 @@ Viewpoint is a minimal version of [Perspective](https://modrinth.com/mod/mclegom
   - Day
     - Renders the current day count in the same style as the position overlay  
   - Biome  
-    - Renders the current biome in the same style as the position overlay  
-  - CPS  
+    - Renders the current biome in the same style as the position overlay
+  - Deaths
+    - Renders your death count in the same style as the position overlay
+  - Totems
+    - Renders the totem uses in the same style as the position overlay
+  - CPS
     - Renders the current cps in the same style as the position overlay
+  - Looking At
+    - Renders the block/entity name you are looking at in the same style as the position overlay
+  - Armor
+    - Renders an overlay next to the hotbar displaying your armor slots
 
 #
 Licensed under LGPL-3.0-or-later.

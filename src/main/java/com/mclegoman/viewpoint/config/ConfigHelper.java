@@ -100,10 +100,11 @@ public class ConfigHelper {
 			configChanged.add(setConfig("zoom_type", "viewpoint:logarithmic"));
 			configChanged.add(setConfig("zoom_reset", false));
 			configChanged.add(setConfig("zoom_cinematic", false));
-			configChanged.add(setConfig("hold_perspective_back_multiplier", MathHelper.clamp(1.0D, 0.5D, 4.0D)));
-			configChanged.add(setConfig("hold_perspective_front_multiplier", MathHelper.clamp(1.0D, 0.5D, 4.0D)));
+			configChanged.add(setConfig("hold_perspective_back_multiplier", MathHelper.clamp(1.0D, 0.5D, 16.0D)));
+			configChanged.add(setConfig("hold_perspective_front_multiplier", MathHelper.clamp(1.0D, 0.5D, 16.0D)));
 			configChanged.add(setConfig("hold_perspective_back_hide_hud", true));
 			configChanged.add(setConfig("hold_perspective_front_hide_hud", true));
+			configChanged.add(setConfig("hold_perspective_multiplier_increment_size", 5));
 			configChanged.add(setConfig("hide_hud_hide_vignette", false));
 			configChanged.add(setConfig("version_overlay", false));
 			configChanged.add(setConfig("position_overlay", false));
@@ -176,11 +177,11 @@ public class ConfigHelper {
 					configChanged = true;
 				}
 				case "hold_perspective_back_multiplier" -> {
-					Config.holdPerspectiveBackMultiplier = MathHelper.clamp((double) value, 0.5D, 4.0D);
+					Config.holdPerspectiveBackMultiplier = MathHelper.clamp((double) value, 0.5D, 16.0D);
 					configChanged = true;
 				}
 				case "hold_perspective_front_multiplier" -> {
-					Config.holdPerspectiveFrontMultiplier = MathHelper.clamp((double) value, 0.5D, 4.0D);
+					Config.holdPerspectiveFrontMultiplier = MathHelper.clamp((double) value, 0.5D, 16.0D);
 					configChanged = true;
 				}
 				case "hold_perspective_back_hide_hud" -> {
@@ -189,6 +190,10 @@ public class ConfigHelper {
 				}
 				case "hold_perspective_front_hide_hud" -> {
 					Config.holdPerspectiveFrontHideHud = (boolean) value;
+					configChanged = true;
+				}
+				case "hold_perspective_multiplier_increment_size" -> {
+					Config.holdPerspectiveMultiplierIncrementSize = (int) value;
 					configChanged = true;
 				}
 				case "hide_hud_hide_vignette" -> {
@@ -239,7 +244,7 @@ public class ConfigHelper {
 					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", key));
 				}
 			}
-			if (save && configChanged) saveConfigs();
+			if (save && configChanged) saveConfig();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: {}", key, error));
 		}
@@ -284,16 +289,19 @@ public class ConfigHelper {
 				return Config.zoomCinematic;
 			}
 			case "hold_perspective_back_multiplier" -> {
-				return MathHelper.clamp(Config.holdPerspectiveBackMultiplier, 0.5D, 4.0D);
+				return MathHelper.clamp(Config.holdPerspectiveBackMultiplier, 0.5D, 16.0D);
 			}
 			case "hold_perspective_front_multiplier" -> {
-				return MathHelper.clamp(Config.holdPerspectiveFrontMultiplier, 0.5D, 4.0D);
+				return MathHelper.clamp(Config.holdPerspectiveFrontMultiplier, 0.5D, 16.0D);
 			}
 			case "hold_perspective_back_hide_hud" -> {
 				return Config.holdPerspectiveBackHideHud;
 			}
 			case "hold_perspective_front_hide_hud" -> {
 				return Config.holdPerspectiveFrontHideHud;
+			}
+			case "hold_perspective_multiplier_increment_size" -> {
+				return Config.holdPerspectiveMultiplierIncrementSize;
 			}
 			case "hide_hud_hide_vignette" -> {
 				return Config.hideHudVignette;

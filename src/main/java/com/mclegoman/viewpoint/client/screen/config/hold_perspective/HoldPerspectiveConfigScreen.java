@@ -19,6 +19,8 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
+import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.text.Text;
 
 public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 	public HoldPerspectiveConfigScreen(Screen parentScreen, boolean refresh, int page) {
@@ -39,24 +41,24 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 		GridWidget holdPerspectiveGrid = new GridWidget();
 		holdPerspectiveGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder holdPerspectiveGridAdder = holdPerspectiveGrid.createAdder(2);
-		holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.back.multiplier", new Object[]{String.format("%.2f", (double)ConfigHelper.getConfig("hold_perspective_back_multiplier"))}, false), (((double) ConfigHelper.getConfig("hold_perspective_back_multiplier") - 0.5F) / 3.5F)) {
+		holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.back.multiplier", new Object[]{String.format("%.2f", (double)ConfigHelper.getConfig("hold_perspective_back_multiplier"))}, false), (((double) ConfigHelper.getConfig("hold_perspective_back_multiplier") - 0.5F) / 15.5F)) {
 			@Override
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.back.multiplier", new Object[]{String.format("%.2f", (double)ConfigHelper.getConfig("hold_perspective_back_multiplier"))}, false));
 			}
 			@Override
 			protected void applyValue() {
-				ConfigHelper.setConfig(false, "hold_perspective_back_multiplier", Double.valueOf(String.format("%.2f", ((value * 3.5D) + 0.5D))));
+				ConfigHelper.setConfig(false, "hold_perspective_back_multiplier", Double.valueOf(String.format("%.2f", ((value * 15.5D) + 0.5D))));
 			}
 		}).setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.back.multiplier", true)));
-		holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.front.multiplier", new Object[]{String.format("%.2f", (double)ConfigHelper.getConfig("hold_perspective_front_multiplier"))}, false), (((double) ConfigHelper.getConfig("hold_perspective_front_multiplier") - 0.5F) / 3.5F)) {
+		holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.front.multiplier", new Object[]{String.format("%.2f", (double)ConfigHelper.getConfig("hold_perspective_front_multiplier"))}, false), (((double) ConfigHelper.getConfig("hold_perspective_front_multiplier") - 0.5F) / 15.5F)) {
 			@Override
 			protected void updateMessage() {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.front.multiplier", new Object[]{String.format("%.2f", (double)ConfigHelper.getConfig("hold_perspective_front_multiplier"))}, false));
 			}
 			@Override
 			protected void applyValue() {
-				ConfigHelper.setConfig(false, "hold_perspective_front_multiplier", Double.valueOf(String.format("%.2f", ((value * 3.5D) + 0.5D))));
+				ConfigHelper.setConfig(false, "hold_perspective_front_multiplier", Double.valueOf(String.format("%.2f", ((value * 15.5D) + 0.5D))));
 			}
 		}).setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.front.multiplier", true)));
 		holdPerspectiveGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.back.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("hold_perspective_back_hide_hud"), Translation.Type.ONFF)}), (button) -> {
@@ -67,7 +69,17 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(false, "hold_perspective_front_hide_hud", !(boolean) ConfigHelper.getConfig("hold_perspective_front_hide_hud"));
 			this.refresh = true;
 		}).build());
-		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
+		double holdPerspectiveMultiplierIncrementSize = (double) ((int)ConfigHelper.getConfig("hold_perspective_multiplier_increment_size") - 1) / 9;
+		SliderWidget holdPerspectiveMultiplierIncrementSizeWidget = new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 304, 20, Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.increment_size", new Object[]{Text.literal(String.valueOf((int)ConfigHelper.getConfig("hold_perspective_multiplier_increment_size")))}, false), holdPerspectiveMultiplierIncrementSize) {
+			protected void updateMessage() {
+				setMessage(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.increment_size", new Object[]{Text.literal(String.valueOf((int)ConfigHelper.getConfig("hold_perspective_multiplier_increment_size")))}, false));
+			}
+			protected void applyValue() {
+				ConfigHelper.setConfig(false, "hold_perspective_multiplier_increment_size", (int) ((value) * 9) + 1);
+			}
+		};
+		holdPerspectiveMultiplierIncrementSizeWidget.setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hold_perspective.increment_size", true)));
+		holdPerspectiveGridAdder.add(holdPerspectiveMultiplierIncrementSizeWidget, 2);
 		holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
 		return holdPerspectiveGrid;
 	}

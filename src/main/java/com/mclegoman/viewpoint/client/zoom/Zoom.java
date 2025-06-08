@@ -143,7 +143,7 @@ public class Zoom {
 			boolean updated = false;
 			for (int i = 0; i < multiplier; i++) {
 				if (!(getRawZoomLevel() <= 0) || !(getRawZoomLevel() >= 100)) {
-					ConfigHelper.setConfig("zoom_level", getRawZoomLevel() + amount);
+					ConfigHelper.setConfig(false, "zoom_level", getRawZoomLevel() + amount);
 					updated = true;
 					hasUpdated = true;
 				}
@@ -156,7 +156,7 @@ public class Zoom {
 	public static void reset() {
 		try {
 			if ((int) ConfigHelper.getConfig("zoom_level") != 40) {
-				ConfigHelper.setConfig("zoom_level", 40);
+				ConfigHelper.setConfig(false, "zoom_level", 40);
 				setOverlay();
 				hasUpdated = true;
 			}

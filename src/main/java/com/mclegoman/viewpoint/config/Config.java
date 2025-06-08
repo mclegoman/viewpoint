@@ -33,6 +33,7 @@ public class Config {
 	protected static double holdPerspectiveFrontMultiplier;
 	protected static boolean holdPerspectiveBackHideHud;
 	protected static boolean holdPerspectiveFrontHideHud;
+	protected static int holdPerspectiveMultiplierIncrementSize;
 	protected static boolean hideHudVignette;
 	protected static boolean versionOverlay;
 	protected static boolean positionOverlay;
@@ -74,6 +75,7 @@ public class Config {
 		configProvider.add(new Couple<>("hold_perspective_front_multiplier", 1.0D));
 		configProvider.add(new Couple<>("hold_perspective_back_hide_hud", true));
 		configProvider.add(new Couple<>("hold_perspective_front_hide_hud", true));
+		configProvider.add(new Couple<>("hold_perspective_multiplier_increment_size", 5));
 		configProvider.add(new Couple<>("hide_hud_hide_vignette", false));
 		configProvider.add(new Couple<>("version_overlay", false));
 		configProvider.add(new Couple<>("position_overlay", false));
@@ -104,6 +106,7 @@ public class Config {
 		holdPerspectiveFrontHideHud = config.getOrDefault("hold_perspective_front_hide_hud", true);
 		holdPerspectiveBackMultiplier = config.getOrDefault("hold_perspective_back_multiplier", 1.0D);
 		holdPerspectiveFrontMultiplier = config.getOrDefault("hold_perspective_front_multiplier", 1.0D);
+		holdPerspectiveMultiplierIncrementSize = config.getOrDefault("hold_perspective_multiplier_increment_size", 5);
 		hideHudVignette = config.getOrDefault("hide_hud_hide_vignette", false);
 		versionOverlay = config.getOrDefault("version_overlay", false);
 		positionOverlay = config.getOrDefault("position_overlay", false);
@@ -135,6 +138,7 @@ public class Config {
 		configProvider.setConfig("hold_perspective_front_multiplier", holdPerspectiveFrontMultiplier);
 		configProvider.setConfig("hold_perspective_back_hide_hud", holdPerspectiveBackHideHud);
 		configProvider.setConfig("hold_perspective_front_hide_hud", holdPerspectiveFrontHideHud);
+		configProvider.setConfig("hold_perspective_multiplier_increment_size", holdPerspectiveMultiplierIncrementSize);
 		configProvider.setConfig("hide_hud_hide_vignette", hideHudVignette);
 		configProvider.setConfig("version_overlay", versionOverlay);
 		configProvider.setConfig("position_overlay", positionOverlay);
@@ -165,6 +169,7 @@ public class Config {
 				holdPerspectiveFrontMultiplier,
 				holdPerspectiveBackHideHud,
 				holdPerspectiveFrontHideHud,
+				holdPerspectiveMultiplierIncrementSize,
 				hideHudVignette,
 				versionOverlay,
 				positionOverlay,

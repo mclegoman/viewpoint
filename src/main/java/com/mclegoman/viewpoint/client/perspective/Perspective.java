@@ -10,12 +10,16 @@ package com.mclegoman.viewpoint.client.perspective;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.keybindings.Keybindings;
 import com.mclegoman.viewpoint.config.ConfigHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class Perspective {
 	private static boolean holdThirdPersonBackLock;
 	private static net.minecraft.client.option.Perspective holdThirdPersonBackPrev;
 	private static boolean holdThirdPersonFrontLock;
 	private static net.minecraft.client.option.Perspective holdThirdPersonFrontPrev;
+	public static boolean isHoldingAdjust() {
+		return Keybindings.adjustHoldPerspective.isPressed();
+	}
 	public static boolean isHoldingPerspective() {
 		return isHoldingPerspectiveBack() || isHoldingPerspectiveFront();
 	}
@@ -28,11 +32,11 @@ public class Perspective {
 	public static net.minecraft.client.option.Perspective getPerspective() {
 		return ClientData.minecraft.options.getPerspective();
 	}
-	public static float getHoldPerspectiveBackMultiplier() {
-		return (float) ((double) ConfigHelper.getConfig("hold_perspective_back_multiplier"));
+	public static double getHoldPerspectiveBackMultiplier() {
+		return (double)ConfigHelper.getConfig("hold_perspective_back_multiplier");
 	}
-	public static float getHoldPerspectiveFrontMultiplier() {
-		return (float) ((double) ConfigHelper.getConfig("hold_perspective_front_multiplier"));
+	public static double getHoldPerspectiveFrontMultiplier() {
+		return (double)ConfigHelper.getConfig("hold_perspective_front_multiplier");
 	}
 	public static void tick() {
 		if (Keybindings.setPerspectiveFirstPerson.wasPressed())
@@ -42,6 +46,10 @@ public class Perspective {
 		if (Keybindings.setPerspectiveThirdPersonFront.wasPressed())
 			setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
 		getHoldAll();
+		if (!(isHoldingPerspective() && isHoldingAdjust()) && hasUpdated) {
+			ConfigHelper.saveConfig();
+			hasUpdated = false;
+		}
 	}
 	private static void setThirdPersonFront(net.minecraft.client.option.Perspective perspective) {
 		if (!Keybindings.holdPerspectiveThirdPersonBack.isPressed() && !holdThirdPersonBackLock) {
@@ -105,5 +113,34 @@ public class Perspective {
 	public static void setPerspective(net.minecraft.client.option.Perspective perspective) {
 		ClientData.minecraft.worldRenderer.scheduleTerrainUpdate();
 		ClientData.minecraft.options.setPerspective(perspective);
+	}
+	private static boolean hasUpdated;
+	public static double getMultiplier() {
+		if (isHoldingPerspective()) {
+			if (isHoldBack()) return getHoldPerspectiveBackMultiplier();
+			else if (isHoldFront()) return getHoldPerspectiveFrontMultiplier();
+		}
+		return 1.0F;
+	}
+	public static void adjust(float amount, int multiplier) {
+		if (isHoldingPerspective()) {
+			double current = getMultiplier();
+			if (isHoldBack()) {
+				ConfigHelper.setConfig(false, "hold_perspective_back_multiplier", current + (amount * multiplier));
+			} else if (isHoldFront()) {
+				ConfigHelper.setConfig(false, "hold_perspective_front_multiplier", current + (amount * multiplier));
+			}
+			hasUpdated = true;
+		}
+	}
+	public static void reset() {
+		if (isHoldingPerspective()) {
+			if (isHoldBack()) {
+				ConfigHelper.setConfig(false, "hold_perspective_back_multiplier", 1.0D);
+			} else if (isHoldFront()) {
+				ConfigHelper.setConfig(false, "hold_perspective_front_multiplier", 1.0D);
+			}
+			hasUpdated = true;
+		}
 	}
 }

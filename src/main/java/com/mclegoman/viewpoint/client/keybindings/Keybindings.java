@@ -34,6 +34,7 @@ public class Keybindings {
 	public static final KeyBinding toggleTotemsOverlay;
 	public static final KeyBinding toggleCPSOverlay;
 	public static final KeyBinding toggleArmorOverlay;
+	public static final KeyBinding adjustHoldPerspective;
 	public static final KeyBinding[] allKeybindings;
 
 	static {
@@ -55,7 +56,8 @@ public class Keybindings {
 				toggleDeathsOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_deaths_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleTotemsOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_totems_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleCPSOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_cps_overlay", GLFW.GLFW_KEY_UNKNOWN),
-				toggleArmorOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_armor_overlay", GLFW.GLFW_KEY_UNKNOWN)
+				toggleArmorOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_armor_overlay", GLFW.GLFW_KEY_UNKNOWN),
+				adjustHoldPerspective = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "adjust_hold_perspective", GLFW.GLFW_KEY_UNKNOWN)
 		};
 	}
 	public static void init() {
