@@ -21,8 +21,8 @@ import net.minecraft.client.gui.widget.*;
 import net.minecraft.text.Text;
 
 public class ZoomConfigScreen extends AbstractConfigScreen {
-	public ZoomConfigScreen(Screen parentScreen, boolean refresh, boolean saveOnClose, int page) {
-		super(parentScreen, refresh, saveOnClose, page);
+	public ZoomConfigScreen(Screen parentScreen, boolean refresh, int page) {
+		super(parentScreen, refresh, false, page);
 	}
 	public void init() {
 		try {
@@ -48,7 +48,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 			}
 			@Override
 			protected void applyValue() {
-				ConfigHelper.setConfig("zoom_level", (int) ((value) * 100));
+				ConfigHelper.setConfig(true, "zoom_level", (int) ((value) * 100));
 			}
 		}, 1);
 		double zoomIncrementSize = (double) ((int) ConfigHelper.getConfig("zoom_increment_size") - 1) / 9;
@@ -57,7 +57,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.increment_size", new Object[]{Text.literal(String.valueOf((int) ConfigHelper.getConfig("zoom_increment_size")))}, false));
 			}
 			protected void applyValue() {
-				ConfigHelper.setConfig("zoom_increment_size", (int) ((value) * 9) + 1);
+				ConfigHelper.setConfig(true, "zoom_increment_size", (int) ((value) * 9) + 1);
 			}
 		};
 		zoomIncrementSizeWidget.setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.increment_size", true)));
@@ -67,23 +67,23 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.type", new Object[]{Translation.getZoomTypeTranslation(Zoom.getZoomType().getNamespace(), Zoom.getZoomType().getPath(), true)}, true))).build(), 1);
 		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.transition", new Object[]{Translation.getZoomTransitionTranslation(Data.version.getID(), (String) ConfigHelper.getConfig("zoom_transition"))}), (button) -> {
-			ConfigHelper.setConfig("zoom_transition", Zoom.nextTransition());
+			ConfigHelper.setConfig(true, "zoom_transition", Zoom.nextTransition());
 			this.refresh = true;
 		}).build(), 1);
 		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode", new Object[]{Translation.getZoomScaleModeTranslation(Data.version.getID(), (String) ConfigHelper.getConfig("zoom_scale_mode"))}), (button) -> {
-			ConfigHelper.setConfig("zoom_scale_mode", Zoom.nextScaleMode());
+			ConfigHelper.setConfig(true, "zoom_scale_mode", Zoom.nextScaleMode());
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.scale_mode." + ConfigHelper.getConfig("zoom_scale_mode"), true)}, true))).build(), 1);
 		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.reset", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("zoom_reset"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("zoom_reset", !(boolean) ConfigHelper.getConfig("zoom_reset"));
+			ConfigHelper.setConfig(true, "zoom_reset", !(boolean) ConfigHelper.getConfig("zoom_reset"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.reset", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.reset." + ConfigHelper.getConfig("zoom_reset"), true)}, true))).build(), 1);
 		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.cinematic", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("zoom_cinematic"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("zoom_cinematic", !(boolean) ConfigHelper.getConfig("zoom_cinematic"));
+			ConfigHelper.setConfig(true, "zoom_cinematic", !(boolean) ConfigHelper.getConfig("zoom_cinematic"));
 			this.refresh = true;
 		}).build(), 1);
 		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("zoom_enabled"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("zoom_enabled", !(boolean) ConfigHelper.getConfig("zoom_enabled"));
+			ConfigHelper.setConfig(true, "zoom_enabled", !(boolean) ConfigHelper.getConfig("zoom_enabled"));
 			this.refresh = true;
 		}).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled", new Object[]{Translation.getConfigTranslation(Data.version.getID(), "zoom.enabled." + ConfigHelper.getConfig("zoom_enabled"), true)}, true))).build(), 1);
 		return zoomGrid;
@@ -93,11 +93,11 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 		zoomGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder zoomGridAdder = zoomGrid.createAdder(2);
 		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.hide_hud", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("zoom_hide_hud"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("zoom_hide_hud", !(boolean) ConfigHelper.getConfig("zoom_hide_hud"));
+			ConfigHelper.setConfig(true, "zoom_hide_hud", !(boolean) ConfigHelper.getConfig("zoom_hide_hud"));
 			this.refresh = true;
 		}).build(), 1);
 		zoomGridAdder.add(ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "zoom.show_percentage", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("zoom_show_percentage"), Translation.Type.ONFF)}), (button) -> {
-			ConfigHelper.setConfig("zoom_show_percentage", !(boolean) ConfigHelper.getConfig("zoom_show_percentage"));
+			ConfigHelper.setConfig(true, "zoom_show_percentage", !(boolean) ConfigHelper.getConfig("zoom_show_percentage"));
 			this.refresh = true;
 		}).build(), 1);
 		zoomGridAdder.add(new ConfigSliderWidget(zoomGridAdder.getGridWidget().getX(), zoomGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.smooth_speed_in", new Object[]{Text.literal(String.valueOf((double) ConfigHelper.getConfig("zoom_smooth_speed_in")))}, false), ((double)ConfigHelper.getConfig("zoom_smooth_speed_in") - 0.001D) / 1.999D) {
@@ -105,7 +105,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.smooth_speed_in", new Object[]{Text.literal(String.valueOf((double) ConfigHelper.getConfig("zoom_smooth_speed_in")))}, false));
 			}
 			protected void applyValue() {
-				ConfigHelper.setConfig("zoom_smooth_speed_in", Double.valueOf(String.format("%.2f", ((value) * 1.999) + 0.001D)));
+				ConfigHelper.setConfig(true, "zoom_smooth_speed_in", Double.valueOf(String.format("%.2f", ((value) * 1.999) + 0.001D)));
 			}
 		});
 		zoomGridAdder.add(new ConfigSliderWidget(zoomGridAdder.getGridWidget().getX(), zoomGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.version.getID(), "zoom.smooth_speed_out", new Object[]{Text.literal(String.valueOf((double) ConfigHelper.getConfig("zoom_smooth_speed_out")))}, false), ((double)ConfigHelper.getConfig("zoom_smooth_speed_out") - 0.001D) / 1.999D) {
@@ -113,7 +113,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 				setMessage(Translation.getConfigTranslation(Data.version.getID(),  "zoom.smooth_speed_out", new Object[]{Text.literal(String.valueOf((double) ConfigHelper.getConfig("zoom_smooth_speed_out")))}, false));
 			}
 			protected void applyValue() {
-				ConfigHelper.setConfig("zoom_smooth_speed_out", Double.valueOf(String.format("%.2f", ((value) * 1.999) + 0.001D)));
+				ConfigHelper.setConfig(true, "zoom_smooth_speed_out", Double.valueOf(String.format("%.2f", ((value) * 1.999) + 0.001D)));
 			}
 		});
 		zoomGridAdder.add(new EmptyWidget(20, 20), 2);
@@ -121,7 +121,7 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 		return zoomGrid;
 	}
 	public Screen getRefreshScreen() {
-		return new ZoomConfigScreen(this.parentScreen, false, false, this.page);
+		return new ZoomConfigScreen(this.parentScreen, false, this.page);
 	}
 	public String getPageId() {
 		return "zoom";

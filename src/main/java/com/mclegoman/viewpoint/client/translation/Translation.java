@@ -10,6 +10,7 @@ package com.mclegoman.viewpoint.client.translation;
 import com.mclegoman.viewpoint.client.events.Execute;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
 import com.mclegoman.viewpoint.config.value.QualityToggle;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -119,22 +120,22 @@ public class Translation extends com.mclegoman.viewpoint.luminance.Translation {
 			return this.name;
 		}
 	}
-	public static Text getParsedTextFromString(String input) {
-		Text parsed = tryParse(input.trim());
+	public static Text getParsedTextFromString(String input, RenderTickCounter tickCounter) {
+		Text parsed = tryParse(input.trim(), tickCounter);
 		if (parsed != null) return parsed;
 		return Text.literal(input.trim());
 	}
-	private static Text tryParse(String input) {
+	private static Text tryParse(String input, RenderTickCounter tickCounter) {
 		Pattern pattern = Pattern.compile("^(Translatable|Variable)\\[([^]]+)](?:\\((.*)\\))?$");
 		Matcher matcher = pattern.matcher(input);
 		if (!matcher.matches()) return null;
 		String type = matcher.group(1);
 		String key = matcher.group(2);
 		String argsGroup = matcher.group(3);
-		List<Text> args = argsGroup == null || argsGroup.isEmpty() ? List.of() : splitArgs(argsGroup).stream().map(Translation::getParsedTextFromString).toList();
+		List<Text> args = argsGroup == null || argsGroup.isEmpty() ? List.of() : splitArgs(argsGroup).stream().map((newArgs) -> getParsedTextFromString(newArgs, tickCounter)).toList();
 		if ("Translatable".equals(type)) return Text.translatable(key, args.toArray());
 		else if ("Variable".equals(type)) {
-			return Execute.getVariable(Identifier.of(key), argsGroup != null ? splitArgs(argsGroup).toArray(new String[0]) : new String[]{});
+			return Execute.getVariable(Identifier.of(key), argsGroup != null ? splitArgs(argsGroup).toArray(new String[0]) : new String[]{}, tickCounter);
 		}
 		return null;
 	}

@@ -12,6 +12,6 @@ import net.minecraft.client.gui.screen.Screen;
 
 public class ConfigScreenCompat {
 	public static Screen getConfigEntryScreen(Screen parent) {
-		return new ConfigScreen(parent, false, true, 1);
+		return new ConfigScreen(parent, false, 1);
 	}
 }

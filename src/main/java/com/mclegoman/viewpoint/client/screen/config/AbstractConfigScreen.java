@@ -15,6 +15,7 @@ import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.config.ConfigHelper;
 import com.mclegoman.viewpoint.luminance.LogType;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.*;
@@ -120,14 +121,14 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);
-		if (ConfigHelper.showReloadOverlay) context.drawTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "reload"), this.width - textRenderer.getWidth(Translation.getConfigTranslation(Data.version.getID(), "reload")) - 2, 2, 0xFFFFFF);
-		context.drawTextWithShadow(textRenderer, Translation.getTranslation(Data.version.getID(), "version", new Object[]{Translation.getTranslation(Data.version.getID(), "name", new Formatting[]{Formatting.WHITE}), Translation.getText(Data.version.getFriendlyString(), false, new Formatting[]{Formatting.WHITE})}), 2, this.height - 10, 0xFFFFFF);
+		if (ConfigHelper.showReloadOverlay) context.drawTextWithShadow(textRenderer, Translation.getConfigTranslation(Data.version.getID(), "reload"), this.width - textRenderer.getWidth(Translation.getConfigTranslation(Data.version.getID(), "reload")) - 2, 2, 0xFFFFFFFF);
+		context.drawTextWithShadow(textRenderer, Translation.getTranslation(Data.version.getID(), "version", new Object[]{Translation.getTranslation(Data.version.getID(), "name", new Formatting[]{Formatting.WHITE}), Translation.getText(Data.version.getFriendlyString(), false, new Formatting[]{Formatting.WHITE})}), 2, this.height - 10, 0xFFFFFFFF);
 		Text licenceText = Translation.getTranslation(Data.version.getID(), "license", new Object[]{Translation.getTranslation(Data.version.getID(), "name", new Formatting[]{Formatting.WHITE}), Translation.getText(Data.version.getFriendlyString(false), false, new Formatting[]{Formatting.WHITE})});
-		context.drawTextWithShadow(textRenderer, licenceText, this.width - this.textRenderer.getWidth(licenceText) - 2, this.height - 10, 0xFFFFFF);
+		context.drawTextWithShadow(textRenderer, licenceText, this.width - this.textRenderer.getWidth(licenceText) - 2, this.height - 10, 0xFFFFFFFF);
 		getLogoWidget(this.width / 2 - 128, 30).renderWidget(context, mouseX, mouseY, delta);
-		context.drawCenteredTextWithShadow(textRenderer, getPageTitle(), this.width / 2, 78, 0xFFFFFF);
-		context.drawCenteredTextWithShadow(textRenderer, com.mclegoman.viewpoint.luminance.Translation.getText("gui.viewpoint.perspective.fork", true, new Formatting[]{Formatting.RED, Formatting.BOLD}), this.width / 2, 2, 0xFFFFFF);
-		context.drawCenteredTextWithShadow(textRenderer, com.mclegoman.viewpoint.luminance.Translation.getText("gui.viewpoint.perspective.use", true, new Formatting[]{Formatting.RED, Formatting.BOLD}), this.width / 2, 12, 0xFFFFFF);
+		context.drawCenteredTextWithShadow(textRenderer, getPageTitle(), this.width / 2, 78, 0xFFFFFFFF);
+		context.drawCenteredTextWithShadow(textRenderer, com.mclegoman.viewpoint.luminance.Translation.getText("gui.viewpoint.perspective.fork", true, new Formatting[]{Formatting.RED, Formatting.BOLD}), this.width / 2, 2, 0xFFFFFFFF);
+		context.drawCenteredTextWithShadow(textRenderer, com.mclegoman.viewpoint.luminance.Translation.getText("gui.viewpoint.perspective.use", true, new Formatting[]{Formatting.RED, Formatting.BOLD}), this.width / 2, 12, 0xFFFFFFFF);
 	}
 	public Screen getRefreshScreen() {
 		return this;
@@ -155,5 +156,9 @@ public abstract class AbstractConfigScreen extends Screen {
 	}
 	public boolean saveOnClose() {
 		return this.saveOnClose;
+	}
+	public void resize(MinecraftClient client, int width, int height) {
+		super.resize(client, width, height);
+		ClientData.minecraft.setScreen(getRefreshScreen());
 	}
 }

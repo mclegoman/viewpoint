@@ -51,7 +51,7 @@ public class ConfigHelper {
 	public static void tick() {
 		try {
 			if (Keybindings.openConfig.wasPressed())
-				ClientData.minecraft.setScreen(new ConfigScreen(ClientData.minecraft.currentScreen, false, true, 1));
+				ClientData.minecraft.setScreen(new ConfigScreen(ClientData.minecraft.currentScreen, false, 1));
 			if (saveViaTickTicks < saveViaTickSaveTick) saveViaTickTicks += 1;
 			else {
 				if (saveViaTick) {
@@ -121,6 +121,9 @@ public class ConfigHelper {
 		return configChanged.contains(true);
 	}
 	public static boolean setConfig(String key, Object value) {
+		return setConfig(true, key, value);
+	}
+	public static boolean setConfig(boolean save, String key, Object value) {
 		boolean configChanged = false;
 		try {
 			switch (key) {
@@ -240,6 +243,7 @@ public class ConfigHelper {
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: {}", key, error));
 		}
+		if (save && configChanged) saveConfigs();
 		return configChanged;
 	}
 	public static Object getConfig(String key) {

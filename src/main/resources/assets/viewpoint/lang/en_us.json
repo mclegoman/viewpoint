@@ -171,5 +171,8 @@
 
 	"gui.viewpoint.keybindings.keybinding.toggle_deaths_overlay": "Toggle Deaths Overlay",
 
-	"gui.viewpoint.keybindings.keybinding.toggle_totems_overlay": "Toggle Totems Overlay"
+	"gui.viewpoint.keybindings.keybinding.toggle_totems_overlay": "Toggle Totems Overlay",
+	
+	"gui.viewpoint.quality.fast": "Fast",
+	"gui.viewpoint.quality.fancy": "Fancy"
 }
