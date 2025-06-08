@@ -17,16 +17,15 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class Tick {
 	public static void init() {
-		ClientTickEvents.END_CLIENT_TICK.register((client) -> tick());
-	}
-	public static void tick() {
-		if (ConfigHelper.isFinishedInitializing()) {
-			ConfigHelper.tick();
-			Keybindings.tick();
-			Perspective.tick();
-			Zoom.tick();
-			Panorama.tick();
-			HUDHelper.tick();
-		}
+		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
+			if (ConfigHelper.isFinishedInitializing()) {
+				ConfigHelper.tick();
+				Keybindings.tick();
+				Perspective.tick();
+				Zoom.tick();
+				Panorama.tick();
+				HUDHelper.tick();
+			}
+		});
 	}
 }

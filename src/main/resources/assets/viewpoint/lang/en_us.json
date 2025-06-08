@@ -126,7 +126,15 @@
 
 	"gui.viewpoint.config.overlays.biome_overlay": "Biome Overlay: %s",
 
+	"gui.viewpoint.config.overlays.looking_at_overlay": "Looking At Overlay: %s",
+
 	"gui.viewpoint.config.overlays.cps_overlay": "CPS Overlay: %s",
+
+	"gui.viewpoint.config.overlays.armor_overlay": "Armor Overlay: %s",
+
+	"gui.viewpoint.config.overlays.deaths_overlay": "Deaths Overlay: %s",
+
+	"gui.viewpoint.config.overlays.totems_overlay": "Totems Overlay: %s",
 	
 	"gui.viewpoint.config.time_overlay.type.false": "OFF",
 	"gui.viewpoint.config.time_overlay.type.twelve_hour": "12 Hour",
@@ -135,14 +143,19 @@
 	"gui.viewpoint.position.title": "Position",
 	"gui.viewpoint.position.description": "%s, %s, %s",
 
-	"gui.viewpoint.version_overlay": "Craftmine %s",
+	"gui.viewpoint.version_overlay": "Minecraft %s",
 	"gui.viewpoint.position_overlay": "%s: %s",
-	"gui.viewpoint.time_overlay": "Time of day: %s:%s%s",
+	"gui.viewpoint.time_overlay": "Time of day: %s",
+	"gui.viewpoint.time": "%s:%s%s",
 	"gui.viewpoint.time_overlay.am": " am",
 	"gui.viewpoint.time_overlay.pm": " pm",
 	"gui.viewpoint.day_overlay": "Days played: %s",
 	"gui.viewpoint.biome_overlay": "Biome: %s",
 	"gui.viewpoint.cps_overlay": "CPS: %s:%s:%s",
+	"gui.viewpoint.deaths_overlay": "Number of Deaths: %s",
+	"gui.viewpoint.totems_overlay": "Totems Used: %s",
+	"gui.viewpoint.looking_at_overlay": "Looking At: %s",
+	"gui.viewpoint.looking_at_overlay.none": "--",
 
 	"gui.viewpoint.keybindings.keybinding.toggle_version_overlay": "Toggle Version Overlay",
 
@@ -154,5 +167,9 @@
 
 	"gui.viewpoint.keybindings.keybinding.toggle_cps_overlay": "Toggle CPS Overlay",
 
-	"biome.minecraft.hub": "Hub"
+	"gui.viewpoint.keybindings.keybinding.toggle_armor_overlay": "Toggle Armor Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_deaths_overlay": "Toggle Deaths Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_totems_overlay": "Toggle Totems Overlay"
 }

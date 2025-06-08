@@ -39,7 +39,11 @@ public class Config {
 	protected static String timeOverlay;
 	protected static boolean dayOverlay;
 	protected static boolean biomeOverlay;
+	protected static String lookingAtOverlay;
 	protected static boolean cpsOverlay;
+	protected static boolean deathsOverlay;
+	protected static boolean totemsOverlay;
+	protected static boolean armorOverlay;
 	protected static final Object[] options;
 
 	protected static void init() {
@@ -76,7 +80,11 @@ public class Config {
 		configProvider.add(new Couple<>("time_overlay", false));
 		configProvider.add(new Couple<>("day_overlay", false));
 		configProvider.add(new Couple<>("biome_overlay", false));
+		configProvider.add(new Couple<>("looking_at_overlay", false));
 		configProvider.add(new Couple<>("cps_overlay", false));
+		configProvider.add(new Couple<>("deaths_overlay", false));
+		configProvider.add(new Couple<>("totems_overlay", false));
+		configProvider.add(new Couple<>("armor_overlay", false));
 	}
 
 	protected static void assign() {
@@ -102,7 +110,11 @@ public class Config {
 		timeOverlay = config.getOrDefault("time_overlay", "false");
 		dayOverlay = config.getOrDefault("day_overlay", false);
 		biomeOverlay = config.getOrDefault("biome_overlay", false);
+		lookingAtOverlay = config.getOrDefault("looking_at_overlay", "off");
 		cpsOverlay = config.getOrDefault("cps_overlay", false);
+		deathsOverlay = config.getOrDefault("deaths_overlay", false);
+		totemsOverlay = config.getOrDefault("totems_overlay", false);
+		armorOverlay = config.getOrDefault("armor_overlay", false);
 	}
 
 	protected static void save() {
@@ -129,7 +141,11 @@ public class Config {
 		configProvider.setConfig("time_overlay", timeOverlay);
 		configProvider.setConfig("day_overlay", dayOverlay);
 		configProvider.setConfig("biome_overlay", biomeOverlay);
+		configProvider.setConfig("looking_at_overlay", lookingAtOverlay);
 		configProvider.setConfig("cps_overlay", cpsOverlay);
+		configProvider.setConfig("deaths_overlay", deathsOverlay);
+		configProvider.setConfig("totems_overlay", totemsOverlay);
+		configProvider.setConfig("armor_overlay", armorOverlay);
 		configProvider.saveConfig(Data.version, id);
 	}
 	static {
@@ -155,7 +171,11 @@ public class Config {
 				timeOverlay,
 				dayOverlay,
 				biomeOverlay,
-				cpsOverlay
+				lookingAtOverlay,
+				cpsOverlay,
+				deathsOverlay,
+				totemsOverlay,
+				armorOverlay
 		};
 	}
 }

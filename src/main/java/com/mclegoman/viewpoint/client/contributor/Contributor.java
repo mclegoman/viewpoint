@@ -7,11 +7,8 @@
 
 package com.mclegoman.viewpoint.client.contributor;
 
-import com.mclegoman.viewpoint.luminance.DateHelper;
 import net.minecraft.util.Identifier;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +19,7 @@ public class Contributor {
 		addLego("772eb47b-a24e-4d43-a685-6ca9e9e132f7", "3445ebd7-25f8-41a6-8118-0d19d7f5559e");
 	}
 	private static void addLego(String... uuids) {
-		LocalDate date = DateHelper.getDate();
-		for (String uuid : uuids) contributors.add(ContributorData.builder(uuid).shouldFlipUpsideDown(true).shouldReplaceCape(true).capeTexture(
-				Identifier.of("perspective", "textures/contributors/cape/dev_" + (((date.getYear() >= 2026) || date.getYear() == 2025 && (date.getMonth().getValue() >= Month.JULY.getValue() || (date.getMonth() == Month.JUNE && date.getDayOfMonth() >= 14))) ? "two" : "one") + "year.png")).type(Type.DEVELOPER.name).build());
+		for (String uuid : uuids) contributors.add(ContributorData.builder(uuid).shouldFlipUpsideDown(true).shouldReplaceCape(true).capeTexture(Identifier.of("perspective", "textures/contributors/cape/dev_oneyear.png")).type(Type.DEVELOPER.name).build());
 	}
 	public enum Type {
 		DEVELOPER("developer"),

@@ -110,7 +110,11 @@ public class ConfigHelper {
 			configChanged.add(setConfig("time_overlay", "false"));
 			configChanged.add(setConfig("day_overlay", false));
 			configChanged.add(setConfig("biome_overlay", false));
+			configChanged.add(setConfig("looking_at_overlay", "off"));
 			configChanged.add(setConfig("cps_overlay", false));
+			configChanged.add(setConfig("deaths_overlay", false));
+			configChanged.add(setConfig("totems_overlay", false));
+			configChanged.add(setConfig("armor_overlay", false));
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, "Failed to reset config!");
 		}
@@ -208,15 +212,31 @@ public class ConfigHelper {
 					Config.biomeOverlay = (boolean) value;
 					configChanged = true;
 				}
+				case "looking_at_overlay" -> {
+					Config.lookingAtOverlay = (String) value;
+					configChanged = true;
+				}
 				case "cps_overlay" -> {
 					Config.cpsOverlay = (boolean) value;
+					configChanged = true;
+				}
+				case "deaths_overlay" -> {
+					Config.deathsOverlay = (boolean) value;
+					configChanged = true;
+				}
+				case "totems_overlay" -> {
+					Config.totemsOverlay = (boolean) value;
+					configChanged = true;
+				}
+				case "armor_overlay" -> {
+					Config.armorOverlay = (boolean) value;
 					configChanged = true;
 				}
 				default -> {
 					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", key));
 				}
 			}
-			if (configChanged) saveConfig();
+			if (configChanged) saveConfigs();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: {}", key, error));
 		}
@@ -290,8 +310,20 @@ public class ConfigHelper {
 			case "biome_overlay" -> {
 				return Config.biomeOverlay;
 			}
+			case "looking_at_overlay" -> {
+				return Config.lookingAtOverlay;
+			}
 			case "cps_overlay" -> {
 				return Config.cpsOverlay;
+			}
+			case "deaths_overlay" -> {
+				return Config.deathsOverlay;
+			}
+			case "totems_overlay" -> {
+				return Config.totemsOverlay;
+			}
+			case "armor_overlay" -> {
+				return Config.armorOverlay;
 			}
 			default -> {
 				Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to get {} config value!: Invalid Key", key));

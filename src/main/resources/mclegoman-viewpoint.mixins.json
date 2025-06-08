@@ -6,7 +6,6 @@
 		"client.contributor.AbstractClientPlayerEntityMixin",
 		"client.contributor.LivingEntityRendererMixin",
 		"client.hud.ChatHudMixin",
-		"client.hud.GameRendererMixin",
 		"client.hud.HeldItemRendererMixin",
 		"client.hud.InGameHudMixin",
 		"client.hud.MinecraftClientMixin",

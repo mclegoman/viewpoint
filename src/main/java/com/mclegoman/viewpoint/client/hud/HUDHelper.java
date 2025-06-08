@@ -30,8 +30,20 @@ public class HUDHelper {
 			ConfigHelper.setConfig("biome_overlay", !(boolean) ConfigHelper.getConfig("biome_overlay"));
 			ConfigHelper.saveConfig();
 		}
+		if (Keybindings.toggleDeathsOverlay.wasPressed()) {
+			ConfigHelper.setConfig("deaths_overlay", !(boolean) ConfigHelper.getConfig("deaths_overlay"));
+			ConfigHelper.saveConfig();
+		}
+		if (Keybindings.toggleDeathsOverlay.wasPressed()) {
+			ConfigHelper.setConfig("totems_overlay", !(boolean) ConfigHelper.getConfig("totems_overlay"));
+			ConfigHelper.saveConfig();
+		}
 		if (Keybindings.toggleCPSOverlay.wasPressed()) {
 			ConfigHelper.setConfig("cps_overlay", !(boolean) ConfigHelper.getConfig("cps_overlay"));
+			ConfigHelper.saveConfig();
+		}
+		if (Keybindings.toggleDeathsOverlay.wasPressed()) {
+			ConfigHelper.setConfig("armor_overlay", !(boolean) ConfigHelper.getConfig("armor_overlay"));
 			ConfigHelper.saveConfig();
 		}
 	}

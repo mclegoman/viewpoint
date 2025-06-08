@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.10-SNAPSHOT'
+	id 'fabric-loom' version '1.8-SNAPSHOT'
 	id 'maven-publish'
 }
 group = project.maven_group
@@ -47,7 +47,7 @@ dependencies {
 	mappings("net.fabricmc:yarn:${project.mappings}:v2")
 	modImplementation("net.fabricmc:fabric-loader:${project.fabric_loader}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api}")
-	modCompileOnly("com.terraformersmc:modmenu:${project.modmenu}")
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu}")
 }
 
 processResources {

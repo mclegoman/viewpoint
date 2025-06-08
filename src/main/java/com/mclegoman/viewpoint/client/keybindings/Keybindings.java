@@ -30,7 +30,10 @@ public class Keybindings {
 	public static final KeyBinding togglePosOverlay;
 	public static final KeyBinding toggleDayOverlay;
 	public static final KeyBinding toggleBiomeOverlay;
+	public static final KeyBinding toggleDeathsOverlay;
+	public static final KeyBinding toggleTotemsOverlay;
 	public static final KeyBinding toggleCPSOverlay;
+	public static final KeyBinding toggleArmorOverlay;
 	public static final KeyBinding[] allKeybindings;
 
 	static {
@@ -49,7 +52,10 @@ public class Keybindings {
 				togglePosOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_position_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleDayOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_day_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleBiomeOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_biome_overlay", GLFW.GLFW_KEY_UNKNOWN),
-				toggleCPSOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_cps_overlay", GLFW.GLFW_KEY_UNKNOWN)
+				toggleDeathsOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_deaths_overlay", GLFW.GLFW_KEY_UNKNOWN),
+				toggleTotemsOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_totems_overlay", GLFW.GLFW_KEY_UNKNOWN),
+				toggleCPSOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_cps_overlay", GLFW.GLFW_KEY_UNKNOWN),
+				toggleArmorOverlay = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "toggle_armor_overlay", GLFW.GLFW_KEY_UNKNOWN)
 		};
 	}
 	public static void init() {
