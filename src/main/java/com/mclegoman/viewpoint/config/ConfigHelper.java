@@ -239,11 +239,10 @@ public class ConfigHelper {
 					Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: Invalid Key", key));
 				}
 			}
-			if (configChanged) saveConfigs();
+			if (save && configChanged) saveConfigs();
 		} catch (Exception error) {
 			Data.version.sendToLog(LogType.WARN, Translation.getString("Failed to set {} config value!: {}", key, error));
 		}
-		if (save && configChanged) saveConfigs();
 		return configChanged;
 	}
 	public static Object getConfig(String key) {
