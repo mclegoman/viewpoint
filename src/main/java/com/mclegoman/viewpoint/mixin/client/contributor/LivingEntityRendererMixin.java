@@ -22,13 +22,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(priority = 100, value = LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin {
 	@Inject(at = @At("RETURN"), method = "shouldFlipUpsideDown", cancellable = true)
-	private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {		
+	private static void perspective$shouldFlipUpsideDown(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
 		if (entity instanceof PlayerEntity) {
 			boolean shouldFlipUpsideDown = cir.getReturnValue();
 			for (ContributorData contributor : Contributor.contributors) {
-				if (contributor.getUuid().equals(((PlayerEntity) entity).getGameProfile().getId().toString()) &&
-						contributor.getShouldFlipUpsideDown()) {
-					shouldFlipUpsideDown = !shouldFlipUpsideDown;
+				if (contributor.getUuid().equals(((PlayerEntity) entity).getGameProfile().getId().toString())) {
+					if (contributor.getShouldFlipUpsideDown()) shouldFlipUpsideDown = !shouldFlipUpsideDown;
+					if (!Contributor.Config.shouldFlip((PlayerEntity) entity)) shouldFlipUpsideDown = !shouldFlipUpsideDown;
 					break;
 				}
 			}

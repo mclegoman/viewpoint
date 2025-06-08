@@ -7,6 +7,7 @@
 
 package com.mclegoman.viewpoint.client.screen.config;
 
+import com.mclegoman.viewpoint.client.contributor.Contributor;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.screen.config.hold_perspective.HoldPerspectiveConfigScreen;
 import com.mclegoman.viewpoint.client.screen.config.overlays.OverlaysConfigScreen;
@@ -45,7 +46,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 			ConfigHelper.setConfig(false, "hide_hud_hide_vignette", !(boolean) ConfigHelper.getConfig("hide_hud_hide_vignette"));
 			this.refresh = true;
 		}).width(304).tooltip(Tooltip.of(Translation.getConfigTranslation(Data.version.getID(), "hide_hud.hide_vignette", true))).build(), 2);
-		gridAdder.add(new EmptyWidget(20, 20), 2);
+		gridAdder.add(Contributor.validate(ClientData.minecraft.player) ? ButtonWidget.builder(Translation.getConfigTranslation(Data.version.getID(), "contributor"), (button) -> ClientData.minecraft.setScreen(new ContributorConfigScreen(getRefreshScreen(), false, 1))).width(304).build() : new EmptyWidget(20, 20), 2);
 		return grid;
 	}
 	public Screen getRefreshScreen() {

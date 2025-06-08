@@ -179,5 +179,10 @@
 	"gui.viewpoint.config.hold_perspective.increment_size": "Increment Multiplier: %s",
 	"gui.viewpoint.config.hold_perspective.increment_size.hover": "Sets the multiplier of hold perspective multiplier adjustment when using the scroll wheel.",
 
-	"gui.viewpoint.keybindings.keybinding.adjust_hold_perspective": "Adjust Hold Perspective"
+	"gui.viewpoint.keybindings.keybinding.adjust_hold_perspective": "Adjust Hold Perspective",
+
+	"gui.viewpoint.config.contributor": "Contributor",
+	"gui.viewpoint.config.contributor.flip": "Always Flip: %s",
+	"gui.viewpoint.config.contributor.flip.hold_perspective.back": "Flip on Hold Perspective Back: %s",
+	"gui.viewpoint.config.contributor.flip.hold_perspective.front": "Flip on Hold Perspective Front: %s"
 }

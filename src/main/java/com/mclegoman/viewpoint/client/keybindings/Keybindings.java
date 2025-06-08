@@ -36,7 +36,6 @@ public class Keybindings {
 	public static final KeyBinding toggleArmorOverlay;
 	public static final KeyBinding adjustHoldPerspective;
 	public static final KeyBinding[] allKeybindings;
-
 	static {
 		allKeybindings = new KeyBinding[]{
 				holdPerspectiveThirdPersonBack = KeybindingHelper.getKeybinding(Data.version.getID(), Data.version.getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
