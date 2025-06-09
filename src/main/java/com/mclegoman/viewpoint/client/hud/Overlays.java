@@ -16,10 +16,7 @@ import com.mclegoman.viewpoint.client.util.Position;
 import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.config.ConfigHelper;
 import com.mclegoman.viewpoint.config.value.QualityToggle;
-import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.LayeredDrawerWrapper;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import com.mclegoman.viewpoint.mixin.client.entity.WolfEntityAccessor;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
@@ -31,6 +28,7 @@ import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.network.packet.c2s.play.ClientStatusC2SPacket;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -248,8 +246,11 @@ public class Overlays {
 				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
 			}
 			case WolfEntity holderEntity -> {
-				Identifier variant = Identifier.of(holderEntity.getVariant().getIdAsString().toLowerCase());
-				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+				RegistryEntry<WolfVariant> entry = ((WolfEntityAccessor)holderEntity).getVariant();
+				if (entry != null) {
+					Identifier variant = Identifier.of(entry.getIdAsString().toLowerCase());
+					return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
+				}
 			}
 			case CatEntity holderEntity -> {
 				Identifier variant = Identifier.of(holderEntity.getVariant().getIdAsString().toLowerCase());

@@ -28,7 +28,7 @@ public abstract class LivingEntityRendererMixin {
 			for (ContributorData contributor : Contributor.contributors) {
 				if (contributor.getUuid().equals(((PlayerEntity) entity).getGameProfile().getId().toString())) {
 					if (contributor.getShouldFlipUpsideDown()) shouldFlipUpsideDown = !shouldFlipUpsideDown;
-					if (!Contributor.Config.shouldFlip((PlayerEntity) entity)) shouldFlipUpsideDown = !shouldFlipUpsideDown;
+					if (Contributor.Config.shouldFlip((PlayerEntity) entity)) shouldFlipUpsideDown = !shouldFlipUpsideDown;
 					break;
 				}
 			}

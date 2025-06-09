@@ -48,6 +48,5 @@
     "catalogue": {
       "configFactory": "com.mclegoman.viewpoint.compat.CatalogueCompat"
     }
-  },
-  "access_widener": "viewpoint.accesswidener"
+  }
 }

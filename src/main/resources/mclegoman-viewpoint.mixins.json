@@ -13,12 +13,11 @@
     "client.perspective.CameraMixin",
     "client.perspective.MouseMixin",
     "client.zoom.GameRendererMixin",
-    "client.zoom.MouseMixin"
+    "client.zoom.MouseMixin",
+    "client.entity.WolfEntityAccessor",
+    "client.hud.LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "client.hud.LivingEntityMixin"
-  ]
+  }
 }

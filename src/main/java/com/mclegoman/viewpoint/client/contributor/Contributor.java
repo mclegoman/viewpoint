@@ -49,7 +49,13 @@ public class Contributor {
 		public static boolean selfFlipHoldPerspectiveFront;
 		public static boolean selfFlipHoldPerspectiveBack;
 		public static boolean shouldFlip(PlayerEntity player) {
-			return player != null && ClientData.minecraft.player != null && player.getGameProfile().getId().equals(ClientData.minecraft.player.getGameProfile().getId()) && (((selfFlipHoldPerspectiveFront && Perspective.isHoldingPerspectiveFront()) || (selfFlipHoldPerspectiveBack && Perspective.isHoldingPerspectiveBack())) || selfFlipAlways);
+			if (player != null && ClientData.minecraft.player != null && player.getGameProfile().getId().equals(ClientData.minecraft.player.getGameProfile().getId())) {
+				if (Perspective.isHoldingPerspective()) {
+					if (Perspective.isHoldingPerspectiveBack()) return selfFlipHoldPerspectiveBack;
+					if (Perspective.isHoldingPerspectiveFront()) return selfFlipHoldPerspectiveFront;
+				}
+			}
+			return false;
 		}
 	}
 }
