@@ -26,7 +26,7 @@ import java.io.FileWriter;
 
 public class Panorama {
 	public static void tick() {
-		if (Keybindings.takePanoScreenshot.wasPressed()) takePanorama(1024, 0.0F);
+		if (Keybindings.takePanoScreenshot.wasPressed()) takePanorama(1024, 0.0F, 4);
 	}
 	private static String getFilename() {
 		String currentTime = Util.getFormattedCurrentTime();
@@ -44,8 +44,8 @@ public class Panorama {
 		}
 		return filename;
 	}
-
-	private static void takePanorama(int resolution, float startingYaw) {
+	private static void takePanorama(int resolution, float startingYaw, int scaleFactor) {
+		int scaledResolution = resolution * scaleFactor;
 		if (ClientData.minecraft.player != null) {
 			int prevWidth = ClientData.minecraft.getWindow().getFramebufferWidth();
 			int prevHeight = ClientData.minecraft.getWindow().getFramebufferHeight();
@@ -65,9 +65,9 @@ public class Panorama {
 				File screenshotsDir = new File(resourcePackDir + "/assets/minecraft/textures/gui/title/background");
 				if (screenshotsDir.mkdirs()) {
 					ClientData.minecraft.gameRenderer.setRenderingPanorama(true);
-					ClientData.minecraft.getWindow().setFramebufferWidth(resolution);
-					ClientData.minecraft.getWindow().setFramebufferHeight(resolution);
-					framebuffer.resize(resolution, resolution);
+					ClientData.minecraft.getWindow().setFramebufferWidth(scaledResolution);
+					ClientData.minecraft.getWindow().setFramebufferHeight(scaledResolution);
+					framebuffer.resize(scaledResolution, scaledResolution);
 
 					for (int l = 0; l < 6; ++l) {
 						switch (l) {
@@ -97,7 +97,7 @@ public class Panorama {
 							}
 						}
 						ClientData.minecraft.gameRenderer.renderWorld(RenderTickCounter.ONE);
-						ScreenshotRecorder.saveScreenshot(screenshotsDir, "panorama_" + l + ".png", ClientData.minecraft.getFramebuffer());
+						ScreenshotRecorder.saveScreenshot(screenshotsDir, "panorama_" + l + ".png", ClientData.minecraft.getFramebuffer(), scaleFactor);
 					}
 
 					// Create pack.mcmeta
