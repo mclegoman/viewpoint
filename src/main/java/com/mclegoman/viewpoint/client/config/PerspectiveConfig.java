@@ -69,7 +69,7 @@ public class PerspectiveConfig extends ReflectiveConfig {
 	@SerializedName("hold_perspective_front_hide_hud")
 	public final TrackedValue<Boolean> holdPerspectiveFrontHideHud = this.value(true);
 	@SerializedName("star_brightness_multiplier")
-	@FloatRange(min = -1.0F, max = 2.0F)
+	@FloatRange(min = 0.0F, max = 2.0F)
 	public final TrackedValue<Float> starBrightnessMultiplier = this.value(1.0F);
 	@SerializedName("textured_named_entity")
 	public final TrackedValue<Boolean> texturedNamedEntity = this.value(true);
@@ -135,6 +135,8 @@ public class PerspectiveConfig extends ReflectiveConfig {
 	public final TrackedValue<Boolean> tutorials = this.value(true);
 	@SerializedName("debug")
 	public final TrackedValue<Boolean> debug = this.value(false);
+	@SerializedName("panorama_resolution")
+	public final TrackedValue<Integer> panoramaResolution = this.value(1024);
 	@SerializedName("config_version")
 	@Comment("Do not edit this! This is used for updating the config.")
 	public final TrackedValue<Float> configVersion = this.value(ClientData.configVersion);
