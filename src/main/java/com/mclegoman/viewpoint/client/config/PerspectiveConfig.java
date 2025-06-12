@@ -135,6 +135,8 @@ public class PerspectiveConfig extends ReflectiveConfig {
 	public final TrackedValue<Boolean> tutorials = this.value(true);
 	@SerializedName("debug")
 	public final TrackedValue<Boolean> debug = this.value(false);
+	@SerializedName("panorama_resolution")
+	public final TrackedValue<Integer> panoramaResolution = this.value(1024);
 	@SerializedName("config_version")
 	@Comment("Do not edit this! This is used for updating the config.")
 	public final TrackedValue<Float> configVersion = this.value(ClientData.configVersion);

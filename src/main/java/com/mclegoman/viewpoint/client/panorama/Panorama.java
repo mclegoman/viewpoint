@@ -7,6 +7,7 @@
 
 package com.mclegoman.viewpoint.client.panorama;
 
+import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.keybindings.Keybindings;
 import com.mclegoman.viewpoint.client.translation.Translation;
@@ -20,13 +21,14 @@ import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.MathHelper;
 
 import java.io.File;
 import java.io.FileWriter;
 
 public class Panorama {
 	public static void tick() {
-		if (Keybindings.takePanoScreenshot.wasPressed()) takePanorama(1024, 0.0F, 4);
+		if (Keybindings.takePanoScreenshot.wasPressed()) takePanorama(PerspectiveConfig.config.panoramaResolution.value(), 4);
 	}
 	private static String getFilename() {
 		String currentTime = Util.getFormattedCurrentTime();
@@ -44,7 +46,7 @@ public class Panorama {
 		}
 		return filename;
 	}
-	private static void takePanorama(int resolution, float startingYaw, int scaleFactor) {
+	private static void takePanorama(int resolution, int scaleFactor) {
 		int scaledResolution = resolution * scaleFactor;
 		if (ClientData.minecraft.player != null) {
 			int prevWidth = ClientData.minecraft.getWindow().getFramebufferWidth();
@@ -58,7 +60,7 @@ public class Panorama {
 			Perspective playerPerspective = ClientData.minecraft.options.getPerspective();
 			if (!playerPerspective.isFirstPerson())
 				ClientData.minecraft.options.setPerspective(Perspective.FIRST_PERSON);
-
+			float startingYaw = findClosest(prevYaw);
 			try {
 				String panoramaName = getFilename();
 				File resourcePackDir = new File(ClientData.minecraft.runDirectory.getPath() + "/resourcepacks/" + panoramaName);
@@ -125,5 +127,18 @@ public class Panorama {
 				ClientData.minecraft.options.setPerspective(playerPerspective);
 			}
 		}
+	}
+	private static float findClosest(float value) {
+		float[] values = new float[]{0.0F, 90.0F, 180.0F, 270.0F};
+		float closest = values[0];
+		float minDiff = MathHelper.abs(value - closest);
+		for (int i = 1; i < values.length; i++) {
+			float diff = MathHelper.abs(value - values[i]);
+			if (diff < minDiff) {
+				minDiff = diff;
+				closest = values[i];
+			}
+		}
+		return closest;
 	}
 }
