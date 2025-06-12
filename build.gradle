@@ -50,6 +50,7 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${project.fabric_loader}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api}")
 	modCompileOnly("com.terraformersmc:modmenu:${project.modmenu}")
+	modCompileOnly("maven.modrinth:sodium:${project.sodium}")
 
 	include(modImplementation("org.quiltmc:quilt-config:${project.quilt_config}"))
 	include(modImplementation(compileOnly("com.electronwill.night-config:core:${project.toml}")))
