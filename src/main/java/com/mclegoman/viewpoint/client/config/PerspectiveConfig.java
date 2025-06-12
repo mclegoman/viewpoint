@@ -58,6 +58,8 @@ public class PerspectiveConfig extends ReflectiveConfig {
 	@SerializedName("hold_perspective_multiplier_increment_size")
 	@IntegerRange(min = 1, max = 10)
 	public final TrackedValue<Integer> holdPerspectiveMultiplierIncrementSize = this.value(5);
+	@SerializedName("perspective_multiplier")
+	public final TrackedValue<Boolean> perspectiveMultiplier = this.value(false);
 	@SerializedName("hold_perspective_back_multiplier")
 	@FloatRange(min = 0.5, max = 16)
 	public final TrackedValue<Float> holdPerspectiveBackMultiplier = this.value(1.0F);

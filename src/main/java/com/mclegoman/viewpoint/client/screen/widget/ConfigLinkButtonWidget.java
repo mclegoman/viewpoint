@@ -28,7 +28,7 @@ public class ConfigLinkButtonWidget extends ConfigButtonWidget {
 	}
 	@Override
 	public void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-		context.drawGuiTexture(LINK_TEXTURES.get(this.active, this.isSelected()), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ((int)(alpha * 255.0f) << 24) | 0xFFFFFF);
+		context.drawGuiTexture(LINK_TEXTURES.get(this.active, this.isSelected()), this.getX(), this.getY(), this.getWidth(), this.getHeight());
 		int i = this.active ? 16777215 : 10526880;
 		this.drawMessage(context, ClientData.minecraft.textRenderer, i | MathHelper.ceil(this.alpha * 255.0F) << 24);
 	}

@@ -79,7 +79,9 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 			};
 			holdPerspectiveMultiplierIncrementSizeWidget.setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.increment_size", true)));
 			holdPerspectiveGridAdder.add(holdPerspectiveMultiplierIncrementSizeWidget, 2);
-			holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
+			holdPerspectiveGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.perspective", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.perspectiveMultiplier.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.perspectiveMultiplier, false);
+			}).width(300).build(), 2);
 		} catch (Exception error) {
 			Data.getVersion().sendToLog(LogType.ERROR, "Error creating config/hold_perspective/page1: " + error.getLocalizedMessage());
 		}
