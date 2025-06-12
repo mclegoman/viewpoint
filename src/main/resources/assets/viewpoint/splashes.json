@@ -1,0 +1,14 @@
+{
+	"replace": false,
+	"translatable": [
+		"splashes.viewpoint.whered_my_hud_go",
+		"splashes.viewpoint.also_try_souper_secret_settings",
+		"splashes.viewpoint.also_try_perspective",
+		"splashes.viewpoint.its_a_mod",
+		"splashes.viewpoint.takes_panoramic_screenshots",
+		"splashes.viewpoint.open_source",
+		"splashes.viewpoint.this_is_a_splash_text"
+	],
+	"literal": [
+	]
+}

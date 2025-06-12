@@ -1,16 +1,16 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.client.util;
 
 import com.google.common.collect.Lists;
+import com.mclegoman.viewpoint.luminance.common.util.LogType;
 import com.mclegoman.viewpoint.client.translation.Translation;
 import com.mclegoman.viewpoint.common.data.Data;
-import com.mclegoman.viewpoint.luminance.LogType;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
@@ -80,7 +80,7 @@ public class Mouse {
 				try {
 					if (entry.getValue().call()) return true;
 				} catch (Exception error) {
-					Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to process cps: {}", error));
+					Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to process cps: {}", error));
 				}
 			}
 			return false;

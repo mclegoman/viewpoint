@@ -7,21 +7,24 @@
 
 package com.mclegoman.viewpoint.client.translation;
 
-import com.mclegoman.viewpoint.client.events.Execute;
+import com.mclegoman.viewpoint.client.config.value.QualityToggle;
+import com.mclegoman.viewpoint.client.events.PerspectiveExecute;
+import com.mclegoman.viewpoint.client.hide.Hide;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
-import com.mclegoman.viewpoint.config.value.QualityToggle;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.text.*;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Translation extends com.mclegoman.viewpoint.luminance.Translation {
+public class Translation extends com.mclegoman.viewpoint.luminance.client.translation.Translation {
 	public static String getTitleCase(String key) {
 		if (key != null && !key.isEmpty()) {
 			String[] words = key.replace('_', ' ').split(" ");
@@ -81,10 +84,10 @@ public class Translation extends com.mclegoman.viewpoint.luminance.Translation {
 	public static MutableText getTimeOverlayTranslation(String namespace, String key) {
 		return getConfigTranslation(namespace, "time_overlay.type." + key);
 	}
-//	public static MutableText getCrosshairTranslation(String namespace, String key) {
-//		if (Arrays.stream(Hide.hideCrosshairModes).toList().contains(key)) return getConfigTranslation(namespace, "crosshair.type." + key);
-//		else return getErrorTranslation(namespace);
-//	}
+	public static MutableText getCrosshairTranslation(String namespace, String key) {
+		if (Arrays.stream(Hide.hideCrosshairModes).toList().contains(key)) return getConfigTranslation(namespace, "crosshair.type." + key);
+		else return getErrorTranslation(namespace);
+	}
 	public static MutableText getDetectUpdateChannelTranslation(String namespace, String key) {
 		if (key.equalsIgnoreCase("none")) return getConfigTranslation(namespace, "detect_update_channel.none");
 		else if (key.equalsIgnoreCase("alpha")) return getConfigTranslation(namespace, "detect_update_channel.alpha");
@@ -120,22 +123,22 @@ public class Translation extends com.mclegoman.viewpoint.luminance.Translation {
 			return this.name;
 		}
 	}
-	public static Text getParsedTextFromString(String input, RenderTickCounter tickCounter) {
-		Text parsed = tryParse(input.trim(), tickCounter);
+	public static Text getParsedTextFromString(String input) {
+		Text parsed = tryParse(input.trim());
 		if (parsed != null) return parsed;
 		return Text.literal(input.trim());
 	}
-	private static Text tryParse(String input, RenderTickCounter tickCounter) {
+	private static Text tryParse(String input) {
 		Pattern pattern = Pattern.compile("^(Translatable|Variable)\\[([^]]+)](?:\\((.*)\\))?$");
 		Matcher matcher = pattern.matcher(input);
 		if (!matcher.matches()) return null;
 		String type = matcher.group(1);
 		String key = matcher.group(2);
 		String argsGroup = matcher.group(3);
-		List<Text> args = argsGroup == null || argsGroup.isEmpty() ? List.of() : splitArgs(argsGroup).stream().map((newArgs) -> getParsedTextFromString(newArgs, tickCounter)).toList();
+		List<Text> args = argsGroup == null || argsGroup.isEmpty() ? List.of() : splitArgs(argsGroup).stream().map(Translation::getParsedTextFromString).toList();
 		if ("Translatable".equals(type)) return Text.translatable(key, args.toArray());
 		else if ("Variable".equals(type)) {
-			return Execute.getVariable(Identifier.of(key), argsGroup != null ? splitArgs(argsGroup).toArray(new String[0]) : new String[]{}, tickCounter);
+			return PerspectiveExecute.getVariable(Identifier.of(key), argsGroup != null ? splitArgs(argsGroup).toArray(new String[0]) : new String[]{});
 		}
 		return null;
 	}

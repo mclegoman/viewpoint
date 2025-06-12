@@ -1,14 +1,13 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.mixin.client.hud;
 
 import com.mclegoman.viewpoint.client.data.ClientData;
-import com.mclegoman.viewpoint.client.hud.Overlays;
 import com.mclegoman.viewpoint.client.util.Mouse;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,9 +24,5 @@ public abstract class MinecraftClientMixin {
 			Mouse.updateMiddleClick(ClientData.minecraft.mouse.wasMiddleButtonClicked());
 			Mouse.updateRightClick(ClientData.minecraft.mouse.wasRightButtonClicked());
 		} else Mouse.clearQueues();
-	}
-	@Inject(at = @At("RETURN"), method = "setWorld")
-	private void perspective$setWorld(CallbackInfo ci) {
-		Overlays.updateStats();
 	}
 }

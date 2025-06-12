@@ -1,0 +1,81 @@
+/*
+    Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
+    Licence: GNU LGPLv3
+*/
+
+package com.mclegoman.viewpoint.client.contributor;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mclegoman.viewpoint.luminance.client.util.JsonResourceReloader;
+import com.mclegoman.viewpoint.luminance.common.util.IdentifierHelper;
+import com.mclegoman.viewpoint.luminance.common.util.LogType;
+import com.mclegoman.viewpoint.client.translation.Translation;
+import com.mclegoman.viewpoint.common.data.Data;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.profiler.Profiler;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ContributorDataLoader extends JsonResourceReloader {
+	public static final Map<String, ContributorData> registry = new HashMap<>();
+	public static final String id = "contributors";
+	public ContributorDataLoader() {
+		super(new Gson(), id);
+	}
+	private void add(List<JsonElement> inputIds, String uuid, boolean shouldFlipUpsideDown, boolean shouldReplaceCape, String capeTexture) {
+		try {
+			ContributorLockData lockData = Contributor.getUuid(uuid);
+			if (lockData != null) {
+				List<String> outputIds = new ArrayList<>();
+				for (JsonElement id : inputIds) outputIds.add(id.getAsString());
+				registry.put(uuid, ContributorData.builder(uuid).id(outputIds).type(lockData.getType().getName()).shouldFlipUpsideDown(shouldFlipUpsideDown).shouldReplaceCape(shouldReplaceCape).capeTexture(IdentifierHelper.identifierFromString(capeTexture)).build());
+			} else {
+				Data.getVersion().sendToLog(LogType.WARN, Translation.getString("{} is not permitted to use contributor dataloader!", uuid));
+			}
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.WARN, Translation.getString("Failed to add contributor to contributor registry: {}", error));
+		}
+	}
+	private void reset() {
+		try {
+			registry.clear();
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.WARN, Translation.getString("Failed to reset contributor registry: {}", error));
+		}
+	}
+	@Override
+	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
+		try {
+			reset();
+			prepared.forEach(this::layout$perspective);
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.WARN, Translation.getString("Failed to apply contributor dataloader: {}", error));
+		}
+	}
+	private void layout$perspective(Identifier identifier, JsonElement jsonElement) {
+		try {
+			JsonObject reader = jsonElement.getAsJsonObject();
+			JsonArray defaultIds = new JsonArray();
+			defaultIds.add(identifier.getPath());
+			JsonArray ids = JsonHelper.getArray(reader, "ids", defaultIds);
+			List<JsonElement> id = ids.asList();
+			JsonArray uuids = JsonHelper.getArray(reader, "uuids");
+			boolean shouldFlipUpsideDown = JsonHelper.getBoolean(reader, "shouldFlipUpsideDown", false);
+			boolean shouldReplaceCape = JsonHelper.getBoolean(reader, "shouldReplaceCape", false);
+			String capeTexture = JsonHelper.getString(reader, "capeTexture", "none");
+			for (JsonElement uuid : uuids) add(id, uuid.getAsString(), shouldFlipUpsideDown, shouldReplaceCape, capeTexture);
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.WARN, Translation.getString("Failed to load contributor from dataloader: {}", error));
+		}
+	}
+}

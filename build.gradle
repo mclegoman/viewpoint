@@ -15,6 +15,7 @@ loom {
 			sourceSet("main")
 		}
 	}
+	accessWidenerPath = file("src/main/resources/viewpoint.accesswidener")
 }
 
 runClient.doFirst {
@@ -40,6 +41,7 @@ repositories {
 	flatDir {
 		dirs("libs")
 	}
+	maven { url = "https://maven.quiltmc.org/repository/release/" }
 }
 
 dependencies {
@@ -48,6 +50,10 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${project.fabric_loader}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api}")
 	modCompileOnly("com.terraformersmc:modmenu:${project.modmenu}")
+
+	include(modImplementation("org.quiltmc:quilt-config:${project.quilt_config}"))
+	include(modImplementation(compileOnly("com.electronwill.night-config:core:${project.toml}")))
+	include(modImplementation(compileOnly("com.electronwill.night-config:toml:${project.toml}")))
 }
 
 processResources {

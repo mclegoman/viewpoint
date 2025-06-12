@@ -1,28 +1,28 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.client.screen.config.overlays;
 
+import com.mclegoman.viewpoint.luminance.common.util.LogType;
+import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
+import com.mclegoman.viewpoint.client.config.value.QualityToggle;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.hud.Overlays;
 import com.mclegoman.viewpoint.client.screen.config.AbstractConfigScreen;
 import com.mclegoman.viewpoint.client.screen.widget.ConfigButtonWidget;
 import com.mclegoman.viewpoint.client.translation.Translation;
 import com.mclegoman.viewpoint.common.data.Data;
-import com.mclegoman.viewpoint.config.ConfigHelper;
-import com.mclegoman.viewpoint.config.value.QualityToggle;
-import com.mclegoman.viewpoint.luminance.LogType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 
 public class OverlaysConfigScreen extends AbstractConfigScreen {
-	public OverlaysConfigScreen(Screen parentScreen, boolean refresh, int page) {
-		super(parentScreen, refresh, false, page);
+	public OverlaysConfigScreen(Screen parentScreen, int page) {
+		super(parentScreen, page);
 	}
 	public void init() {
 		try {
@@ -32,7 +32,7 @@ public class OverlaysConfigScreen extends AbstractConfigScreen {
 			else shouldClose = true;
 			postInit();
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to initialize zoom config screen: {}", error));
+			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to initialize zoom config screen: {}", error));
 			ClientData.minecraft.setScreen(this.parentScreen);
 		}
 	}
@@ -41,36 +41,36 @@ public class OverlaysConfigScreen extends AbstractConfigScreen {
 		overlaysGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder overlaysGridAdder = overlaysGrid.createAdder(2);
 		try {
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.version_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("version_overlay"), Translation.Type.ONFF)}), (button) -> {
-				ConfigHelper.setConfig(false, "version_overlay", !(boolean)ConfigHelper.getConfig("version_overlay"));
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.version_overlay", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.versionOverlay.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.versionOverlay, false);
 			}).build());
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.position_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("position_overlay"), Translation.Type.ONFF)}), (button) -> {
-				ConfigHelper.setConfig(false, "position_overlay", !(boolean)ConfigHelper.getConfig("position_overlay"));
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.position_overlay", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.positionOverlay.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.positionOverlay, false);
 			}).build());
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.time_overlay", new Object[]{Translation.getTimeOverlayTranslation(Data.version.getID(), Overlays.getCurrentTimeOverlay())}), (button) -> {
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.time_overlay", new Object[]{Translation.getTimeOverlayTranslation(Data.getVersion().getID(), Overlays.getCurrentTimeOverlay())}), (button) -> {
 				Overlays.cycleTimeOverlay(!hasShiftDown());
 			}).build());
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.day_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("day_overlay"), Translation.Type.ONFF)}), (button) -> {
-				ConfigHelper.setConfig(false, "day_overlay", !(boolean)ConfigHelper.getConfig("day_overlay"));
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.day_overlay", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.dayOverlay.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.dayOverlay, false);
 			}).build());
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.biome_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean) ConfigHelper.getConfig("biome_overlay"), Translation.Type.ONFF)}), (button) -> {
-				ConfigHelper.setConfig(false, "biome_overlay", !(boolean)ConfigHelper.getConfig("biome_overlay"));
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.biome_overlay", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.biomeOverlay.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.biomeOverlay, false);
 			}).build());
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.looking_at_overlay", new Object[]{Translation.getQualityTranslation(Data.version.getID(), QualityToggle.valueOf((String) ConfigHelper.getConfig("looking_at_overlay")))}), (button) -> {
-				ConfigHelper.setConfig(false, "looking_at_overlay", (switch (QualityToggle.valueOf((String) ConfigHelper.getConfig("looking_at_overlay"))) {
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.looking_at_overlay", new Object[]{Translation.getQualityTranslation(Data.getVersion().getID(), PerspectiveConfig.config.lookingAtOverlay.value())}), (button) -> {
+				PerspectiveConfig.config.lookingAtOverlay.setValue(switch (PerspectiveConfig.config.lookingAtOverlay.value()) {
 					case off -> hasShiftDown() ? QualityToggle.fancy : QualityToggle.fast;
 					case fast -> hasShiftDown() ? QualityToggle.off : QualityToggle.fancy;
 					case fancy -> hasShiftDown() ? QualityToggle.fast : QualityToggle.off;
-				}).asString());
+				}, false);
 			}).build());
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.deaths_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean)ConfigHelper.getConfig("deaths_overlay"), Translation.Type.ONFF)}), (button) -> {
-				ConfigHelper.setConfig(false, "deaths_overlay", !(boolean)ConfigHelper.getConfig("deaths_overlay"));
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.deaths_overlay", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.deathsOverlay.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.deathsOverlay, false);
 			}).build());
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.totems_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean)ConfigHelper.getConfig("totems_overlay"), Translation.Type.ONFF)}), (button) -> {
-				ConfigHelper.setConfig(false, "totems_overlay", !(boolean)ConfigHelper.getConfig("totems_overlay"));
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.totems_overlay", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.totemsOverlay.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.totemsOverlay, false);
 			}).build());
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, "error occurred on overlays screen: " + error.getLocalizedMessage());
+			Data.getVersion().sendToLog(LogType.ERROR, "error occurred on overlays screen: " + error.getLocalizedMessage());
 		}
 		return overlaysGrid;
 	}
@@ -79,22 +79,22 @@ public class OverlaysConfigScreen extends AbstractConfigScreen {
 		overlaysGrid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder overlaysGridAdder = overlaysGrid.createAdder(2);
 		try {
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.cps_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean)ConfigHelper.getConfig("cps_overlay"), Translation.Type.ONFF)}), (button) -> {
-				ConfigHelper.setConfig(false, "cps_overlay", !(boolean)ConfigHelper.getConfig("cps_overlay"));
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.cps_overlay", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.cpsOverlay.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.cpsOverlay, false);
 			}).build());
-			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.version.getID(), "overlays.armor_overlay", new Object[]{Translation.getVariableTranslation(Data.version.getID(), (boolean)ConfigHelper.getConfig("armor_overlay"), Translation.Type.ONFF)}), (button) -> {
-				ConfigHelper.setConfig(false, "armor_overlay", !(boolean)ConfigHelper.getConfig("armor_overlay"));
+			overlaysGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "overlays.armor_overlay", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.armorOverlay.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.armorOverlay, false);
 			}).build());
 			overlaysGridAdder.add(new EmptyWidget(20, 20), 2);
 			overlaysGridAdder.add(new EmptyWidget(20, 20), 2);
 			overlaysGridAdder.add(new EmptyWidget(20, 20), 2);
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, "error occurred on overlays screen: " + error.getLocalizedMessage());
+			Data.getVersion().sendToLog(LogType.ERROR, "error occurred on overlays screen: " + error.getLocalizedMessage());
 		}
 		return overlaysGrid;
 	}
 	public Screen getRefreshScreen() {
-		return new OverlaysConfigScreen(this.parentScreen, false, this.page);
+		return new OverlaysConfigScreen(this.parentScreen, this.page);
 	}
 	public String getPageId() {
 		return "overlays";

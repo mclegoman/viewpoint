@@ -1,0 +1,82 @@
+/*
+    Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
+    Licence: GNU LGPLv3
+*/
+
+package com.mclegoman.viewpoint.client.logo;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mclegoman.viewpoint.luminance.client.util.JsonResourceReloader;
+import com.mclegoman.viewpoint.luminance.common.util.LogType;
+import com.mclegoman.viewpoint.client.translation.Translation;
+import com.mclegoman.viewpoint.common.data.Data;
+import net.minecraft.resource.Resource;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.profiler.Profiler;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+public class SplashesDataloader extends JsonResourceReloader {
+	public static final List<Translation.Data> registry = new ArrayList<>();
+	public static final String id = "splashes";
+	private static Translation.Data splashText;
+	public static Translation.Data getSplashText() {
+		if (PerspectiveLogo.isActuallyPride()) return new Translation.Data("splashes.viewpoint.special.pride_month", true);
+		else return splashText;
+	}
+	public static void randomizeSplashText() {
+		if (registry.size() > 1) {
+			List<Translation.Data> splashes = new ArrayList<>(registry);
+			if (getSplashText() != null) splashes.remove(getSplashText());
+			splashText = splashes.get(new Random().nextInt(splashes.size()));
+		} else {
+			if (registry.size() == 1) splashText = registry.getFirst();
+			else splashText = new Translation.Data("", false);
+		}
+	}
+	public SplashesDataloader() {
+		super(new Gson(), id);
+	}
+	private void add(String text, Boolean translatable) {
+		try {
+			Translation.Data splash = new Translation.Data(text, translatable);
+			if (!registry.contains(splash)) registry.add(splash);
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to add splash text to registry: {}", error));
+		}
+	}
+	private void reset() {
+		try {
+			registry.clear();
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to reset splash text registry: {}", error));
+		}
+	}
+	@Override
+	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
+		try {
+			reset();
+			for (Resource resource : manager.getAllResources(Identifier.of(Data.getVersion().getID(), id + ".json"))) {
+				JsonObject reader = JsonHelper.deserialize(resource.getReader());
+				if (JsonHelper.getBoolean(reader, "replace", false)) reset();
+				JsonArray translatableTexts = JsonHelper.getArray(reader, "translatable");
+				for (JsonElement splashText : translatableTexts) add(splashText.getAsString(), true);
+				JsonArray literalTexts = JsonHelper.getArray(reader, "literal");
+				for (JsonElement splashText : literalTexts) add(splashText.getAsString(), false);
+			}
+			randomizeSplashText();
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to load splash text from dataloader: {}", error));
+		}
+	}
+}

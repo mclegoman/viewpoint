@@ -1,7 +1,7 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
@@ -9,7 +9,7 @@ package com.mclegoman.viewpoint.mixin.client.zoom;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.mclegoman.viewpoint.config.ConfigHelper;
+import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
 import net.minecraft.client.render.Camera;
@@ -17,7 +17,6 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererMixin {
 	@Shadow
 	public abstract boolean isRenderingPanorama();
-	@Shadow @Final private Camera camera;
+
 	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)F"), method = "renderHand")
 	private float perspective$renderHand(float fov) {
 		return Zoom.canZoom() ? Zoom.fov : fov;
@@ -38,16 +37,16 @@ public abstract class GameRendererMixin {
 		if (Zoom.canZoom()) Zoom.updateMultiplier();
 	}
 	@ModifyReturnValue(method = "getFov", at = @At("RETURN"))
-	private float perspective$getFov(float fov) {
-		if (this.camera != null && Zoom.canZoom()) {
+	private float perspective$getFov(float fov, Camera camera, float tickDelta, boolean changingFov) {
+		if (camera != null && Zoom.canZoom()) {
 			Zoom.fov = fov;
-			double newFOV = fov;
+			float newFOV = fov;
 			if (!this.isRenderingPanorama()) {
-				if (ConfigHelper.getConfig("zoom_transition").equals("instant")) {
+				if (PerspectiveConfig.config.zoomTransition.value().equals("instant")) {
 					newFOV *= Zoom.getMultiplier();
 				}
-				if (ConfigHelper.getConfig("zoom_transition").equals("smooth")) {
-					newFOV *= MathHelper.lerp(ClientData.minecraft.getRenderTickCounter().getTickProgress(true), Zoom.getPrevMultiplier(), Zoom.getMultiplier());
+				if (PerspectiveConfig.config.zoomTransition.value().equals("smooth")) {
+					newFOV *= MathHelper.lerp(tickDelta, Zoom.getPrevMultiplier(), Zoom.getMultiplier());
 				}
 			}
 			if (Zoom.getZoomType().equals(Zoom.Logarithmic.getIdentifier())) Zoom.zoomFOV = Zoom.Logarithmic.getLimitFOV(newFOV);

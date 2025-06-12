@@ -1,25 +1,24 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.client.hud;
 
+import com.mclegoman.viewpoint.luminance.common.util.IdentifierHelper;
+import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
+import com.mclegoman.viewpoint.client.config.value.QualityToggle;
 import com.mclegoman.viewpoint.client.data.ClientData;
-import com.mclegoman.viewpoint.client.events.Events;
+import com.mclegoman.viewpoint.client.events.PerspectiveEvents;
 import com.mclegoman.viewpoint.client.translation.Translation;
-import com.mclegoman.viewpoint.client.util.IdentifierHelper;
 import com.mclegoman.viewpoint.client.util.Mouse;
 import com.mclegoman.viewpoint.client.util.Position;
 import com.mclegoman.viewpoint.common.data.Data;
-import com.mclegoman.viewpoint.config.ConfigHelper;
-import com.mclegoman.viewpoint.config.value.QualityToggle;
-import com.mclegoman.viewpoint.mixin.client.entity.WolfEntityAccessor;
+import com.mclegoman.viewpoint.common.util.Identifiers;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -28,7 +27,6 @@ import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.network.packet.c2s.play.ClientStatusC2SPacket;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -48,18 +46,18 @@ public class Overlays {
 		timeOverlayTypes.add("false");
 		timeOverlayTypes.add("twelve_hour");
 		timeOverlayTypes.add("twenty_four_hour");
-		Mouse.ProcessCPS.register(Identifier.of(Data.version.getID(), "cps_overlay"), () -> (boolean)ConfigHelper.getConfig("cps_overlay"));
+		Mouse.ProcessCPS.register(Identifiers.CPS_OVERLAY, PerspectiveConfig.config.cpsOverlay::value);
 		createVariables();
 	}
 	private static void createVariables() {
-		Events.Variables.register(Identifier.of(Data.version.getID(), "position"), (tickCounter, args) -> {
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "position"), (args) -> {
 			if (ClientData.minecraft.player != null) {
 				boolean integer = args[0] != null && args[0].equalsIgnoreCase("true");
-				return Translation.getTranslation(Data.version.getID(), "position.description", new Object[]{Position.getX(ClientData.minecraft.player.getPos(), integer), Position.getY(ClientData.minecraft.player.getPos(), integer), Position.getZ(ClientData.minecraft.player.getPos(), integer)});
+				return Translation.getTranslation(Data.getVersion().getID(), "position.description", new Object[]{Position.getX(ClientData.minecraft.player.getPos(), integer), Position.getY(ClientData.minecraft.player.getPos(), integer), Position.getZ(ClientData.minecraft.player.getPos(), integer)});
 			}
 			return Text.literal("?");
 		});
-		Events.Variables.register(Identifier.of(Data.version.getID(), "time"), (tickCounter, args) -> {
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "time"), (args) -> {
 			if (ClientData.minecraft.world != null) {
 				long time = ClientData.minecraft.world.getTimeOfDay() % 24000L;
 				int rawHour = (int) (time / 1000 + 6) % 24;
@@ -70,85 +68,85 @@ public class Overlays {
 				if (args[0] != null && args[0].equalsIgnoreCase("twelve_hour")) {
 					hour = String.valueOf(rawHour == 0 || rawHour == 12 ? 12 : rawHour % 12);
 					if (rawHour < 10 && rawHour != 0) hour = "0" + hour;
-					suffix = rawHour < 12 ? Translation.getTranslation(Data.version.getID(), "time_overlay.am") : Translation.getTranslation(Data.version.getID(), "time_overlay.pm");
+					suffix = rawHour < 12 ? Translation.getTranslation(Data.getVersion().getID(), "time_overlay.am") : Translation.getTranslation(Data.getVersion().getID(), "time_overlay.pm");
 				}
-				return Translation.getTranslation(Data.version.getID(), "time", new Object[]{hour, minute, suffix});
+				return Translation.getTranslation(Data.getVersion().getID(), "time", new Object[]{hour, minute, suffix});
 			}
 			return Text.literal("?");
 		});
-		Events.Variables.register(Identifier.of(Data.version.getID(), "day"), (tickCounter, args) -> Text.literal(String.valueOf(ClientData.minecraft.world != null ? ClientData.minecraft.world.getTimeOfDay() / 24000L : "?")));
-		Events.Variables.register(Identifier.of(Data.version.getID(), "biome"), (tickCounter, args) -> {
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "day"), (args) -> Text.literal(String.valueOf(ClientData.minecraft.world != null ? ClientData.minecraft.world.getTimeOfDay() / 24000L : "?")));
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "biome"), (args) -> {
 			String biome = ClientData.minecraft.player != null && ClientData.minecraft.world != null ? ClientData.minecraft.world.getBiome(ClientData.minecraft.player.getBlockPos()).getKeyOrValue().map((biomeKey) -> biomeKey.getValue().toString(), (biome_) -> "[unregistered " + biome_ + "]") : null;
 			return biome != null ? Text.translatable("biome." + IdentifierHelper.getStringPart(IdentifierHelper.Type.NAMESPACE, biome) + "." + IdentifierHelper.getStringPart(IdentifierHelper.Type.KEY, biome)) : Text.literal("?");
 		});
-		Events.Variables.register(Identifier.of(Data.version.getID(), "stat_used"), (tickCounter, args) -> Text.literal(args[0] != null && ClientData.minecraft.player != null ? String.valueOf(ClientData.minecraft.player.getStatHandler().getStat(Stats.USED.getOrCreateStat(Registries.ITEM.get(Identifier.of(args[0]))))) : "?"));
-		Events.Variables.register(Identifier.of(Data.version.getID(), "stat_custom"), (tickCounter, args) -> Text.literal(args[0] != null && ClientData.minecraft.player != null ? String.valueOf(ClientData.minecraft.player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Registries.CUSTOM_STAT.get(Identifier.of(args[0]))))) : "?"));
-		Events.Variables.register(Identifier.of(Data.version.getID(), "cps_left"), (tickCounter, args) -> Text.literal(String.valueOf(Mouse.getLeftCPS())));
-		Events.Variables.register(Identifier.of(Data.version.getID(), "cps_middle"), (tickCounter, args) -> Text.literal(String.valueOf(Mouse.getMiddleCPS())));
-		Events.Variables.register(Identifier.of(Data.version.getID(), "cps_right"), (tickCounter, args) -> Text.literal(String.valueOf(Mouse.getRightCPS())));
-		Events.Variables.register(Identifier.of(Data.version.getID(), "looking_at"), (tickCounter, args) -> getLookingAt((LivingEntity) ClientData.minecraft.cameraEntity, tickCounter));
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "stat_used"), (args) -> Text.literal(args[0] != null && ClientData.minecraft.player != null ? String.valueOf(ClientData.minecraft.player.getStatHandler().getStat(Stats.USED.getOrCreateStat(Registries.ITEM.get(Identifier.of(args[0]))))) : "?"));
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "stat_custom"), (args) -> Text.literal(args[0] != null && ClientData.minecraft.player != null ? String.valueOf(ClientData.minecraft.player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Registries.CUSTOM_STAT.get(Identifier.of(args[0]))))) : "?"));
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "cps_left"), (args) -> Text.literal(String.valueOf(Mouse.getLeftCPS())));
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "cps_middle"), (args) -> Text.literal(String.valueOf(Mouse.getMiddleCPS())));
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "cps_right"), (args) -> Text.literal(String.valueOf(Mouse.getRightCPS())));
+		PerspectiveEvents.Variables.register(Identifier.of(Data.getVersion().getID(), "looking_at"), (args) -> getLookingAt((LivingEntity) ClientData.minecraft.cameraEntity));
 	}
 	public static void updateStats() {
 		if (ClientData.minecraft.getNetworkHandler() != null) ClientData.minecraft.getNetworkHandler().sendPacket(new ClientStatusC2SPacket(ClientStatusC2SPacket.Mode.REQUEST_STATS));
 	}
 	public static String getCurrentTimeOverlay() {
-		return (String) ConfigHelper.getConfig("time_overlay");
+		return PerspectiveConfig.config.timeOverlay.value();
 	}
 	public static boolean isValidTimeOverlay(String timeOverlay) {
 		return timeOverlayTypes.contains(timeOverlay);
 	}
 	public static void cycleTimeOverlay(boolean direction) {
 		int currentIndex = timeOverlayTypes.indexOf(getCurrentTimeOverlay());
-		ConfigHelper.setConfig("time_overlay", timeOverlayTypes.get(direction ? (currentIndex + 1) % timeOverlayTypes.size() : (currentIndex - 1 + timeOverlayTypes.size()) % timeOverlayTypes.size()));
+		PerspectiveConfig.config.timeOverlay.setValue(timeOverlayTypes.get(direction ? (currentIndex + 1) % timeOverlayTypes.size() : (currentIndex - 1 + timeOverlayTypes.size()) % timeOverlayTypes.size()), false);
 	}
 	public static Text getEntityPositionTextTitle() {
-		return Translation.getTranslation(Data.version.getID(), "position.title");
+		return Translation.getTranslation(Data.getVersion().getID(), "position.title");
 	}
 	public static Text getEntityPositionTextDescription(Vec3d pos) {
-		return Translation.getTranslation(Data.version.getID(), "position.description", new Object[]{
+		return Translation.getTranslation(Data.getVersion().getID(), "position.description", new Object[]{
 				Position.getX(pos, true),
 				Position.getY(pos, true),
 				Position.getZ(pos, true),
 		});
 	}
-	public static void renderOverlays(DrawContext context, RenderTickCounter tickCounter) {
+	public static void renderOverlays(DrawContext context) {
+		// TODO: Update config to have a overlays List<String> which gets parsed, this will replace the current overlay values, and the config screen will add ways to add them and custom ones!
 		if (!ClientData.minecraft.getDebugHud().shouldShowDebugHud() && !ClientData.minecraft.options.hudHidden && !HUDHelper.shouldHideHUD()) {
 			// Version Overlay
-			if ((boolean) ConfigHelper.getConfig("version_overlay")) {
-                context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.version.getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xFFFFFFFF);
-            }
+			if (PerspectiveConfig.config.versionOverlay.value())
+				context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.getVersion().getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
 			// Other Overlays
 			int y = 40;
 			List<Text> overlayTexts = new ArrayList<>();
-			if ((boolean) ConfigHelper.getConfig("position_overlay")) {
-				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.version.getID(), "position_overlay") + "](Translatable[" + Translation.getTranslationKey(Data.version.getID(), "position.title") + "]," + "Variable[" + Data.version.getID() + ":position](true))", tickCounter));
+			if (PerspectiveConfig.config.positionOverlay.value()) {
+				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "position_overlay") + "](Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "position.title") + "]," + "Variable[" + Data.getVersion().getID() + ":position](true))"));
 			}
-			if (!((String)(ConfigHelper.getConfig("time_overlay"))).equalsIgnoreCase("false")) {
-				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.version.getID(), "time_overlay") + "](Variable[" + Data.version.getID() + ":time](" + (String)ConfigHelper.getConfig("time_overlay") + "))", tickCounter));
+			if (!PerspectiveConfig.config.timeOverlay.value().equals("false")) {
+				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "time_overlay") + "](Variable[" + Data.getVersion().getID() + ":time](" + PerspectiveConfig.config.timeOverlay.value() + "))"));
 			}
-			if ((boolean) ConfigHelper.getConfig("day_overlay")) {
-				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.version.getID(), "day_overlay") + "](Variable[" + Data.version.getID() + ":day])", tickCounter));
+			if (PerspectiveConfig.config.dayOverlay.value()) {
+				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "day_overlay") + "](Variable[" + Data.getVersion().getID() + ":day])"));
 			}
-			if ((boolean) ConfigHelper.getConfig("biome_overlay")) {
-				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.version.getID(), "biome_overlay") + "](Variable[" + Data.version.getID() + ":biome])", tickCounter));
+			if (PerspectiveConfig.config.biomeOverlay.value()) {
+				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "biome_overlay") + "](Variable[" + Data.getVersion().getID() + ":biome])"));
 			}
-			if ((boolean) ConfigHelper.getConfig("deaths_overlay")) {
-				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.version.getID(), "deaths_overlay") + "](Variable[" + Data.version.getID() + ":stat_custom](" + Stats.DEATHS + "))", tickCounter));
+			if (PerspectiveConfig.config.deathsOverlay.value()) {
+				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "deaths_overlay") + "](Variable[" + Data.getVersion().getID() + ":stat_custom](" + Stats.DEATHS + "))"));
 			}
-			if ((boolean) ConfigHelper.getConfig("totems_overlay")) {
-				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.version.getID(), "totems_overlay") + "](Variable[" + Data.version.getID() + ":stat_used](minecraft:totem_of_undying))", tickCounter));
+			if (PerspectiveConfig.config.totemsOverlay.value()) {
+				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "totems_overlay") + "](Variable[" + Data.getVersion().getID() + ":stat_used](minecraft:totem_of_undying))"));
 			}
-			if ((boolean) ConfigHelper.getConfig("cps_overlay")) {
-				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.version.getID(), "cps_overlay") + "](Variable[" + Data.version.getID() + ":cps_left],Variable[" + Data.version.getID() + ":cps_middle],Variable[" + Data.version.getID() + ":cps_right])", tickCounter));
+			if (PerspectiveConfig.config.cpsOverlay.value()) {
+				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "cps_overlay") + "](Variable[" + Data.getVersion().getID() + ":cps_left],Variable[" + Data.getVersion().getID() + ":cps_middle],Variable[" + Data.getVersion().getID() + ":cps_right])"));
 			}
-			if (!((String) ConfigHelper.getConfig("looking_at_overlay")).equals(QualityToggle.off.asString())) {
-				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.version.getID(), "looking_at_overlay") + "](Variable[" + Data.version.getID() + ":looking_at])", tickCounter));
+			if (PerspectiveConfig.config.lookingAtOverlay.value() != QualityToggle.off) {
+				overlayTexts.add(Translation.getParsedTextFromString("Translatable[" + Translation.getTranslationKey(Data.getVersion().getID(), "looking_at_overlay") + "](Variable[" + Data.getVersion().getID() + ":looking_at])"));
 			}
 			renderOverlays(context, overlayTexts, 0, y, false);
 		}
 	}
 	public static void renderOverlay(DrawContext context, int x, int y, Text text) {
-		renderOverlay(context, x, y, text, -1873784752, 0xFFFFFFFF, false);
+		renderOverlay(context, x, y, text, -1873784752, 0xffffff, false);
 	}
 	public static void renderOverlay(DrawContext context, int x, int y, Text text, int backgroundColor, int textColor, boolean shadow) {
 		context.fill(x, y, x + ClientData.minecraft.textRenderer.getWidth(text) + 4, y + 12, backgroundColor);
@@ -171,15 +169,15 @@ public class Overlays {
 			y = HUDHelper.addY(y);
 		}
 	}
-	public static Text getLookingAt(LivingEntity entity, RenderTickCounter tickCounter) {
+	public static Text getLookingAt(LivingEntity entity) {
 		if (entity != null) {
 			HitResult hitResult = ClientData.minecraft.crosshairTarget;
 			if (hitResult != null) {
 				switch (hitResult.getType()) {
 					case ENTITY -> {
-						return getLookingAtEntity((EntityHitResult) hitResult, QualityToggle.valueOf(((String)ConfigHelper.getConfig("looking_at_overlay"))), entity);
+						return getLookingAtEntity((EntityHitResult) hitResult, PerspectiveConfig.config.lookingAtOverlay.value(), entity);
 					} case BLOCK -> {
-						return getBlock((BlockHitResult) hitResult, QualityToggle.valueOf(((String)ConfigHelper.getConfig("looking_at_overlay"))), entity, tickCounter);
+						return getBlock((BlockHitResult) hitResult, PerspectiveConfig.config.lookingAtOverlay.value(), entity);
 					}
 				}
 			}
@@ -246,11 +244,8 @@ public class Overlays {
 				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
 			}
 			case WolfEntity holderEntity -> {
-				RegistryEntry<WolfVariant> entry = ((WolfEntityAccessor)holderEntity).getVariant();
-				if (entry != null) {
-					Identifier variant = Identifier.of(entry.getIdAsString().toLowerCase());
-					return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
-				}
+				Identifier variant = Identifier.of(holderEntity.getVariant().getIdAsString().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
 			}
 			case CatEntity holderEntity -> {
 				Identifier variant = Identifier.of(holderEntity.getVariant().getIdAsString().toLowerCase());
@@ -275,18 +270,18 @@ public class Overlays {
 	private static String getLookingAtIdVariantTranslationKey(Entity entity, Identifier variant) {
 		return variant.toTranslationKey(entity.getType().getTranslationKey() + ".variant");
 	}
-	private static Text getBlock(BlockHitResult hitResult, QualityToggle quality, LivingEntity entity, RenderTickCounter tickCounter) {
+	private static Text getBlock(BlockHitResult hitResult, QualityToggle quality, LivingEntity entity) {
 		switch (quality) {
 			case fast -> {
 				return entity.getWorld().getBlockState(hitResult.getBlockPos()).getBlock().getName();
 			}
 			case fancy -> {
-				return entity.getWorld().getBlockState(((BlockHitResult)entity.raycast(entity.getAttributeValue(EntityAttributes.BLOCK_INTERACTION_RANGE), tickCounter.getTickProgress(true), true)).getBlockPos()).getBlock().getName();
+				return entity.getWorld().getBlockState(((BlockHitResult)entity.raycast(entity.getAttributeValue(EntityAttributes.BLOCK_INTERACTION_RANGE), ClientData.minecraft.getRenderTickCounter().getTickProgress(true), true)).getBlockPos()).getBlock().getName();
 			}
 		}
 		return getLookingAtFallbackText();
 	}
 	private static Text getLookingAtFallbackText() {
-		return Translation.getTranslation(Data.version.getID(), "looking_at_overlay.none");
+		return Translation.getTranslation(Data.getVersion().getID(), "looking_at_overlay.none");
 	}
 }

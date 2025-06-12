@@ -1,16 +1,27 @@
 {
-	"gui.viewpoint.name": "viewpoint",
+	"gui.viewpoint.name": "Viewpoint",
 	"gui.viewpoint.version": "%s %s",
 	"gui.viewpoint.license": "Licensed under LGPL-3.0-or-later.",
+
+	"gui.viewpoint.config": "%s %s",
 
 	"gui.viewpoint.toasts.title": "%s: %s",
 
 	"gui.viewpoint.toasts.keybinding_conflicts.title": "Conflicting Keybinding",
-	"gui.viewpoint.toasts.keybinding_conflicts.description": "Keybinding conflicts have been detected that could affect Perspective.\nPlease take a moment to review and adjust your keybindings as needed.",
+	"gui.viewpoint.toasts.keybinding_conflicts.description": "Keybinding conflicts have been detected.",
 
-	"gui.viewpoint.config.reload": "Reloaded Config!",
+	"gui.viewpoint.toasts.update.title": "Update Available",
+	"gui.viewpoint.toasts.update.description": "%s is now available on Modrinth!",
+
+	"gui.viewpoint.toasts.development_warning.title": "Development Build",
+	"gui.viewpoint.toasts.development_warning.description": "Please submit a bug report if you encounter any issues.",
+
+	"gui.viewpoint.toasts.downgrade_warning.title": "Downgrading is not supported",
+	"gui.viewpoint.toasts.downgrade_warning.description": "You may experience configuration related issues.",
 
 	"gui.viewpoint.config.config": "Config",
+
+	"gui.viewpoint.config.warning.perspective": "When possible, it's recommended to use Perspective instead!",
 
 	"gui.viewpoint.config.zoom": "Zoom",
 
@@ -38,11 +49,22 @@
 	"gui.viewpoint.config.zoom.scale_mode.vanilla.hover": "Mouse movements and visual effects remain unscaled when zooming.",
 
 	"gui.viewpoint.config.zoom.hide_hud": "Hide HUD: %s",
+	"gui.viewpoint.config.zoom.hide_hud.hover": "%s",
+	"gui.viewpoint.config.zoom.hide_hud.true": "Everything",
+	"gui.viewpoint.config.zoom.hide_hud.true.hover": "The entire HUD will be hidden whilst zooming.",
+	"gui.viewpoint.config.zoom.hide_hud.hand": "Hands",
+	"gui.viewpoint.config.zoom.hide_hud.hand.hover": "The players hands will be hidden whilst zooming.",
+	"gui.viewpoint.config.zoom.hide_hud.false": "Nothing",
+	"gui.viewpoint.config.zoom.hide_hud.false.hover": "Nothing will be hidden whilst zooming.",
 
 	"gui.viewpoint.config.zoom.show_percentage": "Show Percentage: %s",
 
 	"gui.viewpoint.config.zoom.smooth_speed_in": "Smooth Speed In: %s",
 	"gui.viewpoint.config.zoom.smooth_speed_out": "Smooth Speed Out: %s",
+	"gui.viewpoint.config.zoom.smooth_speed.value": "%s",
+	"gui.viewpoint.config.zoom.smooth_speed.min": "Slow",
+	"gui.viewpoint.config.zoom.smooth_speed.normal": "Normal",
+	"gui.viewpoint.config.zoom.smooth_speed.max": "Fast",
 
 	"gui.viewpoint.config.zoom.enabled": "Allow Zoom: %s",
 	"gui.viewpoint.config.zoom.enabled.hover": "%s",
@@ -64,55 +86,8 @@
 	"gui.viewpoint.config.hold_perspective.back.hide_hud": "Back Hide HUD: %s",
 	"gui.viewpoint.config.hold_perspective.front.hide_hud": "Front Hide HUD: %s",
 
-	"gui.viewpoint.config.hide_hud.hide_vignette": "Hide Vignette on Hide Hud: %s",
-	"gui.viewpoint.config.hide_hud.hide_vignette.hover": "When enabled, the vignette will also be hidden when Hide Hud is enabled (usually whilst using Zoom or Hold Perspective).",
-
-	"gui.viewpoint.config.reset": "Reset to Default",
-	"gui.viewpoint.config.back": "Back",
-	"gui.viewpoint.config.next": "Next",
-
-	"gui.viewpoint.message.zoom_level": "Zoom: %s",
-
-	"gui.viewpoint.keybindings.category.viewpoint": "viewpoint",
-	
-	"gui.viewpoint.keybindings.keybinding.hold_perspective_third_person_back": "Hold Third Person Back",
-
-	"gui.viewpoint.keybindings.keybinding.hold_perspective_third_person_front": "Hold Third Person Front",
-
-	"gui.viewpoint.keybindings.keybinding.hold_zoom": "Hold Zoom",
-
-	"gui.viewpoint.keybindings.keybinding.open_config": "Open Config",
-
-	"gui.viewpoint.keybindings.keybinding.set_perspective_first_person": "Set First Person",
-
-	"gui.viewpoint.keybindings.keybinding.set_perspective_third_person_back": "Set Third Person Back",
-
-	"gui.viewpoint.keybindings.keybinding.set_perspective_third_person_front": "Set Third Person Front",
-
-	"gui.viewpoint.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
-
-	"gui.viewpoint.keybindings.keybinding.toggle_zoom_cinematic": "Toggle Cinematic Zoom",
-
-	"gui.viewpoint.keybindings.keybinding.take_pano_screenshot": "Take Panoramic Screenshot",
-
-	"gui.viewpoint.variable.endisable.on": "Enabled",
-	"gui.viewpoint.variable.endisable.off": "Disabled",
-
-	"gui.viewpoint.variable.onff.on": "ON",
-	"gui.viewpoint.variable.onff.off": "OFF",
-
-	"gui.viewpoint.variable.blur.on": "\uD83D\uDE48",
-	"gui.viewpoint.variable.blur.off": "\uD83D\uDC35",
-
-	"gui.viewpoint.variable.disable_screen_mode.on": "*",
-	"gui.viewpoint.variable.disable_screen_mode.off": "",
-
-	"gui.viewpoint.config.error": "ERROR",
-
-	"gui.viewpoint.perspective.fork": "viewpoint is a partial fork of Perspective.",
-	"gui.viewpoint.perspective.use": "It's recommended to use Perspective when possible.",
-
-	"dannytaylor.donate": "Ko-Fi",
+	"gui.viewpoint.config.hold_perspective.increment_size": "Increment Multiplier: %s",
+	"gui.viewpoint.config.hold_perspective.increment_size.hover": "Sets the multiplier of hold perspective multiplier adjustment when using the scroll wheel.",
 
 	"gui.viewpoint.config.overlays": "Overlays",
 
@@ -135,10 +110,145 @@
 	"gui.viewpoint.config.overlays.deaths_overlay": "Deaths Overlay: %s",
 
 	"gui.viewpoint.config.overlays.totems_overlay": "Totems Overlay: %s",
-	
+
+	"gui.viewpoint.config.show_death_coordinates": "Death Coordinates: %s",
+
+	"gui.viewpoint.config.ui_background": "UI Background: %s",
+
+	"gui.viewpoint.config.hide": "Hide",
+
+	"gui.viewpoint.config.hide.block_outline": "Block Outline: %s",
+	"gui.viewpoint.config.hide.block_outline.level": "Block Outline: %s",
+	"gui.viewpoint.config.hide.rainbow_block_outline": "Rainbow Block Outline: %s",
+
+	"gui.viewpoint.config.hide.crosshair": "Crosshair Type: %s",
+
+	"gui.viewpoint.config.hide.hide_armor": "Global Hide Armor: %s",
+	"gui.viewpoint.config.hide.hide_armor.hover": "Toggles whether player armor should be rendered.",
+
+	"gui.viewpoint.config.hide.hide_nametags": "Global Hide Nametags: %s",
+	"gui.viewpoint.config.hide.hide_nametags.hover": "Toggles whether entity nametags should be rendered.",
+
+	"gui.viewpoint.config.hide.hide_players": "Global Hide Players: %s",
+	"gui.viewpoint.config.hide.hide_players.hover": "Toggles whether other players should be rendered.",
+
+	"gui.viewpoint.config.hide.show_message": "Overlay Message: %s",
+
+	"gui.viewpoint.config.perspective": "Download Perspective!",
+
+	"gui.viewpoint.config.contributor": "Contributor",
+
+	"gui.viewpoint.config.contributor.flip": "Invert Flip: %s",
+	"gui.viewpoint.config.contributor.flip.hold_perspective.back": "Invert Flip on Hold Perspective Back: %s",
+	"gui.viewpoint.config.contributor.flip.hold_perspective.front": "Invert Flip on Hold Perspective Front: %s",
+
+	"gui.viewpoint.config.reset": "Reset to Default",
+	"gui.viewpoint.config.reset.experiments": "Disable All Experiments",
+	"gui.viewpoint.config.back": "Back",
+	"gui.viewpoint.config.next": "Next",
+
+	"gui.viewpoint.message.zoom_level": "Zoom: %s",
+
+	"gui.viewpoint.message.take_panorama_screenshot.success": "Saved panorama as %s",
+	"gui.viewpoint.message.take_panorama_screenshot.fail": "Failed to take panorama: %s",
+
+	"gui.viewpoint.message.hide.armor": "Hide Armor: %s",
+
+	"gui.viewpoint.message.hide.block_outline": "Block Outline: %s",
+
+	"gui.viewpoint.message.hide.crosshair": "Crosshair Type: %s",
+
+	"gui.viewpoint.message.hide.nametags": "Hide Nametags: %s",
+
+	"gui.viewpoint.message.hide.players": "Hide Players: %s",
+
+	"gui.viewpoint.keybindings.category.viewpoint": "Viewpoint",
+
+	"gui.viewpoint.keybindings.keybinding.cycle_crosshair": "Cycle Crosshair Type",
+
+	"gui.viewpoint.keybindings.keybinding.hold_perspective_third_person_back": "Hold Third Person Back",
+
+	"gui.viewpoint.keybindings.keybinding.hold_perspective_third_person_front": "Hold Third Person Front",
+
+	"gui.viewpoint.keybindings.keybinding.hold_zoom": "Hold Zoom",
+
+	"gui.viewpoint.keybindings.keybinding.open_config": "Open Config",
+
+	"gui.viewpoint.keybindings.keybinding.set_viewpoint_first_person": "Set First Person",
+
+	"gui.viewpoint.keybindings.keybinding.set_viewpoint_third_person_back": "Set Third Person Back",
+
+	"gui.viewpoint.keybindings.keybinding.set_viewpoint_third_person_front": "Set Third Person Front",
+
+	"gui.viewpoint.keybindings.keybinding.take_panorama_screenshot": "Take Panorama Screenshot",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_armor": "Toggle Armor",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_block_outline": "Toggle Block Outline",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_players": "Toggle Players",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_version_overlay": "Toggle Version Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_position_overlay": "Toggle Position Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_day_overlay": "Toggle Day Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_biome_overlay": "Toggle Biome Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_cps_overlay": "Toggle CPS Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_armor_overlay": "Toggle Armor Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_deaths_overlay": "Toggle Deaths Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_totems_overlay": "Toggle Totems Overlay",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
+
+	"gui.viewpoint.keybindings.keybinding.toggle_zoom_cinematic": "Toggle Cinematic Zoom",
+
+	"gui.viewpoint.keybindings.keybinding.adjust_hold_perspective": "Adjust Hold Perspective",
+
+	"gui.viewpoint.quality.fast": "Fast",
+	"gui.viewpoint.quality.fancy": "Fancy",
+
+	"gui.viewpoint.variable.endisable.on": "Enabled",
+	"gui.viewpoint.variable.endisable.off": "Disabled",
+
+	"gui.viewpoint.variable.onff.on": "ON",
+	"gui.viewpoint.variable.onff.off": "OFF",
+
+	"gui.viewpoint.variable.blur.on": "\uD83D\uDE48",
+	"gui.viewpoint.variable.blur.off": "\uD83D\uDC35",
+
+	"gui.viewpoint.config.error": "ERROR",
+
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.default": "Default",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.default.hover": "Renders a box blur over menu backgrounds.",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.gaussian": "Gaussian",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.gaussian.hover": "Renders a gaussian blur over menu backgrounds.",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.legacy": "Legacy",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.legacy.hover": "Darkens menu backgrounds when in world, renders dirt background on menu screens when not in a world.",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.classic": "Classic",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.classic.hover": "Darkens menu backgrounds when in world, renders dirt background on menu screens - including the title screen - when not in a world.",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.none": "None",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.none.hover": "Nothing will be rendered over the menu backgrounds.",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.fallback": "§4ERROR",
+	"gui.viewpoint.config.shaders.ui_background.type.viewpoint.fallback.hover": "An error occurred. UI Background is currently disabled.",
+
 	"gui.viewpoint.config.time_overlay.type.false": "OFF",
 	"gui.viewpoint.config.time_overlay.type.twelve_hour": "12 Hour",
 	"gui.viewpoint.config.time_overlay.type.twenty_four_hour": "24 Hour",
+
+	"gui.viewpoint.config.crosshair.type.vanilla": "Vanilla",
+	"gui.viewpoint.config.crosshair.type.dynamic": "Dynamic",
+	"gui.viewpoint.config.crosshair.type.hidden": "Hidden",
+
+	"gui.viewpoint.config.title_screen.type.default": "Default",
+	"gui.viewpoint.config.title_screen.type.dirt": "Dirt",
 
 	"gui.viewpoint.position.title": "Position",
 	"gui.viewpoint.position.description": "%s, %s, %s",
@@ -157,32 +267,17 @@
 	"gui.viewpoint.looking_at_overlay": "Looking At: %s",
 	"gui.viewpoint.looking_at_overlay.none": "--",
 
-	"gui.viewpoint.keybindings.keybinding.toggle_version_overlay": "Toggle Version Overlay",
+	"gui.viewpoint.show_death_coordinates": "%s: %s",
 
-	"gui.viewpoint.keybindings.keybinding.toggle_position_overlay": "Toggle Position Overlay",
+	"splashes.viewpoint.whered_my_hud_go": "Where'd my HUD go?",
+	"splashes.viewpoint.also_try_souper_secret_settings": "Also try Souper Secret Settings!",
+	"splashes.viewpoint.also_try_perspective": "Also try Perspective!",
+	"splashes.viewpoint.its_a_mod": "It's a mod!",
+	"splashes.viewpoint.takes_panoramic_screenshots": "Takes panoramic screenshots!",
+	"splashes.viewpoint.open_source": "Open source!",
+	"splashes.viewpoint.this_is_a_splash_text": "This is a splash text!",
 
-	"gui.viewpoint.keybindings.keybinding.toggle_day_overlay": "Toggle Day Overlay",
+	"splashes.viewpoint.special.pride_month": "§4Hap§6py P§eri§2de §9Mon§5th!",
 
-	"gui.viewpoint.keybindings.keybinding.toggle_biome_overlay": "Toggle Biome Overlay",
-
-	"gui.viewpoint.keybindings.keybinding.toggle_cps_overlay": "Toggle CPS Overlay",
-
-	"gui.viewpoint.keybindings.keybinding.toggle_armor_overlay": "Toggle Armor Overlay",
-
-	"gui.viewpoint.keybindings.keybinding.toggle_deaths_overlay": "Toggle Deaths Overlay",
-
-	"gui.viewpoint.keybindings.keybinding.toggle_totems_overlay": "Toggle Totems Overlay",
-	
-	"gui.viewpoint.quality.fast": "Fast",
-	"gui.viewpoint.quality.fancy": "Fancy",
-
-	"gui.viewpoint.config.hold_perspective.increment_size": "Increment Multiplier: %s",
-	"gui.viewpoint.config.hold_perspective.increment_size.hover": "Sets the multiplier of hold perspective multiplier adjustment when using the scroll wheel.",
-
-	"gui.viewpoint.keybindings.keybinding.adjust_hold_perspective": "Adjust Hold Perspective",
-
-	"gui.viewpoint.config.contributor": "Contributor",
-	"gui.viewpoint.config.contributor.flip": "Always Flip: %s",
-	"gui.viewpoint.config.contributor.flip.hold_perspective.back": "Flip on Hold Perspective Back: %s",
-	"gui.viewpoint.config.contributor.flip.hold_perspective.front": "Flip on Hold Perspective Front: %s"
+	"gui.viewpoint.more": "..."
 }

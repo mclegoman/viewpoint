@@ -1,17 +1,19 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.compat;
 
+import com.mclegoman.viewpoint.client.screen.config.ConfigScreen;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 
 public class CatalogueCompat {
-	public static Screen createConfigScreen(Screen currentScreen, ModContainer mod) {
-		return ConfigScreenCompat.getConfigEntryScreen(currentScreen);
+	public static Screen createConfigScreen(Screen currentScreen, ModContainer container) {
+		return new ConfigScreen(MinecraftClient.getInstance().currentScreen, 1);
 	}
 }

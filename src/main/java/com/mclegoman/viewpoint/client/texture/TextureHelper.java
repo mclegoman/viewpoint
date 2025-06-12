@@ -1,16 +1,37 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.client.texture;
 
+import com.mclegoman.viewpoint.luminance.common.util.DateHelper;
+import com.mclegoman.viewpoint.luminance.common.util.LogType;
+import com.mclegoman.viewpoint.client.translation.Translation;
+import com.mclegoman.viewpoint.common.data.Data;
 import net.minecraft.util.Identifier;
+
+import java.time.LocalDate;
+import java.time.Month;
 
 public class TextureHelper {
 	public static Identifier getTexture(Identifier texture, Identifier current) {
-		return texture.getPath().equals("none") ? current : Identifier.of(texture.getNamespace(), texture.getPath().endsWith(".png") ? texture.getPath() : texture.getPath() + ".png");
+		String path = texture.getPath();
+		if (!path.equalsIgnoreCase("none")) {
+			Identifier textureId = texture;
+			if (path.equalsIgnoreCase("developer_cape")) {
+				LocalDate date = DateHelper.getDate();
+				textureId = Identifier.of(Data.getVersion().getID(), "textures/contributors/cape/dev_" + (((date.getYear() >= 2026) || date.getYear() == 2025 && (date.getMonth().getValue() >= Month.JULY.getValue() || (date.getMonth() == Month.JUNE && date.getDayOfMonth() >= 14))) ? "two" : "one") + "year.png");
+			}
+			return Identifier.of(textureId.getNamespace(), textureId.getPath().endsWith(".png") ? textureId.getPath() : textureId.getPath() + ".png");
+		}
+		return current;
+	}
+	public static Identifier getTexture(Identifier texture, Identifier current, Identifier skin) {
+		String path = texture.getPath();
+		if (path.equalsIgnoreCase("skin")) return skin;
+		return getTexture(texture, current);
 	}
 }

@@ -1,13 +1,15 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.client.contributor;
 
-import com.mclegoman.viewpoint.client.util.IdentifierHelper;
+import com.mclegoman.viewpoint.client.config.ContributorConfig;
+import com.mclegoman.viewpoint.client.data.ClientData;
+import com.mclegoman.viewpoint.luminance.common.util.IdentifierHelper;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -85,7 +87,9 @@ public class ContributorData {
 		return this.type;
 	}
 	public boolean getShouldFlipUpsideDown() {
-		return this.shouldFlipUpsideDown;
+		boolean shouldFlipUpsideDown = this.shouldFlipUpsideDown;
+		if (ClientData.minecraft.player != null && getUuid().equalsIgnoreCase(ClientData.minecraft.player.getGameProfile().getId().toString()) && ContributorConfig.isFlip()) shouldFlipUpsideDown = !shouldFlipUpsideDown;
+		return shouldFlipUpsideDown;
 	}
 	public boolean getShouldReplaceCape() {
 		return this.shouldReplaceCape;

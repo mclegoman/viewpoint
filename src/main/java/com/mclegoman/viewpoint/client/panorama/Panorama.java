@@ -1,7 +1,7 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
@@ -11,83 +11,116 @@ import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.keybindings.Keybindings;
 import com.mclegoman.viewpoint.client.translation.Translation;
 import com.mclegoman.viewpoint.common.data.Data;
-import com.mclegoman.viewpoint.luminance.LogType;
-import net.minecraft.client.option.GraphicsMode;
+import net.minecraft.SharedConstants;
+import net.minecraft.client.gl.Framebuffer;
+import net.minecraft.client.option.Perspective;
+import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.resource.ResourceType;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileWriter;
 
 public class Panorama {
-	private static final List<String> incompatibleMods = new ArrayList<>();
-
-	public static void addIncompatibleMod(String modID) {
-		if (!incompatibleMods.contains(modID)) incompatibleMods.add(modID);
-	}
-
-	public static List<String> getIncompatibleMods() {
-		List<String> incompatibleModsFound = new ArrayList<>();
-		for (String modID : incompatibleMods) {
-			if (Data.isModInstalled(modID)) {
-				incompatibleModsFound.add(Data.getModContainer(modID).getMetadata().getName());
-			}
-		}
-		return incompatibleModsFound;
-	}
-
-	public static void init() {
-		addIncompatibleMod("canvas");
-		addIncompatibleMod("iris");
-	}
-
 	public static void tick() {
-		if (Keybindings.takePanoScreenshot.wasPressed()) takePanorama(1024, 1024);
+		if (Keybindings.takePanoScreenshot.wasPressed()) takePanorama(1024, 0.0F);
 	}
-
-	private static File getFile() {
+	private static String getFilename() {
 		String currentTime = Util.getFormattedCurrentTime();
+		String filename = currentTime;
 		int i = 1;
 		boolean shouldReturn = false;
-		File file = null;
 		while (!shouldReturn) {
 			String filename1 = currentTime + (i == 1 ? "" : "_" + i);
-			file = new File(ClientData.minecraft.runDirectory.getPath() + "/panoramas/", filename1);
+			File file = new File(ClientData.minecraft.runDirectory.getPath() + "/resourcepacks/", filename1);
 			if (!file.exists()) {
+				filename = filename1;
 				shouldReturn = true;
 			}
 			i++;
 		}
-		return file;
+		return filename;
 	}
 
-	private static boolean shouldTakePanorama() {
-		return getIncompatibleMods().isEmpty() && !ClientData.minecraft.options.getGraphicsMode().getValue().equals(GraphicsMode.FABULOUS);
-	}
+	private static void takePanorama(int resolution, float startingYaw) {
+		int prevWidth = ClientData.minecraft.getWindow().getFramebufferWidth();
+		int prevHeight = ClientData.minecraft.getWindow().getFramebufferHeight();
+		Framebuffer framebuffer = ClientData.minecraft.getFramebuffer();
+		float prevPitch = ClientData.minecraft.player.getPitch();
+		float prevYaw = ClientData.minecraft.player.getYaw();
+		float prevLastPitch = ClientData.minecraft.player.lastPitch;
+		float prevLastYaw = ClientData.minecraft.player.lastYaw;
+		ClientData.minecraft.gameRenderer.setBlockOutlineEnabled(false);
+		Perspective playerPerspective = ClientData.minecraft.options.getPerspective();
+		if (!playerPerspective.isFirstPerson()) ClientData.minecraft.options.setPerspective(Perspective.FIRST_PERSON);
 
-	private static void takePanorama(int width, int height) {
 		try {
-			if (shouldTakePanorama()) {
-				if (ClientData.minecraft.player != null) {
-					final File file = getFile();
-					final File screenshotFolder = new File(file.getPath() + "/screenshots/");
-					if (screenshotFolder.mkdirs()) {
-						for (int i = 0; i < 6; i++) {
-							File imageFile = new File(screenshotFolder, "panorama_" + i + ".png");
-							imageFile.createNewFile();
+			String panoramaName = getFilename();
+			File resourcePackDir = new File(ClientData.minecraft.runDirectory.getPath() + "/resourcepacks/" + panoramaName);
+			File screenshotsDir = new File(resourcePackDir + "/assets/minecraft/textures/gui/title/background");
+			if (screenshotsDir.mkdirs()) {
+				ClientData.minecraft.gameRenderer.setRenderingPanorama(true);
+				ClientData.minecraft.getWindow().setFramebufferWidth(resolution);
+				ClientData.minecraft.getWindow().setFramebufferHeight(resolution);
+				framebuffer.resize(resolution, resolution);
+
+				for (int l = 0; l < 6; ++l) {
+					switch (l) {
+						case 0 -> {
+							ClientData.minecraft.player.setYaw((startingYaw + 0.0F) % 360.0F);
+							ClientData.minecraft.player.setPitch(0.0F);
 						}
-						final float pitch = ClientData.minecraft.player.getPitch();
-						final float yaw = ClientData.minecraft.player.getYaw();
-						ClientData.minecraft.player.setYaw(0.0F);
-						ClientData.minecraft.player.sendMessage(ClientData.minecraft.takePanorama(file, 4192, 4192), false);
-						ClientData.minecraft.player.setPitch(pitch);
-						ClientData.minecraft.player.setYaw(yaw);
+						case 1 -> {
+							ClientData.minecraft.player.setYaw((startingYaw + 90.0F) % 360.0F);
+							ClientData.minecraft.player.setPitch(0.0F);
+						}
+						case 2 -> {
+							ClientData.minecraft.player.setYaw((startingYaw + 180.0F) % 360.0F);
+							ClientData.minecraft.player.setPitch(0.0F);
+						}
+						case 3 -> {
+							ClientData.minecraft.player.setYaw((startingYaw + 270.0F) % 360.0F);
+							ClientData.minecraft.player.setPitch(0.0F);
+						}
+						case 4 -> {
+							ClientData.minecraft.player.setYaw((startingYaw + 0.0F) % 360.0F);
+							ClientData.minecraft.player.setPitch(-90.0F);
+						}
+						case 5 -> {
+							ClientData.minecraft.player.setYaw((startingYaw + 0.0F) % 360.0F);
+							ClientData.minecraft.player.setPitch(90.0F);
+						}
 					}
+					ClientData.minecraft.gameRenderer.renderWorld(RenderTickCounter.ONE);
+					ScreenshotRecorder.saveScreenshot(screenshotsDir, "panorama_" + l + ".png", ClientData.minecraft.getFramebuffer());
 				}
+
+				// Create pack.mcmeta
+				File packFile = new File(resourcePackDir + "/pack.mcmeta");
+				if (packFile.createNewFile()) {
+					FileWriter packWriter = new FileWriter(packFile);
+					packWriter.write("{\"pack\": {\"pack_format\": " + SharedConstants.getGameVersion().getResourceVersion(ResourceType.CLIENT_RESOURCES) + ", \"supported_formats\": {\"min_inclusive\": 1, \"max_inclusive\": 2147483647}, \"description\": \"" + panoramaName + "\"}}\"}}");
+					packWriter.close();
+				}
+
+				ClientData.minecraft.player.sendMessage(Translation.getTranslation(Data.getVersion().getID(), "message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent.OpenFile(resourcePackDir.getAbsolutePath())))}), false);
 			}
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, Translation.getString("Failed to take panoramic screenshot: {}", error));
+			ClientData.minecraft.player.sendMessage(Translation.getTranslation(Data.getVersion().getID(), "message.take_panorama_screenshot.fail", new Object[]{error.getMessage()}, new Formatting[]{Formatting.RED}), false);
+		} finally {
+			ClientData.minecraft.player.setPitch(prevPitch);
+			ClientData.minecraft.player.setYaw(prevYaw);
+			ClientData.minecraft.player.lastPitch = prevLastPitch;
+			ClientData.minecraft.player.lastYaw = prevLastYaw;
+			ClientData.minecraft.gameRenderer.setBlockOutlineEnabled(true);
+			ClientData.minecraft.getWindow().setFramebufferWidth(prevWidth);
+			ClientData.minecraft.getWindow().setFramebufferHeight(prevHeight);
+			framebuffer.resize(prevWidth, prevHeight);
+			ClientData.minecraft.gameRenderer.setRenderingPanorama(false);
+			ClientData.minecraft.options.setPerspective(playerPerspective);
 		}
 	}
 }

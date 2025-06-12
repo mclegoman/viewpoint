@@ -7,9 +7,9 @@
 
 package com.mclegoman.viewpoint.mixin.client.perspective;
 
+import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.perspective.Perspective;
-import com.mclegoman.viewpoint.config.ConfigHelper;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.input.Scroller;
 import org.joml.Vector2i;
@@ -31,7 +31,7 @@ public abstract class MouseMixin {
 			double calculatedScroll = (discreteMouseScroll ? Math.signum(vertical) : vertical) * mouseWheelSensitivity;
 			Vector2i vector2i = this.scroller.update(calculatedScroll, calculatedScroll);
 			if (vector2i.y != 0) {
-				Perspective.adjust(-vector2i.y / 100.0F, (int)ConfigHelper.getConfig("hold_perspective_multiplier_increment_size"));
+				Perspective.adjust(-vector2i.y / 100.0F, PerspectiveConfig.config.holdPerspectiveMultiplierIncrementSize.value());
 				ci.cancel();
 			}
 		}

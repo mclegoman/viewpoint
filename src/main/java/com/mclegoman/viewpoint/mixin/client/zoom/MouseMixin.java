@@ -1,16 +1,15 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.mixin.client.zoom;
 
+import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
-import com.mclegoman.viewpoint.config.ConfigHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.input.Scroller;
 import net.minecraft.util.math.MathHelper;
@@ -31,19 +30,13 @@ public abstract class MouseMixin {
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
 		// Zoom.isZooming() checks Zoom.canZoom(), so we don't need to check it again.
 		if (Zoom.isZooming()) {
-			if (window == MinecraftClient.getInstance().getWindow().getHandle()) {
-				ClientData.minecraft.getInactivityFpsLimiter().onInput();
-				ClientData.minecraft.getInactivityFpsLimiter().onInput();
-				boolean bl = ClientData.minecraft.options.getDiscreteMouseScroll().getValue();
-				double d = ClientData.minecraft.options.getMouseWheelSensitivity().getValue();
-				double e = (bl ? Math.signum(horizontal) : horizontal) * d;
-				double f = (bl ? Math.signum(vertical) : vertical) * d;
-				if (ClientData.minecraft.currentScreen == null && ClientData.minecraft.player != null) {
-					Vector2i vector2i = this.scroller.update(e, f);
-					if (vector2i.x == 0 && vector2i.y == 0) return;
-					Zoom.zoom(vector2i.y == 0 ? -vector2i.x : vector2i.y, (int) ConfigHelper.getConfig("zoom_increment_size"));
-					ci.cancel();
-				}
+			boolean discreteMouseScroll = ClientData.minecraft.options.getDiscreteMouseScroll().getValue();
+			double mouseWheelSensitivity = ClientData.minecraft.options.getMouseWheelSensitivity().getValue();
+			double calculatedScroll = (discreteMouseScroll ? Math.signum(vertical) : vertical) * mouseWheelSensitivity;
+			Vector2i vector2i = this.scroller.update(calculatedScroll, calculatedScroll);
+			if (vector2i.y != 0) {
+				Zoom.zoom(vector2i.y, PerspectiveConfig.config.zoomIncrementSize.value());
+				ci.cancel();
 			}
 		}
 	}

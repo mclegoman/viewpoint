@@ -7,8 +7,8 @@
 
 package com.mclegoman.viewpoint.client.screen.widget;
 
+import com.mclegoman.viewpoint.luminance.common.util.LogType;
 import com.mclegoman.viewpoint.common.data.Data;
-import com.mclegoman.viewpoint.luminance.LogType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.tooltip.Tooltip;
@@ -31,7 +31,7 @@ public class ConfigButtonWidget extends ButtonWidget {
 		try {
 			this.setTooltip(this.callableTooltip != null ? this.callableTooltip.call() : null);
 		} catch (Exception error) {
-			Data.version.sendToLog(LogType.ERROR, "Error updating tooltip: " + error.getLocalizedMessage());
+			Data.getVersion().sendToLog(LogType.ERROR, "Error updating tooltip: " + error.getLocalizedMessage());
 		}
 	}
 	@Override
@@ -48,15 +48,15 @@ public class ConfigButtonWidget extends ButtonWidget {
 	}
 	@Environment(EnvType.CLIENT)
 	public static class Builder {
-		private final Callable<Text> message;
-		private final PressAction onPress;
+		public final Callable<Text> message;
+		public final PressAction onPress;
 		@Nullable
-		private Callable<Tooltip> tooltip;
-		private int x;
-		private int y;
-		private int width = 150;
-		private int height = 20;
-		private NarrationSupplier narrationSupplier;
+		public Callable<Tooltip> tooltip;
+		public int x;
+		public int y;
+		public int width = 150;
+		public int height = 20;
+		public NarrationSupplier narrationSupplier;
 
 		public Builder(Callable<Text> message, PressAction onPress) {
 			this.narrationSupplier = DEFAULT_NARRATION_SUPPLIER;

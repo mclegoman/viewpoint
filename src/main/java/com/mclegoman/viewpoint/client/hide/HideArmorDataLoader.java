@@ -1,0 +1,74 @@
+/*
+    Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
+    Licence: GNU LGPLv3
+*/
+
+package com.mclegoman.viewpoint.client.hide;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mclegoman.viewpoint.luminance.client.util.JsonResourceReloader;
+import com.mclegoman.viewpoint.luminance.common.util.LogType;
+import com.mclegoman.viewpoint.client.translation.Translation;
+import com.mclegoman.viewpoint.common.data.Data;
+import net.minecraft.resource.Resource;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.profiler.Profiler;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class HideArmorDataLoader extends JsonResourceReloader {
+	public static final List<String> registry = new ArrayList<>();
+	public static final String resourceLocation = "perspective/hide_armor";
+
+	public HideArmorDataLoader() {
+		super(new Gson(), resourceLocation);
+	}
+
+	private void add(String value) {
+		try {
+			if (!registry.contains(value)) registry.add(value);
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to add hide armor to registry: {}", error));
+		}
+	}
+
+	private void reset() {
+		try {
+			registry.clear();
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to reset hide armor registry: {}", error));
+		}
+	}
+
+	@Override
+	public void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
+		try {
+			reset();
+			layout$perspective(manager);
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to apply hide armor dataloader: {}", Data.getVersion().getID(), error));
+		}
+	}
+
+	private void layout$perspective(ResourceManager manager) {
+		List<Resource> hideLists = manager.getAllResources(Identifier.of(Data.getVersion().getID(), "hide_armor.json"));
+		for (Resource resource : hideLists) {
+			try {
+				JsonObject reader = JsonHelper.deserialize(resource.getReader());
+				if (JsonHelper.getBoolean(reader, "replace")) reset();
+				for (JsonElement value : JsonHelper.getArray(reader, "values", new JsonArray())) add(value.getAsString());
+			} catch (Exception error) {
+				Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to load perspective hide armor list: {}", error));
+			}
+		}
+	}
+}

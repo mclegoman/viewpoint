@@ -1,0 +1,26 @@
+/*
+    Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
+    Licence: GNU LGPLv3
+*/
+
+package com.mclegoman.viewpoint.client.contributor;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class ContributorLockData {
+	private final List<String> uuids;
+	private final Contributor.Type type;
+	public ContributorLockData(Contributor.Type type, String... uuids) {
+		this.uuids = Arrays.stream(uuids).toList();
+		this.type = type;
+	}
+	public List<String> getUuids() {
+		return this.uuids;
+	}
+	public Contributor.Type getType() {
+		return this.type;
+	}
+}

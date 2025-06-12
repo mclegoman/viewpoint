@@ -15,11 +15,11 @@
   "license": [
     "LGPL-3.0-or-later"
   ],
-  "icon": "assets/viewpoint/icon.png",
-  "environment": "client",
+  "icon": "assets/viewpoint/textures/icons/default/viewpoint.png",
+  "environment": "*",
   "entrypoints": {
     "client": [
-      "com.mclegoman.viewpoint.client.Viewpoint"
+      "com.mclegoman.viewpoint.client.ViewpointClient"
     ],
     "modmenu": [
       "com.mclegoman.viewpoint.compat.ModMenuCompat"
@@ -48,5 +48,6 @@
     "catalogue": {
       "configFactory": "com.mclegoman.viewpoint.compat.CatalogueCompat"
     }
-  }
+  },
+  "accessWidener" : "viewpoint.accesswidener"
 }

@@ -1,8 +1,15 @@
+/*
+    Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
+    Licence: GNU LGPLv3
+*/
+
 package com.mclegoman.viewpoint.client.util;
 
 import net.minecraft.util.Identifier;
 
-public class IdentifierHelper extends com.mclegoman.viewpoint.luminance.IdentifierHelper {
+public class IdentifierHelper extends com.mclegoman.viewpoint.luminance.common.util.IdentifierHelper {
 	public static Identifier identifierFromString(String identifier, String defaultNamespace) {
 		return of(identifier, defaultNamespace);
 	}

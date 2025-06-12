@@ -1,15 +1,15 @@
 /*
     Perspective
-    Contributor(s): MCLegoMan
-    Github: https://github.com/MCLegoMan/Perspective
+    Contributor(s): dannytaylor
+    Github: https://github.com/mclegoman/perspective
     Licence: GNU LGPLv3
 */
 
 package com.mclegoman.viewpoint.client.perspective;
 
+import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.keybindings.Keybindings;
-import com.mclegoman.viewpoint.config.ConfigHelper;
 import net.minecraft.util.math.MathHelper;
 
 public class Perspective {
@@ -32,11 +32,11 @@ public class Perspective {
 	public static net.minecraft.client.option.Perspective getPerspective() {
 		return ClientData.minecraft.options.getPerspective();
 	}
-	public static double getHoldPerspectiveBackMultiplier() {
-		return (double)ConfigHelper.getConfig("hold_perspective_back_multiplier");
+	public static float getHoldPerspectiveBackMultiplier() {
+		return PerspectiveConfig.config.holdPerspectiveBackMultiplier.value();
 	}
-	public static double getHoldPerspectiveFrontMultiplier() {
-		return (double)ConfigHelper.getConfig("hold_perspective_front_multiplier");
+	public static float getHoldPerspectiveFrontMultiplier() {
+		return PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value();
 	}
 	public static void tick() {
 		if (Keybindings.setPerspectiveFirstPerson.wasPressed())
@@ -47,8 +47,8 @@ public class Perspective {
 			setPerspective(net.minecraft.client.option.Perspective.THIRD_PERSON_FRONT);
 		getHoldAll();
 		if (!(isHoldingPerspective() && isHoldingAdjust()) && hasUpdated) {
-			ConfigHelper.saveConfig();
-			hasUpdated = false;
+			PerspectiveConfig.config.holdPerspectiveBackMultiplier.serializeAndInvokeCallbacks();
+			PerspectiveConfig.config.holdPerspectiveFrontMultiplier.serializeAndInvokeCallbacks();
 		}
 	}
 	private static void setThirdPersonFront(net.minecraft.client.option.Perspective perspective) {
@@ -114,31 +114,40 @@ public class Perspective {
 		ClientData.minecraft.worldRenderer.scheduleTerrainUpdate();
 		ClientData.minecraft.options.setPerspective(perspective);
 	}
+
+
+
+
+
 	private static boolean hasUpdated;
-	public static double getMultiplier() {
+
+	public static float getMultiplier() {
 		if (isHoldingPerspective()) {
-			if (isHoldBack()) return getHoldPerspectiveBackMultiplier();
-			else if (isHoldFront()) return getHoldPerspectiveFrontMultiplier();
+			if (isHoldBack()) return PerspectiveConfig.config.holdPerspectiveBackMultiplier.value();
+			else if (isHoldFront()) return PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value();
 		}
 		return 1.0F;
 	}
 	public static void adjust(float amount, int multiplier) {
 		if (isHoldingPerspective()) {
-			double current = getMultiplier();
-			if (isHoldBack()) {
-				ConfigHelper.setConfig(false, "hold_perspective_back_multiplier", current + (amount * multiplier));
-			} else if (isHoldFront()) {
-				ConfigHelper.setConfig(false, "hold_perspective_front_multiplier", current + (amount * multiplier));
+			for (int i = 0; i < multiplier; i++) {
+				if (!(getMultiplier() <= 0.5F) || !(getMultiplier() >= 16.0F)) {
+					if (isHoldBack()) {
+						PerspectiveConfig.config.holdPerspectiveBackMultiplier.setValue(MathHelper.clamp(getMultiplier() + amount, 0.5F, 16.0F), false);
+					} else if (isHoldFront()) {
+						PerspectiveConfig.config.holdPerspectiveFrontMultiplier.setValue(MathHelper.clamp(getMultiplier() + amount, 0.5F, 16.0F), false);
+					}
+					hasUpdated = true;
+				}
 			}
-			hasUpdated = true;
 		}
 	}
 	public static void reset() {
 		if (isHoldingPerspective()) {
 			if (isHoldBack()) {
-				ConfigHelper.setConfig(false, "hold_perspective_back_multiplier", 1.0D);
+				PerspectiveConfig.config.holdPerspectiveBackMultiplier.setValue(MathHelper.clamp(PerspectiveConfig.config.holdPerspectiveBackMultiplier.getDefaultValue(), 0.5F, 16.0F), false);
 			} else if (isHoldFront()) {
-				ConfigHelper.setConfig(false, "hold_perspective_front_multiplier", 1.0D);
+				PerspectiveConfig.config.holdPerspectiveFrontMultiplier.setValue(MathHelper.clamp(PerspectiveConfig.config.holdPerspectiveFrontMultiplier.getDefaultValue(), 0.5F, 16.0F), false);
 			}
 			hasUpdated = true;
 		}

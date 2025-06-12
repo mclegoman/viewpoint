@@ -1,0 +1,263 @@
+{
+    "targets": {
+        "swap": {}
+    },
+    "passes": [
+        {
+            "vertex_shader": "minecraft:post/sobel",
+            "fragment_shader": "luminance:post/gaussian",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main",
+                    "bilinear": true
+                }
+            ],
+            "output": "swap",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "type": "vec2",
+                    "values": [ 1.0, 0.0 ]
+                },
+                {
+                    "name": "Radius",
+                    "type": "float"
+                },
+                {
+                    "name": "RadiusMultiplier",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                },
+                {
+                    "name": "Deviation",
+                    "type": "float",
+                    "values": [ 0.333 ]
+                },
+                {
+                    "name": "Wrapping",
+                    "type": "float",
+                    "values": [ 0.0 ]
+                },
+                {
+                    "name": "Min",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                }
+            ]
+        },
+        {
+            "vertex_shader": "minecraft:post/sobel",
+            "fragment_shader": "luminance:post/gaussian",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap",
+                    "bilinear": true
+                }
+            ],
+            "output": "minecraft:main",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "type": "vec2",
+                    "values": [ 0.0, 1.0 ]
+                },
+                {
+                    "name": "Radius",
+                    "type": "float"
+                },
+                {
+                    "name": "RadiusMultiplier",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                },
+                {
+                    "name": "Deviation",
+                    "type": "float",
+                    "values": [ 0.333 ]
+                },
+                {
+                    "name": "Wrapping",
+                    "type": "float",
+                    "values": [ 0.0 ]
+                },
+                {
+                    "name": "Min",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                }
+            ]
+        }, {
+            "vertex_shader": "minecraft:post/sobel",
+            "fragment_shader": "luminance:post/gaussian",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main",
+                    "bilinear": true
+                }
+            ],
+            "output": "swap",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "type": "vec2",
+                    "values": [ 1.0, 0.0 ]
+                },
+                {
+                    "name": "Radius",
+                    "type": "float"
+                },
+                {
+                    "name": "RadiusMultiplier",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                },
+                {
+                    "name": "Deviation",
+                    "type": "float",
+                    "values": [ 0.333 ]
+                },
+                {
+                    "name": "Wrapping",
+                    "type": "float",
+                    "values": [ 0.0 ]
+                },
+                {
+                    "name": "Min",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                }
+            ]
+        },
+        {
+            "vertex_shader": "minecraft:post/sobel",
+            "fragment_shader": "luminance:post/gaussian",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap",
+                    "bilinear": true
+                }
+            ],
+            "output": "minecraft:main",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "type": "vec2",
+                    "values": [ 0.0, 1.0 ]
+                },
+                {
+                    "name": "Radius",
+                    "type": "float"
+                },
+                {
+                    "name": "RadiusMultiplier",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                },
+                {
+                    "name": "Deviation",
+                    "type": "float",
+                    "values": [ 0.333 ]
+                },
+                {
+                    "name": "Wrapping",
+                    "type": "float",
+                    "values": [ 0.0 ]
+                },
+                {
+                    "name": "Min",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                }
+            ]
+        }, {
+            "vertex_shader": "minecraft:post/sobel",
+            "fragment_shader": "luminance:post/gaussian",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main",
+                    "bilinear": true
+                }
+            ],
+            "output": "swap",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "type": "vec2",
+                    "values": [ 1.0, 0.0 ]
+                },
+                {
+                    "name": "Radius",
+                    "type": "float"
+                },
+                {
+                    "name": "RadiusMultiplier",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                },
+                {
+                    "name": "Deviation",
+                    "type": "float",
+                    "values": [ 0.333 ]
+                },
+                {
+                    "name": "Wrapping",
+                    "type": "float",
+                    "values": [ 0.0 ]
+                },
+                {
+                    "name": "Min",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                }
+            ]
+        },
+        {
+            "vertex_shader": "minecraft:post/sobel",
+            "fragment_shader": "luminance:post/gaussian",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap",
+                    "bilinear": true
+                }
+            ],
+            "output": "minecraft:main",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "type": "vec2",
+                    "values": [ 0.0, 1.0 ]
+                },
+                {
+                    "name": "Radius",
+                    "type": "float"
+                },
+                {
+                    "name": "RadiusMultiplier",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                },
+                {
+                    "name": "Deviation",
+                    "type": "float",
+                    "values": [ 0.333 ]
+                },
+                {
+                    "name": "Wrapping",
+                    "type": "float",
+                    "values": [ 0.0 ]
+                },
+                {
+                    "name": "Min",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                }
+            ]
+        }
+    ]
+}
