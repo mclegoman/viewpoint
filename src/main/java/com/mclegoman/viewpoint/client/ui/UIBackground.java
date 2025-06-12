@@ -15,8 +15,8 @@ import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.translation.Translation;
 import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.common.util.Identifiers;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -26,21 +26,21 @@ public class UIBackground {
 	private static final List<UIBackgroundData> uiBackgroundTypes = new ArrayList<>();
 	public static void init() {
 		registerUIBackground(new UIBackgroundData.Builder(Identifiers.DEFAULT).build());
-		registerUIBackground(new UIBackgroundData.Builder(Identifiers.GAUSSIAN).shaderId(Identifier.of(Data.getVersion().getID(), "gaussian")).build());
+		registerUIBackground(new UIBackgroundData.Builder(Identifiers.GAUSSIAN).shaderId(Identifiers.GAUSSIAN_SHADER).build());
 		registerUIBackground(new UIBackgroundData.Builder(Identifiers.LEGACY).renderWorld(context -> {
 				context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
 			}).renderMenu(context -> {
-				context.drawTexture(RenderLayer::getGuiTextured, getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
-				context.drawTexture(RenderLayer::getGuiTextured, Identifier.of(Data.getVersion().getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(RenderPipelines.GUI_TEXTURED, getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(RenderPipelines.GUI_TEXTURED, Identifier.of(Data.getVersion().getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
 		}).renderPanorama(false).renderShader(false).build());
 		registerUIBackground(new UIBackgroundData.Builder(Identifiers.CLASSIC).renderWorld(context -> {
 				context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
 			}).renderMenu(context -> {
-				context.drawTexture(RenderLayer::getGuiTextured, getUiBackgroundTextureFromConfig(), 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
-				context.drawTexture(RenderLayer::getGuiTextured, Identifier.of(Data.getVersion().getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(RenderPipelines.GUI_TEXTURED, getUiBackgroundTextureFromConfig(), 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(RenderPipelines.GUI_TEXTURED, Identifier.of(Data.getVersion().getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
 			}).renderTitleScreen(context -> {
-				context.drawTexture(RenderLayer::getGuiTextured, getUiBackgroundTextureFromConfig(), 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
-				context.drawTexture(RenderLayer::getGuiTextured, Identifier.of(Data.getVersion().getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(RenderPipelines.GUI_TEXTURED, getUiBackgroundTextureFromConfig(), 0, 0, 0.0F, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
+				context.drawTexture(RenderPipelines.GUI_TEXTURED, Identifier.of(Data.getVersion().getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
 		}).renderPanorama(false).renderTitleScreenPanorama(false).renderShader(false).build());
 		registerUIBackground(new UIBackgroundData.Builder(Identifiers.NONE).renderShader(false).renderDarkening(false).build());
 	}

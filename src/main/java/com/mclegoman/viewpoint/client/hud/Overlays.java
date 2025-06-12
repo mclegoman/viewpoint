@@ -114,7 +114,7 @@ public class Overlays {
 		if (!ClientData.minecraft.getDebugHud().shouldShowDebugHud() && !ClientData.minecraft.options.hudHidden && !HUDHelper.shouldHideHUD()) {
 			// Version Overlay
 			if (PerspectiveConfig.config.versionOverlay.value())
-				context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.getVersion().getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().getName()}), 2, 2, 0xffffff);
+				context.drawTextWithShadow(ClientData.minecraft.textRenderer, Translation.getTranslation(Data.getVersion().getID(), "version_overlay", new Object[]{SharedConstants.getGameVersion().name()}), 2, 2, 0xffffff);
 			// Other Overlays
 			int y = 40;
 			List<Text> overlayTexts = new ArrayList<>();

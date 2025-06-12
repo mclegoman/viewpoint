@@ -11,6 +11,7 @@ import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.common.util.Identifiers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.tooltip.Tooltip;
@@ -29,7 +30,7 @@ public class ConfigLinkButtonWidget extends ConfigButtonWidget {
 	}
 	@Override
 	public void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-		context.drawGuiTexture(RenderLayer::getGuiTextured, LINK_TEXTURES.get(this.active, this.isSelected()), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+		context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, LINK_TEXTURES.get(this.active, this.isSelected()), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
 		int i = this.active ? 16777215 : 10526880;
 		this.drawMessage(context, ClientData.minecraft.textRenderer, i | MathHelper.ceil(this.alpha * 255.0F) << 24);
 	}

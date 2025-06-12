@@ -9,6 +9,7 @@ package com.mclegoman.viewpoint.client.screen.widget;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -93,7 +94,7 @@ public class LogoButtonWidget extends ButtonWidget {
 			Identifier texture = this.texture.call();
 			if (texture != null) {
 				int i = this.active ? ColorHelper.getWhite(this.alpha) : 10526880;
-				context.drawTexture(RenderLayer::getGuiTextured, texture, this.getX() + 1, this.getY() + 1, 0.0F, 0.0F, this.getWidth() - 2, this.getHeight() - 2, this.getWidth() - 2, this.getHeight() - 2, i | MathHelper.ceil(this.alpha * 255.0F) << 24);
+				context.drawTexture(RenderPipelines.GUI_TEXTURED, texture, this.getX() + 1, this.getY() + 1, 0.0F, 0.0F, this.getWidth() - 2, this.getHeight() - 2, this.getWidth() - 2, this.getHeight() - 2, i | MathHelper.ceil(this.alpha * 255.0F) << 24);
 			}
 		} catch (Exception ignored) {
 		}

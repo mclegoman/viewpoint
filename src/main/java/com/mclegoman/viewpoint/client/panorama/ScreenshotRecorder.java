@@ -13,6 +13,6 @@ import java.io.File;
 
 public class ScreenshotRecorder {
 	public static void saveScreenshot(File gameDirectory, String fileName, Framebuffer framebuffer) {
-		net.minecraft.client.util.ScreenshotRecorder.saveScreenshot(gameDirectory, fileName, framebuffer, (text) -> {});
+		net.minecraft.client.util.ScreenshotRecorder.saveScreenshot(gameDirectory, fileName, framebuffer, 4, (text) -> {});
 	}
 }

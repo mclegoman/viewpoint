@@ -28,7 +28,7 @@ public abstract class GameRendererMixin {
 	@Shadow
 	public abstract boolean isRenderingPanorama();
 
-	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)F"), method = "renderHand")
+	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)F", ordinal = 1), method = "renderWorld")
 	private float perspective$renderHand(float fov) {
 		return Zoom.canZoom() ? Zoom.fov : fov;
 	}

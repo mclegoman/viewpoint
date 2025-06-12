@@ -8,7 +8,7 @@
 package com.mclegoman.viewpoint.luminance.client.util;
 
 import com.mclegoman.viewpoint.luminance.client.events.Events;
-import com.mclegoman.viewpoint.luminance.common.data.Data;
+import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;

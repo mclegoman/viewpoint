@@ -24,6 +24,7 @@ public class Identifiers {
     public static final Identifier ENTITY;
     public static final Identifier FALLBACK_SHADER;
     public static final Identifier GAUSSIAN;
+    public static final Identifier GAUSSIAN_SHADER;
     public static final Identifier GIANT;
     public static final Identifier HIDE_ARMOR;
     public static final Identifier HIDE_NAME_TAGS;
@@ -71,6 +72,7 @@ public class Identifiers {
         ENTITY = of("entity");
         FALLBACK_SHADER = Identifier.ofVanilla("box_blur");
         GAUSSIAN = of("gaussian");
+        GAUSSIAN_SHADER = of("gaussian_blur");
         GIANT = of("giant");
         HIDE_ARMOR = of("hide_armor");
         HIDE_NAME_TAGS = of("hide_name_tags");

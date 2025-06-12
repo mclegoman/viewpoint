@@ -8,7 +8,6 @@
 package com.mclegoman.viewpoint.luminance.common.util;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.api.metadata.Person;
 
 import java.util.ArrayList;
@@ -16,14 +15,14 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class ModHelper {
-	public static Optional<ModContainer> getModContainer(String modId) {
+	public static Optional<ModMetadata> getModMetadata(String modId) {
 		Optional<net.fabricmc.loader.api.ModContainer> modContainer = FabricLoader.getInstance().getModContainer(modId);
 		if (modContainer.isPresent()) {
-			ModMetadata metadata = modContainer.get().getMetadata();
+			net.fabricmc.loader.api.metadata.ModMetadata metadata = modContainer.get().getMetadata();
 			Collection<String> contributors = new ArrayList<>();
 			for (Person person : metadata.getAuthors()) contributors.add(person.getName());
 			for (Person person : metadata.getContributors()) contributors.add(person.getName());
-			return Optional.of(new ModContainer(new ModContainer.ModMetadata(metadata.getId(), metadata.getVersion().getFriendlyString(), metadata.getName(), metadata.getDescription(), metadata.getLicense(), contributors)));
+			return Optional.of(new ModMetadata(metadata.getId(), metadata.getVersion().getFriendlyString(), metadata.getName(), metadata.getDescription(), metadata.getLicense(), contributors));
 		} else return Optional.empty();
 	}
 	public static boolean isModLoaded(String modId) {

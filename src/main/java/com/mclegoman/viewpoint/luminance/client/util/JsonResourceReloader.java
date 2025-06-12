@@ -9,8 +9,8 @@ package com.mclegoman.viewpoint.luminance.client.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.luminance.client.translation.Translation;
-import com.mclegoman.viewpoint.luminance.common.data.Data;
 import com.mclegoman.viewpoint.luminance.common.util.LogType;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceFinder;

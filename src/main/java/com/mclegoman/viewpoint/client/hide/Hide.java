@@ -40,27 +40,27 @@ public class Hide {
 		if (Keybindings.toggleArmour.wasPressed()) {
 			PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.hideArmor, true);
 			if (PerspectiveConfig.config.hideShowMessage.value())
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.armor", Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.hideArmor.value(), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.viewpoint.message.hide.armor", Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.hideArmor.value(), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.toggleBlockOutline.wasPressed()) {
 			PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.hideBlockOutline, true);
 			if (PerspectiveConfig.config.hideShowMessage.value())
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.block_outline", Translation.getVariableTranslation(Data.getVersion().getID(), !PerspectiveConfig.config.hideBlockOutline.value(), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.viewpoint.message.hide.block_outline", Translation.getVariableTranslation(Data.getVersion().getID(), !PerspectiveConfig.config.hideBlockOutline.value(), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.cycleCrosshair.wasPressed()) {
 			PerspectiveConfig.config.crosshairType.setValue(nextCrosshairMode(), true);
 			if (PerspectiveConfig.config.hideShowMessage.value())
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.crosshair", Translation.getCrosshairTranslation(Data.getVersion().getID(), PerspectiveConfig.config.crosshairType.value())).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.viewpoint.message.hide.crosshair", Translation.getCrosshairTranslation(Data.getVersion().getID(), PerspectiveConfig.config.crosshairType.value())).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.toggleNametags.wasPressed()) {
 			PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.hideNametags, true);
 			if (PerspectiveConfig.config.hideShowMessage.value())
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.nametags", Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.hideNametags.value(), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.viewpoint.message.hide.nametags", Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.hideNametags.value(), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		if (Keybindings.togglePlayers.wasPressed()) {
 			PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.hidePlayers, true);
 			if (PerspectiveConfig.config.hideShowMessage.value())
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.hide.players", Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.hidePlayers.value(), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.viewpoint.message.hide.players", Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.hidePlayers.value(), Translation.Type.ENDISABLE)).formatted(Formatting.GOLD));
 		}
 		rainbowTime += 1.0F % 20.0F;
 	}

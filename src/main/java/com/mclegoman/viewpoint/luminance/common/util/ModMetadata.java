@@ -9,7 +9,5 @@ package com.mclegoman.viewpoint.luminance.common.util;
 
 import java.util.Collection;
 
-public record ModContainer(ModMetadata metadata) {
-	public record ModMetadata(String id, String rawVersion, String name, String description, Collection<String> licenses, Collection<String> contributors) {
-	}
+public record ModMetadata(String id, String rawVersion, String name, String description, Collection<String> licenses, Collection<String> contributors) {
 }

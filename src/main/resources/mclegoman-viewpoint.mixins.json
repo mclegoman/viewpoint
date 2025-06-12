@@ -37,7 +37,6 @@
     "client.luminance.GameRendererMixin",
     "client.luminance.RotatingCubeMapRendererMixin",
     "client.luminance.ScreenMixin",
-    "client.luminance.TitleScreenAccessor",
     "client.luminance.TitleScreenMixin",
     "client.luminance.WorldRendererMixin"
   ],

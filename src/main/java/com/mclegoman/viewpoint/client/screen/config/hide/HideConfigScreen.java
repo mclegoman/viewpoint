@@ -18,6 +18,7 @@ import com.mclegoman.viewpoint.client.translation.Translation;
 import com.mclegoman.viewpoint.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
+import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.text.Text;
 
@@ -29,6 +30,7 @@ public class HideConfigScreen extends AbstractConfigScreen {
 		try {
 			super.init();
 			if (this.page == 1) this.gridAdder.add(createPageOne());
+			else if (this.page == 2) this.gridAdder.add(createPageTwo());
 			else shouldClose = true;
 			postInit();
 		} catch (Exception error) {
@@ -85,10 +87,39 @@ public class HideConfigScreen extends AbstractConfigScreen {
 		}
 		return hideGrid;
 	}
+	private GridWidget createPageTwo() {
+		GridWidget hideGrid = new GridWidget();
+		hideGrid.getMainPositioner().alignHorizontalCenter().margin(2);
+		GridWidget.Adder hideGridAdder = hideGrid.createAdder(2);
+		try {
+			double starBrightness = (double) (PerspectiveConfig.config.starBrightnessMultiplier.value()) / 2.0F;
+			hideGridAdder.add(new ConfigSliderWidget(hideGridAdder.getGridWidget().getX(), hideGridAdder.getGridWidget().getY(), 300, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hide.star_brightness", new Object[]{Text.literal((int)(PerspectiveConfig.config.starBrightnessMultiplier.value() * 100.0F) + "%")}, false), starBrightness) {
+				@Override
+				protected void updateMessage() {
+					setMessage(Translation.getConfigTranslation(Data.getVersion().getID(), "hide.star_brightness", new Object[]{Text.literal((int)(PerspectiveConfig.config.starBrightnessMultiplier.value() * 100.0F) + "%")}, false));
+				}
+				@Override
+				protected void applyValue() {
+					PerspectiveConfig.config.starBrightnessMultiplier.setValue(Math.round((((float)value) * 2.0F) * 100) / 100F, false);
+				}
+			}, 2);
+			hideGridAdder.add(new EmptyWidget(20, 20), 2);
+			hideGridAdder.add(new EmptyWidget(20, 20), 2);
+			hideGridAdder.add(new EmptyWidget(20, 20), 2);
+		} catch (Exception error) {
+			Data.getVersion().sendToLog(LogType.ERROR, "Error creating config/hide/page2: " + error.getLocalizedMessage());
+		}
+		return hideGrid;
+	}
 	public Screen getRefreshScreen() {
 		return new HideConfigScreen(this.parentScreen, this.page);
 	}
 	public String getPageId() {
 		return "hide";
+	}
+
+	@Override
+	public int getMaxPage() {
+		return 2;
 	}
 }

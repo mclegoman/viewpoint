@@ -16,7 +16,9 @@ import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.events.PerspectiveEvents;
 import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.common.util.Identifiers;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -28,6 +30,7 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+import org.joml.Matrix3x2fStack;
 
 public class PerspectiveLogo {
 	public static void init() {
@@ -76,17 +79,17 @@ public class PerspectiveLogo {
 		renderLogo(context, x, y, width, height, logoTexture, false);
 	}
 	public static void renderLogo(DrawContext context, int x, int y, int width, int height, Identifier logoTexture, boolean flip) {
-		MatrixStack matrixStack = context.getMatrices();
-		matrixStack.push();
+		Matrix3x2fStack matrixStack = context.getMatrices();
+		matrixStack.pushMatrix();
 		if (flip) {
-			matrixStack.translate(0, -(110 * (height / 256.0F)), 0);
-			matrixStack.translate(x + width / 2.0, y + height / 2.0F, 0);
-			matrixStack.multiply(RotationAxis.NEGATIVE_Z.rotationDegrees(180.0F));
-			matrixStack.translate(-(x + width / 2.0), -(y + height / 2.0F), 0);
+			matrixStack.translate(0, -(110 * (height / 256.0F)));
+			matrixStack.translate(x + width / 2.0F, y + height / 2.0F);
+			matrixStack.rotate((float) Math.toRadians(180.0F));
+			matrixStack.translate(-(x + width / 2.0F), -(y + height / 2.0F));
 		}
-		context.drawTexture(RenderLayer::getGuiTextured, logoTexture, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875F), width, height);
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, logoTexture, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875F), width, height);
 		LogoHelper.renderDevelopmentOverlay(context, (int) ((x + ((float) width / 2)) - ((width * 0.75F) / 2)), (int) (y + (height - (height * 0.54F))), width, height, Data.getVersion().isDevelopmentBuild(), 0, 0);
-		matrixStack.pop();
+		matrixStack.popMatrix();
 	}
 	public record Logo(LogoData data) {
 		public Identifier getIconTexture() {
@@ -128,14 +131,14 @@ public class PerspectiveLogo {
 	}
 	public static void createSplashText(DrawContext context, int width, int x, int y, TextRenderer textRenderer, Translation.Data splashText, float rotation, boolean flip) {
 		if (splashText != null && !(Boolean) ClientData.minecraft.options.getHideSplashTexts().getValue()) {
-			MatrixStack matrixStack = context.getMatrices();
-			matrixStack.push();
-			matrixStack.translate((float)(x + width), (float)y, 0.0F);
-			matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation + (flip ? 180.0F : 0.0F)));
+			Matrix3x2fStack matrixStack = context.getMatrices();
+			matrixStack.pushMatrix();
+			matrixStack.translate((float)(x + width), (float)y);
+			matrixStack.rotate((float) Math.toRadians(rotation + (flip ? 180.0F : 0.0F)));
 			float scale = (1.8F - MathHelper.abs(MathHelper.sin((float)(Util.getMeasuringTimeMs() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F)) * 100.0F / (float)(textRenderer.getWidth(Translation.getText(splashText)) + 32);
-			matrixStack.scale(scale, scale, scale);
+			matrixStack.scale(scale, scale);
 			context.drawCenteredTextWithShadow(textRenderer, Translation.getText(splashText), 0, -8 + (flip ? textRenderer.fontHeight : 0), 16776960);
-			matrixStack.pop();
+			matrixStack.popMatrix();
 		}
 	}
 }

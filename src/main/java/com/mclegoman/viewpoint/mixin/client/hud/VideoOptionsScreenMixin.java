@@ -12,7 +12,6 @@ import com.mclegoman.viewpoint.client.screen.config.ConfigScreen;
 import com.mclegoman.viewpoint.client.screen.widget.LogoButtonWidget;
 import com.mclegoman.viewpoint.client.translation.Translation;
 import com.mclegoman.viewpoint.common.data.Data;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.screen.option.VideoOptionsScreen;
@@ -34,7 +33,7 @@ public abstract class VideoOptionsScreenMixin extends GameOptionsScreen {
 	protected void initFooter() {
 		super.initFooter();
 		perspective$widget = LogoButtonWidget.create(() -> {
-			String path = FabricLoader.getInstance().getModContainer(Data.getVersion().getID()).get().getMetadata().getIconPath(64).orElse(null);
+			String path = Data.getVersion().getModContainer().get().getMetadata().getIconPath(64).orElse(null);
 			if (path != null) {
 				path = path.replaceFirst("assets/", "").replaceFirst("/", ":");
 			}

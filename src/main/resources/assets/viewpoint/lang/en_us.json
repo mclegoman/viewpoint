@@ -134,6 +134,8 @@
 
 	"gui.viewpoint.config.hide.show_message": "Overlay Message: %s",
 
+	"gui.viewpoint.config.hide.star_brightness": "Star Brightness Multiplier: %s",
+
 	"gui.viewpoint.config.perspective": "Download Perspective!",
 
 	"gui.viewpoint.config.contributor": "Contributor",

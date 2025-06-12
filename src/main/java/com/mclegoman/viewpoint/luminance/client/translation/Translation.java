@@ -124,20 +124,6 @@ public class Translation {
 	public static MutableText getItemTranslation(String namespace, String key) {
 		return getTranslation("item", namespace, key);
 	}
-	public static MutableText getShaderText(Identifier shaderId, boolean shouldShowNamespace, boolean description, Formatting[] formattings) {
-		MutableText text = Text.translatableWithFallback(getString("gui.{}.shader.{}.{}{}", com.mclegoman.viewpoint.luminance.common.data.Data.getVersion().getID(), shaderId.getNamespace(), shaderId.getPath(), (description ? ".description" : "")), description ? "" : getString((shouldShowNamespace ? shaderId.getNamespace() : "") + shaderId.getPath()));
-		if (formattings != null) text.formatted(formattings);
-		return text;
-	}
-	public static MutableText getShaderText(Identifier shaderId, boolean shouldShowNamespace, Formatting[] formattings) {
-		return getShaderText(shaderId, shouldShowNamespace, false, formattings);
-	}
-	public static MutableText getShaderText(Identifier shaderId, boolean shouldShowNamespace, boolean description) {
-		return getShaderText(shaderId, shouldShowNamespace, description, null);
-	}
-	public static MutableText getShaderText(Identifier shaderId, boolean shouldShowNamespace) {
-		return getShaderText(shaderId, shouldShowNamespace, null);
-	}
 	public static Data data(String key, boolean translatable) {
 		return new Data(key, translatable);
 	}

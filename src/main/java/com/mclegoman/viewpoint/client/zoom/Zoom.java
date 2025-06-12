@@ -170,7 +170,7 @@ public class Zoom {
 	private static void setOverlay() {
 		try {
 			if (PerspectiveConfig.config.zoomShowPercentage.value())
-				MessageOverlay.setOverlay(Text.translatable("gui.perspective.message.zoom_level", Text.literal(PerspectiveConfig.config.zoomLevel.value() + "%")).formatted(Formatting.GOLD));
+				MessageOverlay.setOverlay(Text.translatable("gui.viewpoint.message.zoom_level", Text.literal(PerspectiveConfig.config.zoomLevel.value() + "%")).formatted(Formatting.GOLD));
 		} catch (Exception error) {
 			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to set zoom overlay: {}", error));
 		}

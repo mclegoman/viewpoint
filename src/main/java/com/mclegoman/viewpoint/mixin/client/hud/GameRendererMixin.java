@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(priority = 100, value = GameRenderer.class)
 public abstract class GameRendererMixin {
 	@Inject(at = @At("HEAD"), method = "renderHand", cancellable = true)
-	private void perspective$renderHand(Camera camera, float tickDelta, Matrix4f matrix4f, CallbackInfo ci) {
+	private void perspective$renderHand(float tickProgress, boolean sleeping, Matrix4f positionMatrix, CallbackInfo ci) {
 		if (HUDHelper.shouldHideHand()) ci.cancel();
 	}
 }

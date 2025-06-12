@@ -10,6 +10,7 @@ package com.mclegoman.viewpoint.mixin.client.hide;
 import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.hide.DynamicCrosshairDataLoader;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.option.AttackIndicator;
@@ -77,11 +78,11 @@ public abstract class InGameHudMixin {
 									int j = ClientData.minecraft.getWindow().getScaledHeight() / 2 - 7 + 16;
 									int k = ClientData.minecraft.getWindow().getScaledWidth() / 2 - 8;
 									if (cooldownProgressFull) {
-										context.drawGuiTexture(RenderLayer::getCrosshair, CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE, k, j, 16, 16);
+										context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, CROSSHAIR_ATTACK_INDICATOR_FULL_TEXTURE, k, j, 16, 16);
 									} else if (cooldownProgress < 1.0F) {
 										int l = (int) (cooldownProgress * 17.0F);
-										context.drawGuiTexture(RenderLayer::getCrosshair, CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_TEXTURE, k, j, 16, 4);
-										context.drawGuiTexture(RenderLayer::getCrosshair, CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE, 16, 4, 0, 0, k, j, l, 4);
+										context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_TEXTURE, k, j, 16, 4);
+										context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, CROSSHAIR_ATTACK_INDICATOR_PROGRESS_TEXTURE, 16, 4, 0, 0, k, j, l, 4);
 									}
 								}
 							}
