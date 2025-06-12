@@ -1,0 +1,81 @@
+{
+  "targets": [
+    "swap"
+  ],
+  "passes": [
+    {
+      "name": "gaussian",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "use_linear_filter": true,
+      "uniforms": [
+        {
+          "name": "BlurDir",
+          "values": [ 1.0, 0.0 ]
+        }
+      ]
+    },
+    {
+      "name": "gaussian",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "use_linear_filter": true,
+      "uniforms": [
+        {
+          "name": "BlurDir",
+          "values": [ 0.0, 1.0 ]
+        }
+      ]
+    }, {
+      "name": "gaussian",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "use_linear_filter": true,
+      "uniforms": [
+        {
+          "name": "BlurDir",
+          "values": [ 1.0, 0.0 ],
+          "RadiusMultiplier" : 0.5
+        }
+      ]
+    },
+    {
+      "name": "gaussian",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "use_linear_filter": true,
+      "uniforms": [
+        {
+          "name": "BlurDir",
+          "values": [ 0.0, 1.0 ],
+          "RadiusMultiplier" : 0.5
+        }
+      ]
+    }, {
+      "name": "gaussian",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "use_linear_filter": true,
+      "uniforms": [
+        {
+          "name": "BlurDir",
+          "values": [ 1.0, 0.0 ],
+          "RadiusMultiplier" : 0.25
+        }
+      ]
+    },
+    {
+      "name": "gaussian",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "use_linear_filter": true,
+      "uniforms": [
+        {
+          "name": "BlurDir",
+          "values": [ 0.0, 1.0 ],
+          "RadiusMultiplier" : 0.25
+        }
+      ]
+    }
+  ]
+}

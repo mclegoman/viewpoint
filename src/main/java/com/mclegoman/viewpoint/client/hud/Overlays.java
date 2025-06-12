@@ -215,19 +215,15 @@ public class Overlays {
 				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
 			}
 			case VillagerEntity holderEntity -> {
-				String profession = holderEntity.getVillagerData().profession().getIdAsString().toLowerCase();
-				Identifier variant = Identifier.of(holderEntity.getVillagerData().type().getIdAsString().toLowerCase());
-				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath())), !profession.equals("none") ? Text.literal(" ") : Text.empty(), !profession.equals("none") ? Text.translatable("merchant.level." + holderEntity.getVillagerData().level()) : Text.empty(), !profession.equals("none") ? Text.literal(" ") : Text.empty(), !profession.equals("none") ? Text.translatableWithFallback(holderEntity.getType().getTranslationKey() + ".profession", Translation.getTitleCase(profession)) : Text.empty()));
+				String profession = holderEntity.getVillagerData().getProfession().id().toLowerCase();
+				Identifier variant = Identifier.of(holderEntity.getVillagerData().getType().toString().toLowerCase());
+				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath())), !profession.equals("none") ? Text.literal(" ") : Text.empty(), !profession.equals("none") ? Text.translatable("merchant.level." + holderEntity.getVillagerData().getLevel()) : Text.empty(), !profession.equals("none") ? Text.literal(" ") : Text.empty(), !profession.equals("none") ? Text.translatableWithFallback(holderEntity.getType().getTranslationKey() + ".profession", Translation.getTitleCase(profession)) : Text.empty()));
 			}
 			case MooshroomEntity holderEntity -> {
 				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
 				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
 			}
 			case HorseEntity holderEntity -> {
-				Identifier variant = Identifier.of(holderEntity.getHorseColor().name().toLowerCase());
-				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
-			}
-			case SalmonEntity holderEntity -> {
 				Identifier variant = Identifier.of(holderEntity.getVariant().name().toLowerCase());
 				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
 			}
@@ -252,7 +248,7 @@ public class Overlays {
 				return Optional.of(Translation.getCombinedText(Text.translatableWithFallback(getLookingAtIdVariantTranslationKey(holderEntity, variant), Translation.getTitleCase(variant.getPath()))));
 			}
 			case TropicalFishEntity holderEntity -> {
-				return Optional.of(Translation.getCombinedText((MutableText) holderEntity.getVariety().getText()));
+				return Optional.of(Translation.getCombinedText((MutableText) holderEntity.getVariant().getText()));
 			}
 			case ShulkerEntity holderEntity -> {
 				Identifier variant = holderEntity.getColor() != null ? Identifier.of(holderEntity.getColor().name().toLowerCase()) : null;
@@ -276,7 +272,7 @@ public class Overlays {
 				return entity.getWorld().getBlockState(hitResult.getBlockPos()).getBlock().getName();
 			}
 			case fancy -> {
-				return entity.getWorld().getBlockState(((BlockHitResult)entity.raycast(entity.getAttributeValue(EntityAttributes.BLOCK_INTERACTION_RANGE), ClientData.minecraft.getRenderTickCounter().getTickProgress(true), true)).getBlockPos()).getBlock().getName();
+				return entity.getWorld().getBlockState(((BlockHitResult)entity.raycast(entity.getAttributeValue(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE), ClientData.minecraft.getRenderTickCounter().getTickDelta(true), true)).getBlockPos()).getBlock().getName();
 			}
 		}
 		return getLookingAtFallbackText();

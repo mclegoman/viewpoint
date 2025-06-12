@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(priority = 100, value = LivingEntity.class)
 public abstract class LivingEntityMixin {
-	@Inject(at = @At("RETURN"), method = "tryUseDeathProtector")
+	@Inject(at = @At("RETURN"), method = "tryUseTotem")
 	private void perspective$tryUseDeathProtector(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
 		Overlays.updateStats();
 	}

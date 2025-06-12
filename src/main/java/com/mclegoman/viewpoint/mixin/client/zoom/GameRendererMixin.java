@@ -12,7 +12,6 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
-import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
@@ -28,8 +27,8 @@ public abstract class GameRendererMixin {
 	@Shadow
 	public abstract boolean isRenderingPanorama();
 
-	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)F"), method = "renderHand")
-	private float perspective$renderHand(float fov) {
+	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"), method = "renderHand")
+	private double perspective$renderHand(double fov) {
 		return Zoom.canZoom() ? Zoom.fov : fov;
 	}
 	@Inject(method = "updateFovMultiplier", at = @At("TAIL"))
@@ -37,16 +36,16 @@ public abstract class GameRendererMixin {
 		if (Zoom.canZoom()) Zoom.updateMultiplier();
 	}
 	@ModifyReturnValue(method = "getFov", at = @At("RETURN"))
-	private float perspective$getFov(float fov, Camera camera, float tickDelta, boolean changingFov) {
-		if (camera != null && Zoom.canZoom()) {
+	private double perspective$getFov(double fov) {
+		if (Zoom.canZoom()) {
 			Zoom.fov = fov;
-			float newFOV = fov;
+			double newFOV = fov;
 			if (!this.isRenderingPanorama()) {
 				if (PerspectiveConfig.config.zoomTransition.value().equals("instant")) {
 					newFOV *= Zoom.getMultiplier();
 				}
 				if (PerspectiveConfig.config.zoomTransition.value().equals("smooth")) {
-					newFOV *= MathHelper.lerp(tickDelta, Zoom.getPrevMultiplier(), Zoom.getMultiplier());
+					newFOV *= MathHelper.lerp(ClientData.minecraft.getRenderTickCounter().getTickDelta(true), Zoom.getPrevMultiplier(), Zoom.getMultiplier());
 				}
 			}
 			if (Zoom.getZoomType().equals(Zoom.Logarithmic.getIdentifier())) Zoom.zoomFOV = Zoom.Logarithmic.getLimitFOV(newFOV);
@@ -68,9 +67,9 @@ public abstract class GameRendererMixin {
 		if (Zoom.canZoom()) {
 			if (Zoom.isScaled()) {
 				if (ClientData.minecraft.player != null) {
-					float f = ClientData.minecraft.player.distanceMoved - ClientData.minecraft.player.lastDistanceMoved;
-					float g = -(ClientData.minecraft.player.distanceMoved + f * tickDelta);
-					float h = (float) (MathHelper.lerp(tickDelta, ClientData.minecraft.player.lastStrideDistance, ClientData.minecraft.player.strideDistance) * Math.max(Zoom.getMultiplier(), 0.001));
+					float f = ClientData.minecraft.player.strideDistance - ClientData.minecraft.player.prevStrideDistance;
+					float g = -(ClientData.minecraft.player.strideDistance + f * tickDelta);
+					float h = (float) (MathHelper.lerp(tickDelta, ClientData.minecraft.player.prevStrideDistance, ClientData.minecraft.player.strideDistance) * Math.max(Zoom.getMultiplier(), 0.001));
 					matrices.translate(MathHelper.sin(g * 3.1415927F) * h * 0.5F, -Math.abs(MathHelper.cos(g * 3.1415927F) * h), 0.0F);
 					matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.sin(g * 3.1415927F) * h * 3.0F));
 					matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(Math.abs(MathHelper.cos(g * 3.1415927F - 0.2F) * h) * 5.0F));

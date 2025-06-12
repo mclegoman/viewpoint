@@ -42,10 +42,6 @@ public abstract class VideoOptionsScreenMixin extends GameOptionsScreen {
 		}, (button) -> ClientData.minecraft.setScreen(new ConfigScreen(this, 1))).width(20).position(2, perspective$getY()).tooltip(Tooltip.of(Translation.getTranslation(Data.getVersion().getID(), "config", new Object[]{Translation.getTranslation(Data.getVersion().getID(), "name"), Translation.getConfigTranslation(Data.getVersion().getID(), "config")}))).build();
 		this.addDrawableChild(perspective$widget);
 	}
-	protected void refreshWidgetPositions() {
-		super.refreshWidgetPositions();
-		perspective$widget.setPosition(2, perspective$getY());
-	}
 	@Unique
 	private int perspective$getY() {
 		assert ClientData.minecraft.currentScreen != null;

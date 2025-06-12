@@ -16,8 +16,18 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(priority = 100, value = WorldRenderer.class)
 public abstract class WorldRendererMixin {
-	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/VertexRendering;drawOutline(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/shape/VoxelShape;DDDI)V"), method = "drawBlockOutline")
+	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;drawCuboidShapeOutline(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/shape/VoxelShape;DDDFFFF)V"), method = "drawBlockOutline")
 	private void perspective$drawBlockOutline(Args args) {
-		args.set(args.size() - 1, Hide.getARGB(Hide.getRainbowBlockOutline() ? Hide.getRainbowOutline() : args.get(args.size() - 1), (int)((Hide.getBlockOutlineLevel() / 100.0F) * 255.0F)));
+		if (Hide.getRainbowBlockOutline()) {
+			int color = Hide.getRainbowOutline();
+			// RED
+			args.set(6, (color >> 16 & 0xFF) / 255.0F);
+			// GREEN
+			args.set(7, (color >> 8 & 0xFF) / 255.0F);
+			// BLUE
+			args.set(8, (color & 0xFF) / 255.0F);
+		}
+		// ALPHA
+		args.set(9, (Hide.getBlockOutlineLevel() / 100.0F));
 	}
 }

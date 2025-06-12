@@ -9,15 +9,11 @@ package com.mclegoman.viewpoint.client.panorama;
 
 import com.mclegoman.viewpoint.common.data.Data;
 import com.mclegoman.viewpoint.luminance.common.util.LogType;
-import com.mojang.blaze3d.buffers.BufferType;
-import com.mojang.blaze3d.buffers.BufferUsage;
-import com.mojang.blaze3d.buffers.GpuBuffer;
-import com.mojang.blaze3d.systems.CommandEncoder;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.textures.GpuTexture;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.util.Util;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 import java.io.File;
 import java.nio.ByteBuffer;
@@ -39,56 +35,60 @@ public class ScreenshotRecorder {
 		});
 	}
 	public static void takeScreenshot(Framebuffer framebuffer, int downscaleFactor, Consumer<NativeImage> callback) {
-		int i = framebuffer.textureWidth;
-		int j = framebuffer.textureHeight;
-		GpuTexture gpuTexture = framebuffer.getColorAttachment();
+		int width = framebuffer.textureWidth;
+		int height = framebuffer.textureHeight;
 
-		if (gpuTexture == null) {
-			throw new IllegalStateException("Tried to capture screenshot of an incomplete framebuffer");
-		} else if (i % downscaleFactor != 0 || j % downscaleFactor != 0) {
-			throw new IllegalArgumentException("Image size is not divisible by downscale factor");
+		if (width % downscaleFactor != 0 || height % downscaleFactor != 0) {
+			throw new IllegalArgumentException("Image size must be divisible by downscale factor");
 		}
 
-		int pixelSize = gpuTexture.getFormat().pixelSize();
-		GpuBuffer gpuBuffer = RenderSystem.getDevice().createBuffer(() -> "Screenshot buffer", BufferType.PIXEL_PACK, BufferUsage.STATIC_READ, i * j * pixelSize);
-		CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
+		int pixelCount = width * height;
+		ByteBuffer buffer = BufferUtils.createByteBuffer(pixelCount * 4);
 
-		commandEncoder.copyTextureToBuffer(gpuTexture, gpuBuffer, 0, () -> {
-			try (GpuBuffer.ReadView readView = commandEncoder.readBuffer(gpuBuffer)) {
-				ByteBuffer data = readView.data();
-				int width = i / downscaleFactor;
-				int height = j / downscaleFactor;
+		framebuffer.beginRead();
+		GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
+		framebuffer.endRead();
 
-				NativeImage nativeImage = new NativeImage(width, height, false);
+		NativeImage fullImage = new NativeImage(width, height, false);
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				int i = (x + y * width) * 4;
+				int r = buffer.get(i) & 0xFF;
+				int g = buffer.get(i + 1) & 0xFF;
+				int b = buffer.get(i + 2) & 0xFF;
+				int a = buffer.get(i + 3) & 0xFF;
+				int color = (a << 24) | (r << 16) | (g << 8) | b;
+				fullImage.setColor(x, y, color);
+			}
+		}
 
-				for (int y = 0; y < height; ++y) {
-					for (int x = 0; x < width; ++x) {
-						int r = 0, g = 0, b = 0;
+		int scaledWidth = width / downscaleFactor;
+		int scaledHeight = height / downscaleFactor;
+		NativeImage scaledImage = new NativeImage(scaledWidth, scaledHeight, false);
 
-						for (int dy = 0; dy < downscaleFactor; ++dy) {
-							for (int dx = 0; dx < downscaleFactor; ++dx) {
-								int srcX = x * downscaleFactor + dx;
-								int srcY = y * downscaleFactor + dy;
-								int index = (srcX + srcY * i) * pixelSize;
-								int color = data.getInt(index);
+		for (int y = 0; y < scaledHeight; ++y) {
+			for (int x = 0; x < scaledWidth; ++x) {
+				int r = 0, g = 0, b = 0;
 
-								r += (color >> 16) & 0xFF;
-								g += (color >> 8) & 0xFF;
-								b += color & 0xFF;
-							}
-						}
+				for (int dy = 0; dy < downscaleFactor; ++dy) {
+					for (int dx = 0; dx < downscaleFactor; ++dx) {
+						int srcX = x * downscaleFactor + dx;
+						int srcY = y * downscaleFactor + dy;
+						int color = fullImage.getColor(srcX, srcY);
 
-						int area = downscaleFactor * downscaleFactor;
-						int avgColor = (0xFF << 24) | ((r / area) << 16) | ((g / area) << 8) | (b / area);
-						nativeImage.setColor(x, height - y - 1, avgColor);
+						r += (color >> 16) & 0xFF;
+						g += (color >> 8) & 0xFF;
+						b += color & 0xFF;
 					}
 				}
 
-				callback.accept(nativeImage);
+				int area = downscaleFactor * downscaleFactor;
+				int avgColor = (0xFF << 24) | ((r / area) << 16) | ((g / area) << 8) | (b / area);
+				scaledImage.setColor(x, scaledHeight - y - 1, avgColor);
 			}
+		}
 
-			gpuBuffer.close();
-		}, 0);
+		fullImage.close();
+		callback.accept(scaledImage);
 	}
-
 }

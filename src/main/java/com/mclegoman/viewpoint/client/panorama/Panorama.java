@@ -54,8 +54,8 @@ public class Panorama {
 			Framebuffer framebuffer = ClientData.minecraft.getFramebuffer();
 			float prevPitch = ClientData.minecraft.player.getPitch();
 			float prevYaw = ClientData.minecraft.player.getYaw();
-			float prevLastPitch = ClientData.minecraft.player.lastPitch;
-			float prevLastYaw = ClientData.minecraft.player.lastYaw;
+			float prevLastPitch = ClientData.minecraft.player.prevPitch;
+			float prevLastYaw = ClientData.minecraft.player.prevYaw;
 			ClientData.minecraft.gameRenderer.setBlockOutlineEnabled(false);
 			Perspective playerPerspective = ClientData.minecraft.options.getPerspective();
 			if (!playerPerspective.isFirstPerson())
@@ -70,7 +70,7 @@ public class Panorama {
 					ClientData.minecraft.gameRenderer.setRenderingPanorama(true);
 					ClientData.minecraft.getWindow().setFramebufferWidth(scaledResolution);
 					ClientData.minecraft.getWindow().setFramebufferHeight(scaledResolution);
-					framebuffer.resize(scaledResolution, scaledResolution);
+					framebuffer.resize(scaledResolution, scaledResolution, false);
 
 					for (int l = 0; l < 6; ++l) {
 						switch (l) {
@@ -111,19 +111,19 @@ public class Panorama {
 						packWriter.close();
 					}
 
-					ClientData.minecraft.player.sendMessage(Translation.getTranslation(Data.getVersion().getID(), "message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent.OpenFile(resourcePackDir.getAbsolutePath())))}), false);
+					ClientData.minecraft.player.sendMessage(Translation.getTranslation(Data.getVersion().getID(), "message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, resourcePackDir.getAbsolutePath())))}), false);
 				}
 			} catch (Exception error) {
 				ClientData.minecraft.player.sendMessage(Translation.getTranslation(Data.getVersion().getID(), "message.take_panorama_screenshot.fail", new Object[]{error.getMessage()}, new Formatting[]{Formatting.RED}), false);
 			} finally {
 				ClientData.minecraft.player.setPitch(prevPitch);
 				ClientData.minecraft.player.setYaw(prevYaw);
-				ClientData.minecraft.player.lastPitch = prevLastPitch;
-				ClientData.minecraft.player.lastYaw = prevLastYaw;
+				ClientData.minecraft.player.prevPitch = prevLastPitch;
+				ClientData.minecraft.player.prevYaw = prevLastYaw;
 				ClientData.minecraft.gameRenderer.setBlockOutlineEnabled(true);
 				ClientData.minecraft.getWindow().setFramebufferWidth(prevWidth);
 				ClientData.minecraft.getWindow().setFramebufferHeight(prevHeight);
-				framebuffer.resize(prevWidth, prevHeight);
+				framebuffer.resize(prevWidth, prevHeight, false);
 				ClientData.minecraft.gameRenderer.setRenderingPanorama(false);
 				ClientData.minecraft.options.setPerspective(playerPerspective);
 			}

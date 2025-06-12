@@ -94,13 +94,15 @@ public class PerspectiveToast implements Toast {
         this.visibility = !this.hidden && (double)elapsed < duration ? Visibility.SHOW : Visibility.HIDE;
     }
 
-    public void draw(DrawContext context, TextRenderer textRenderer, long startTime) {
-        context.drawGuiTexture(RenderLayer::getGuiTextured, TEXTURE, 0, 0, this.getWidth(), this.getHeight());
-        context.drawText(textRenderer, this.title, 26, 7, 0xFFAA00, false);
+    @Override
+    public Visibility draw(DrawContext context, ToastManager manager, long startTime) {
+        context.drawGuiTexture(TEXTURE, 0, 0, this.getWidth(), this.getHeight());
+        context.drawText(ClientData.minecraft.textRenderer, this.title, 26, 7, 0xFFAA00, false);
 
         for (int i = 0; i < this.lines.size(); ++i) {
-            context.drawText(textRenderer, this.lines.get(i), 26, 18 + i * LINE_HEIGHT, 0xFFFFFF, false);
+            context.drawText(ClientData.minecraft.textRenderer, this.lines.get(i), 26, 18 + i * LINE_HEIGHT, 0xFFFFFF, false);
         }
+        return Visibility.SHOW;
     }
 
     public void setContent(Text title, @Nullable Text description) {

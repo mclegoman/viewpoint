@@ -20,7 +20,6 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -84,7 +83,7 @@ public class PerspectiveLogo {
 			matrixStack.multiply(RotationAxis.NEGATIVE_Z.rotationDegrees(180.0F));
 			matrixStack.translate(-(x + width / 2.0), -(y + height / 2.0F), 0);
 		}
-		context.drawTexture(RenderLayer::getGuiTextured, logoTexture, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875F), width, height);
+		context.drawTexture(logoTexture, x, y, 0.0F, 0.0F, width, (int) (height * 0.6875F), width, height);
 		LogoHelper.renderDevelopmentOverlay(context, (int) ((x + ((float) width / 2)) - ((width * 0.75F) / 2)), (int) (y + (height - (height * 0.54F))), width, height, Data.getVersion().isDevelopmentBuild(), 0, 0);
 		matrixStack.pop();
 	}

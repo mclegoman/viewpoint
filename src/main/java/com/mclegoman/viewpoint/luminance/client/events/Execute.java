@@ -13,7 +13,6 @@ import com.mclegoman.viewpoint.luminance.common.util.LogType;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
-import net.minecraft.client.util.ObjectAllocator;
 import net.minecraft.resource.ReloadableResourceManagerImpl;
 
 public class Execute {
@@ -50,28 +49,28 @@ public class Execute {
 			}
 		}));
 	}
-	public static void afterUiRender(ObjectAllocator allocator) {
+	public static void afterUiRender() {
 		Events.AfterUiRender.registry.forEach(((id, runnable) -> {
 			try {
-				runnable.run(ClientData.minecraft.getFramebuffer(), allocator);
+				runnable.run(ClientData.minecraft.getFramebuffer());
 			} catch (Exception error) {
 				Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to execute AfterGameRender event with id: {}: {}", id, error));
 			}
 		}));
 	}
-	public static void afterUiBackgroundRender(ObjectAllocator allocator) {
+	public static void afterUiBackgroundRender() {
 		Events.AfterUiBackgroundRender.registry.forEach(((id, runnable) -> {
 			try {
-				runnable.run(ClientData.minecraft.getFramebuffer(), allocator);
+				runnable.run(ClientData.minecraft.getFramebuffer());
 			} catch (Exception error) {
 				Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to execute AfterScreenBackgroundRender event with id: {}: {}", id, error));
 			}
 		}));
 	}
-	public static void afterPanoramaRender(ObjectAllocator allocator) {
+	public static void afterPanoramaRender() {
 		Events.AfterPanoramaRender.registry.forEach(((id, runnable) -> {
 			try {
-				runnable.run(ClientData.minecraft.getFramebuffer(), allocator);
+				runnable.run(ClientData.minecraft.getFramebuffer());
 			} catch (Exception error) {
 				Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to execute AfterPanoramaRender event with id: {}: {}", id, error));
 			}
@@ -89,10 +88,10 @@ public class Execute {
 			}
 		}));
 	}
-	public static void afterWorldRender(ObjectAllocator allocator) {
+	public static void afterWorldRender() {
 		Events.AfterWorldRender.registry.forEach(((id, runnable) -> {
 			try {
-				runnable.run(ClientData.minecraft.getFramebuffer(), allocator);
+				runnable.run(ClientData.minecraft.getFramebuffer());
 			} catch (Exception error) {
 				Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to execute AfterWorldRender event with id: {}: {}", id, error));
 			}

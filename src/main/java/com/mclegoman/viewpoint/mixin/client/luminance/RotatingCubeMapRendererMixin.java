@@ -7,7 +7,6 @@
 
 package com.mclegoman.viewpoint.mixin.client.luminance;
 
-import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.luminance.client.events.Execute;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.RotatingCubeMapRenderer;
@@ -20,6 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class RotatingCubeMapRendererMixin {
 	@Inject(method = "render", at = @At("RETURN"))
 	private void luminance$afterPanoramaRender(DrawContext context, int width, int height, float alpha, float tickDelta, CallbackInfo ci) {
-		Execute.afterPanoramaRender(((GameRendererAccessor) ClientData.minecraft.gameRenderer).getPool());
+		Execute.afterPanoramaRender();
 	}
 }

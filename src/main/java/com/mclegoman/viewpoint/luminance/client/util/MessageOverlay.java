@@ -18,7 +18,7 @@ public class MessageOverlay {
 	public static float remaining;
 	public static void init() {
 		Events.AfterInGameHudRender.register(Identifier.of(Data.getVersion().getID(), "message_overlay"), (context, renderTickCounter) -> {
-            int time = (int) Math.min((remaining - ClientData.minecraft.getRenderTickCounter().getTickProgress(true)) * 255.0F / 20.0F, 255.0F);
+            int time = (int) Math.min((remaining - ClientData.minecraft.getRenderTickCounter().getTickDelta(true)) * 255.0F / 20.0F, 255.0F);
             if (time > 10) context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, message, (int) (ClientData.minecraft.getWindow().getScaledWidth() / 2.0F), 23, 16777215 | (time << 24 & -16777216));
         });
 	}

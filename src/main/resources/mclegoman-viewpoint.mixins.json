@@ -6,8 +6,6 @@
   "client": [
     "client.appearance.AbstractClientPlayerEntityMixin",
     "client.contributor.LivingEntityRendererMixin",
-    "client.entity.EntityRendererMixin",
-    "client.entity.EntityRenderStateMixin",
     "client.hide.ArmorFeatureRendererMixin",
     "client.hide.GameRendererMixin",
     "client.hide.InGameHudMixin",
@@ -21,7 +19,6 @@
     "client.hud.LivingEntityMixin",
     "client.hud.MinecraftClientMixin",
     "client.hud.VideoOptionsScreenMixin",
-    "client.luminance.GameRendererAccessor",
     "client.luminance.GameRendererMixin",
     "client.luminance.InGameHudMixin",
     "client.luminance.MinecraftClientMixin",

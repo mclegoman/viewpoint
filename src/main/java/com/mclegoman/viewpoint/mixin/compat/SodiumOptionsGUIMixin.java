@@ -36,8 +36,4 @@ public class SodiumOptionsGUIMixin extends Screen {
         }, (button) -> ClientData.minecraft.setScreen(new ConfigScreen(this, 1))).width(20).position(this.width - 28, this.height - 54).tooltip(Tooltip.of(Translation.getTranslation(Data.getVersion().getID(), "config", new Object[]{Translation.getTranslation(Data.getVersion().getID(), "name"), Translation.getConfigTranslation(Data.getVersion().getID(), "config")}))).build();
         this.addDrawableChild(perspective$widget);
     }
-    protected void refreshWidgetPositions() {
-        super.refreshWidgetPositions();
-        perspective$widget.setPosition(this.width - 28, this.height - 54);
-    }
 }

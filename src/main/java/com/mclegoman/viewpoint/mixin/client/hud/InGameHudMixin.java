@@ -50,14 +50,14 @@ public abstract class InGameHudMixin {
 				context.getMatrices().translate(0.0F, 0.0F, -90.0F);
 				int x = (context.getScaledWindowWidth() / 2) + (ClientData.minecraft.options.getMainArm().getValue().getOpposite().equals(Arm.LEFT) ? 98 : -180);
 				int y = context.getScaledWindowHeight() - 22;
-				context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of(Data.getVersion().getID(), "hud/armor"), x, y, 82, 22);
-				if (player.getEquippedStack(EquipmentSlot.HEAD).isEmpty()) context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of("container/slot/helmet"), x + 3, y + 3, 16, 16);
+				context.drawGuiTexture(Identifier.of(Data.getVersion().getID(), "hud/armor"), x, y, 82, 22);
+				if (player.getEquippedStack(EquipmentSlot.HEAD).isEmpty()) context.drawGuiTexture(Identifier.of("container/slot/helmet"), x + 3, y + 3, 16, 16);
 				else this.renderHotbarItem(context, x + 3, y + 3, tickCounter, player, player.getEquippedStack(EquipmentSlot.HEAD), l++);
-				if (player.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of("container/slot/chestplate"), x + 23, y + 3, 16, 16);
+				if (player.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) context.drawGuiTexture(Identifier.of("container/slot/chestplate"), x + 23, y + 3, 16, 16);
 				else this.renderHotbarItem(context, x + 23, y + 3, tickCounter, player, player.getEquippedStack(EquipmentSlot.CHEST), l++);
-				if (player.getEquippedStack(EquipmentSlot.LEGS).isEmpty()) context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of("container/slot/leggings"), x + 43, y + 3, 16, 16);
+				if (player.getEquippedStack(EquipmentSlot.LEGS).isEmpty()) context.drawGuiTexture(Identifier.of("container/slot/leggings"), x + 43, y + 3, 16, 16);
 				else this.renderHotbarItem(context, x + 43, y + 3, tickCounter, player, player.getEquippedStack(EquipmentSlot.LEGS), l++);
-				if (player.getEquippedStack(EquipmentSlot.FEET).isEmpty()) context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.of("container/slot/boots"), x + 63, y + 3, 16, 16);
+				if (player.getEquippedStack(EquipmentSlot.FEET).isEmpty()) context.drawGuiTexture(Identifier.of("container/slot/boots"), x + 63, y + 3, 16, 16);
 				else this.renderHotbarItem(context, x + 63, y + 3, tickCounter, player, player.getEquippedStack(EquipmentSlot.FEET), l++);
 				context.getMatrices().pop();
 			}

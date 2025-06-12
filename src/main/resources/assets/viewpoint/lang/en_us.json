@@ -174,11 +174,11 @@
 
 	"gui.viewpoint.keybindings.keybinding.open_config": "Open Config",
 
-	"gui.viewpoint.keybindings.keybinding.set_viewpoint_first_person": "Set First Person",
+	"gui.viewpoint.keybindings.keybinding.set_perspective_first_person": "Set First Person",
 
-	"gui.viewpoint.keybindings.keybinding.set_viewpoint_third_person_back": "Set Third Person Back",
+	"gui.viewpoint.keybindings.keybinding.set_perspective_third_person_back": "Set Third Person Back",
 
-	"gui.viewpoint.keybindings.keybinding.set_viewpoint_third_person_front": "Set Third Person Front",
+	"gui.viewpoint.keybindings.keybinding.set_perspective_third_person_front": "Set Third Person Front",
 
 	"gui.viewpoint.keybindings.keybinding.take_panorama_screenshot": "Take Panorama Screenshot",
 

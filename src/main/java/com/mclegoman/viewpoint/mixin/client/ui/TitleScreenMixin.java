@@ -8,8 +8,6 @@
 package com.mclegoman.viewpoint.mixin.client.ui;
 
 import com.mclegoman.viewpoint.luminance.client.events.Execute;
-import com.mclegoman.viewpoint.mixin.client.luminance.GameRendererAccessor;
-import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.ui.UIBackground;
 import com.mclegoman.viewpoint.client.ui.UIBackgroundData;
 import net.minecraft.client.gui.DrawContext;
@@ -27,7 +25,7 @@ public abstract class TitleScreenMixin {
 		if (data.getRenderTitleScreen() != null) data.getRenderTitleScreen().run(context);
 		if (!data.getRenderTitleScreenPanorama()) {
 			// Since we're disabling the panorama, we have to execute afterPanoramaRender.
-			Execute.afterPanoramaRender(((GameRendererAccessor) ClientData.minecraft.gameRenderer).getPool());
+			Execute.afterPanoramaRender();
 			ci.cancel();
 		}
 	}

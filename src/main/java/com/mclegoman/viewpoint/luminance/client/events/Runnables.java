@@ -10,7 +10,6 @@ package com.mclegoman.viewpoint.luminance.client.events;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.client.util.ObjectAllocator;
 
 public class Runnables {
 	public interface InGameHudRender {
@@ -20,6 +19,6 @@ public class Runnables {
 		void run(int width, int height);
 	}
 	public interface GameRender {
-		void run(Framebuffer framebuffer, ObjectAllocator objectAllocator);
+		void run(Framebuffer framebuffer);
 	}
 }
