@@ -9,7 +9,6 @@ package com.mclegoman.viewpoint.mixin.client.perspective;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
-import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.perspective.Perspective;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MouseMixin {
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
 	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci, @Local(name = "k") int k) {
-		if (((!ClientData.minecraft.options.getPerspective().isFirstPerson() && PerspectiveConfig.config.perspectiveMultiplier.value())) && Perspective.isHoldingAdjust()) {
+		if (Perspective.isThirdPerson() && Perspective.isHoldingAdjust()) {
 			if (k != 0) {
 				Perspective.adjust(-k / 100.0F, PerspectiveConfig.config.holdPerspectiveMultiplierIncrementSize.value());
 				ci.cancel();
@@ -30,7 +29,7 @@ public abstract class MouseMixin {
 	}
 	@Inject(at = @At("HEAD"), method = "onMouseButton", cancellable = true)
 	private void perspective$onMouseButton(long window, int button, int action, int mods, CallbackInfo ci) {
-		if (((!ClientData.minecraft.options.getPerspective().isFirstPerson() && PerspectiveConfig.config.perspectiveMultiplier.value())) && Perspective.isHoldingAdjust()) {
+		if (Perspective.isThirdPerson() && Perspective.isHoldingAdjust()) {
 			if (button == 2) {
 				Perspective.reset();
 				ci.cancel();

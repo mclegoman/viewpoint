@@ -117,19 +117,27 @@ public class Perspective {
 	private static boolean hasUpdated;
 
 	public static float getMultiplier() {
-		if (isHoldingPerspective()) {
-			if (isHoldBack()) return PerspectiveConfig.config.holdPerspectiveBackMultiplier.value();
-			else if (isHoldFront()) return PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value();
+		if (isThirdPerson()) {
+			switch (ClientData.minecraft.options.getPerspective()) {
+				case THIRD_PERSON_BACK -> {
+					return PerspectiveConfig.config.holdPerspectiveBackMultiplier.value();
+				}
+				case THIRD_PERSON_FRONT -> {
+					return PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value();
+				}
+			}
 		}
 		return 1.0F;
 	}
 	public static void adjust(float amount, int multiplier) {
-		if (isHoldingPerspective() || (!ClientData.minecraft.options.getPerspective().isFirstPerson() && PerspectiveConfig.config.perspectiveMultiplier.value())) {
+		if (isThirdPerson()) {
 			for (int i = 0; i < multiplier; i++) {
 				if (!(getMultiplier() <= 0.5F) || !(getMultiplier() >= 16.0F)) {
 					switch (ClientData.minecraft.options.getPerspective()) {
-						case THIRD_PERSON_BACK -> PerspectiveConfig.config.holdPerspectiveBackMultiplier.setValue(MathHelper.clamp(getMultiplier() + amount, 0.5F, 16.0F), false);
-						case THIRD_PERSON_FRONT -> PerspectiveConfig.config.holdPerspectiveFrontMultiplier.setValue(MathHelper.clamp(getMultiplier() + amount, 0.5F, 16.0F), false);
+						case THIRD_PERSON_BACK ->
+								PerspectiveConfig.config.holdPerspectiveBackMultiplier.setValue(MathHelper.clamp(getMultiplier() + amount, 0.5F, 16.0F), false);
+						case THIRD_PERSON_FRONT ->
+								PerspectiveConfig.config.holdPerspectiveFrontMultiplier.setValue(MathHelper.clamp(getMultiplier() + amount, 0.5F, 16.0F), false);
 					}
 					hasUpdated = true;
 				}
@@ -137,12 +145,15 @@ public class Perspective {
 		}
 	}
 	public static void reset() {
-		if (isHoldingPerspective() || (!ClientData.minecraft.options.getPerspective().isFirstPerson() && PerspectiveConfig.config.perspectiveMultiplier.value())) {
+		if (isThirdPerson()) {
 			switch (ClientData.minecraft.options.getPerspective()) {
 				case THIRD_PERSON_BACK -> PerspectiveConfig.config.holdPerspectiveBackMultiplier.setValue(MathHelper.clamp(PerspectiveConfig.config.holdPerspectiveBackMultiplier.getDefaultValue(), 0.5F, 16.0F), false);
 				case THIRD_PERSON_FRONT -> PerspectiveConfig.config.holdPerspectiveFrontMultiplier.setValue(MathHelper.clamp(PerspectiveConfig.config.holdPerspectiveFrontMultiplier.getDefaultValue(), 0.5F, 16.0F), false);
 			}
 			hasUpdated = true;
 		}
+	}
+	public static boolean isThirdPerson() {
+		return !ClientData.minecraft.options.getPerspective().isFirstPerson() && (PerspectiveConfig.config.perspectiveMultiplier.value() || isHoldingPerspective());
 	}
 }
