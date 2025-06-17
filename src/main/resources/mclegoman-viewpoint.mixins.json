@@ -30,6 +30,8 @@
     "client.luminance.TitleScreenMixin",
     "client.luminance.WorldRendererMixin",
     "client.perspective.CameraMixin",
+    "client.perspective.GameRendererMixin",
+    "client.perspective.InGameHudMixin",
     "client.perspective.MouseMixin",
     "client.shaders.ItemStackMixin",
     "client.show_death_coordinates.DeathScreenMixin",

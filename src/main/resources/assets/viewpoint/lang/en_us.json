@@ -83,6 +83,8 @@
 	"gui.viewpoint.config.hold_perspective.back.multiplier.hover": "Sets how far away the camera is when using Hold Perspective Back.",
 	"gui.viewpoint.config.hold_perspective.front.multiplier": "Front Multiplier: %s",
 	"gui.viewpoint.config.hold_perspective.front.multiplier.hover": "Sets how far away the camera is when using Hold Perspective Front.",
+	"gui.viewpoint.config.hold_perspective.top.multiplier": "Top-Down Multiplier: %s",
+	"gui.viewpoint.config.hold_perspective.top.multiplier.hover": "Sets how far away the camera is when using Hold Perspective Top.",
 	"gui.viewpoint.config.hold_perspective.back.hide_hud": "Back Hide HUD: %s",
 	"gui.viewpoint.config.hold_perspective.front.hide_hud": "Front Hide HUD: %s",
 
@@ -174,15 +176,17 @@
 
 	"gui.viewpoint.keybindings.keybinding.hold_perspective_third_person_front": "Hold Third Person Front",
 
+	"gui.viewpoint.keybindings.keybinding.hold_perspective_third_person_top": "Hold Third Person Top",
+
 	"gui.viewpoint.keybindings.keybinding.hold_zoom": "Hold Zoom",
 
 	"gui.viewpoint.keybindings.keybinding.open_config": "Open Config",
 
-	"gui.viewpoint.keybindings.keybinding.set_viewpoint_first_person": "Set First Person",
+	"gui.viewpoint.keybindings.keybinding.set_perspective_first_person": "Set First Person",
 
-	"gui.viewpoint.keybindings.keybinding.set_viewpoint_third_person_back": "Set Third Person Back",
+	"gui.viewpoint.keybindings.keybinding.set_perspective_third_person_back": "Set Third Person Back",
 
-	"gui.viewpoint.keybindings.keybinding.set_viewpoint_third_person_front": "Set Third Person Front",
+	"gui.viewpoint.keybindings.keybinding.set_perspective_third_person_front": "Set Third Person Front",
 
 	"gui.viewpoint.keybindings.keybinding.take_panorama_screenshot": "Take Panorama Screenshot",
 

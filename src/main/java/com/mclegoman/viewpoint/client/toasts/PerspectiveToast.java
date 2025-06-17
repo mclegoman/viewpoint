@@ -97,10 +97,10 @@ public class PerspectiveToast implements Toast {
 
     public void draw(DrawContext context, TextRenderer textRenderer, long startTime) {
         context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, 0, 0, this.getWidth(), this.getHeight());
-        context.drawText(textRenderer, this.title, 26, 7, 0xFFAA00, false);
+        context.drawText(textRenderer, this.title, 26, 7, 0xFFAA00FF, false);
 
         for (int i = 0; i < this.lines.size(); ++i) {
-            context.drawText(textRenderer, this.lines.get(i), 26, 18 + i * LINE_HEIGHT, 0xFFFFFF, false);
+            context.drawText(textRenderer, this.lines.get(i), 26, 18 + i * LINE_HEIGHT, 0xFFFFFFFF, false);
         }
     }
 

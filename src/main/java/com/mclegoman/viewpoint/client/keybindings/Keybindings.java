@@ -15,12 +15,11 @@ import org.lwjgl.glfw.GLFW;
 
 public class Keybindings {
 	public static final KeyBinding cycleCrosshair;
-	public static final KeyBinding cycleShaders;
 	public static final KeyBinding holdPerspectiveThirdPersonBack;
 	public static final KeyBinding holdPerspectiveThirdPersonFront;
+	public static final KeyBinding holdPerspectiveThirdPersonTop;
 	public static final KeyBinding holdZoom;
 	public static final KeyBinding openConfig;
-	public static final KeyBinding randomizeShader;
 	public static final KeyBinding setPerspectiveFirstPerson;
 	public static final KeyBinding setPerspectiveThirdPersonBack;
 	public static final KeyBinding setPerspectiveThirdPersonFront;
@@ -37,8 +36,6 @@ public class Keybindings {
 	public static final KeyBinding toggleTotemsOverlay;
 	public static final KeyBinding toggleCPSOverlay;
 	public static final KeyBinding toggleArmorOverlay;
-	public static final KeyBinding toggleShaders;
-	public static final KeyBinding holdShaders;
 	public static final KeyBinding toggleZoom;
 	public static final KeyBinding toggleZoomCinematic;
 	public static final KeyBinding adjustHoldPerspective;
@@ -47,12 +44,11 @@ public class Keybindings {
 	static {
 		allKeybindings = new KeyBinding[]{
 				cycleCrosshair = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "cycle_crosshair", GLFW.GLFW_KEY_UNKNOWN),
-				cycleShaders = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "cycle_shaders", GLFW.GLFW_KEY_F7),
 				holdPerspectiveThirdPersonBack = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "hold_perspective_third_person_back", GLFW.GLFW_KEY_Z),
 				holdPerspectiveThirdPersonFront = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "hold_perspective_third_person_front", GLFW.GLFW_KEY_V),
+				holdPerspectiveThirdPersonTop = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "hold_perspective_third_person_top", GLFW.GLFW_KEY_J),
 				holdZoom = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "hold_zoom", GLFW.GLFW_KEY_R),
 				openConfig = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "open_config", GLFW.GLFW_KEY_END),
-				randomizeShader = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "random_shader", GLFW.GLFW_KEY_UNKNOWN),
 				setPerspectiveFirstPerson = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "set_perspective_first_person", GLFW.GLFW_KEY_UNKNOWN),
 				setPerspectiveThirdPersonBack = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "set_perspective_third_person_back", GLFW.GLFW_KEY_UNKNOWN),
 				setPerspectiveThirdPersonFront = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "set_perspective_third_person_front", GLFW.GLFW_KEY_UNKNOWN),
@@ -69,8 +65,6 @@ public class Keybindings {
 				toggleTotemsOverlay = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "toggle_totems_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleCPSOverlay = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "toggle_cps_overlay", GLFW.GLFW_KEY_UNKNOWN),
 				toggleArmorOverlay = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "toggle_armor_overlay", GLFW.GLFW_KEY_UNKNOWN),
-				toggleShaders = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "toggle_shaders", GLFW.GLFW_KEY_F8),
-				holdShaders = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "hold_shaders", GLFW.GLFW_KEY_UNKNOWN),
 				toggleZoom = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "toggle_zoom", GLFW.GLFW_KEY_UNKNOWN),
 				toggleZoomCinematic = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "toggle_zoom_cinematic", GLFW.GLFW_KEY_UNKNOWN),
 				adjustHoldPerspective = KeybindingHelper.getKeybinding(Data.getVersion().getID(), Data.getVersion().getID(), "adjust_hold_perspective", GLFW.GLFW_KEY_H)
