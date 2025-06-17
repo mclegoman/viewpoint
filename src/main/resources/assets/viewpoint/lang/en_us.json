@@ -89,6 +89,8 @@
 	"gui.viewpoint.config.hold_perspective.increment_size": "Increment Multiplier: %s",
 	"gui.viewpoint.config.hold_perspective.increment_size.hover": "Sets the multiplier of hold perspective multiplier adjustment when using the scroll wheel.",
 
+	"gui.viewpoint.config.hold_perspective.perspective": "Use Multipliers on F5: %s",
+
 	"gui.viewpoint.config.overlays": "Overlays",
 
 	"gui.viewpoint.config.overlays.version_overlay": "Version Overlay: %s",

@@ -17,7 +17,6 @@ import com.mclegoman.viewpoint.client.translation.Translation;
 import com.mclegoman.viewpoint.common.data.Data;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.EmptyWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;
@@ -79,7 +78,9 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 			};
 			holdPerspectiveMultiplierIncrementSizeWidget.setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.increment_size", true)));
 			holdPerspectiveGridAdder.add(holdPerspectiveMultiplierIncrementSizeWidget, 2);
-			holdPerspectiveGridAdder.add(new EmptyWidget(20, 20), 2);
+			holdPerspectiveGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.perspective", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.perspectiveMultiplier.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.perspectiveMultiplier, false);
+			}).width(300).build(), 2);
 		} catch (Exception error) {
 			Data.getVersion().sendToLog(LogType.ERROR, "Error creating config/hold_perspective/page1: " + error.getLocalizedMessage());
 		}
