@@ -21,7 +21,7 @@ public class Perspective {
 		return Keybindings.adjustHoldPerspective.isPressed();
 	}
 	public static boolean isHoldingPerspective() {
-		return isHoldingPerspectiveBack() || isHoldingPerspectiveFront();
+		return isHoldingPerspectiveBack() || isHoldingPerspectiveFront() || isHoldTop();
 	}
 	public static boolean isHoldingPerspectiveBack() {
 		return holdThirdPersonBackLock;

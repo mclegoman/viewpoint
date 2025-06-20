@@ -67,7 +67,7 @@ public class PerspectiveConfig extends ReflectiveConfig {
 	@FloatRange(min = 0.5, max = 16)
 	public final TrackedValue<Float> holdPerspectiveFrontMultiplier = this.value(1.0F);
 	@FloatRange(min = 0.5, max = 16)
-	public final TrackedValue<Float> holdPerspectiveTopMultiplier = this.value(1.0F);
+	public final TrackedValue<Float> holdPerspectiveTopMultiplier = this.value(4.0F);
 	@SerializedName("hold_perspective_back_hide_hud")
 	public final TrackedValue<Boolean> holdPerspectiveBackHideHud = this.value(false);
 	@SerializedName("hold_perspective_front_hide_hud")
