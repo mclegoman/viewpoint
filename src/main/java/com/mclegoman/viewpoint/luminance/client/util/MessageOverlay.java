@@ -18,15 +18,19 @@ public class MessageOverlay {
 	public static float remaining;
 	public static void init() {
 		Events.AfterInGameHudRender.register(Identifier.of(Data.getVersion().getID(), "message_overlay"), (context, renderTickCounter) -> {
-            int time = (int) Math.min((remaining - ClientData.minecraft.getRenderTickCounter().getTickProgress(true)) * 255.0F / 20.0F, 255.0F);
-            if (time > 10) context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, message, (int) (ClientData.minecraft.getWindow().getScaledWidth() / 2.0F), 23, 16777215 | (time << 24 & -16777216));
+			if (remaining > 0 && message != null && !message.equals(Text.empty())) context.drawCenteredTextWithShadow(ClientData.minecraft.textRenderer, message, (int) (ClientData.minecraft.getWindow().getScaledWidth() / 2.0F), 23, 16777215 | (((int) Math.min(((remaining + 1) - ClientData.minecraft.getRenderTickCounter().getTickProgress(true)) * 255.0F / 20.0F, 255.0F)) << 24 & -16777216));
         });
 	}
 	public static void tick() {
-		if (remaining > 0) remaining -= 1;
+		if (remaining > 0) remaining--;
+		else clearOverlay();
 	}
 	public static void setOverlay(Text text) {
 		message = text;
 		remaining = 40;
+	}
+	public static void clearOverlay() {
+		remaining = 0;
+		message = Text.empty();
 	}
 }
