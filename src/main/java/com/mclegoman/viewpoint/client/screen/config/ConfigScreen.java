@@ -51,7 +51,7 @@ public class ConfigScreen extends AbstractConfigScreen {
 		grid.getMainPositioner().alignHorizontalCenter().margin(2);
 		GridWidget.Adder gridAdder = grid.createAdder(2);
 		try {
-			gridAdder.add(ConfigLinkButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "perspective"), (button) -> ClientData.minecraft.setScreen(new LinkScreen(this, URI.create("https://modrinth.com/mod/mclegoman-perspective"), true))).textures(ConfigLinkButtonWidget.getPerspectiveTextures()).width(Contributor.isClientContributor() ? 150 : 300).build(), Contributor.isClientContributor() ? 1 : 2);
+			gridAdder.add(ConfigLinkButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "perspective"), (button) -> ClientData.minecraft.setScreen(new LinkScreen(this, URI.create("https://modrinth.com/mod/mclegoman-perspective"), true))).textures(ConfigLinkButtonWidget.getPerspectiveTextures()).width(Contributor.isClientContributor() ? 150 : 304).build(), Contributor.isClientContributor() ? 1 : 2);
 			if (Contributor.isClientContributor()) {
 				gridAdder.add(ConfigButtonWidget.builder(() -> Translation.getCombinedText(Translation.getConfigTranslation(Data.getVersion().getID(), "contributor"), Translation.getTranslation(Data.getVersion().getID(), "more")), (button) -> ClientData.minecraft.setScreen(new ContributorConfigScreen(getRefreshScreen(), 1))).build());
 			}

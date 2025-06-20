@@ -24,7 +24,7 @@ public class HUDHelper {
 		if (Keybindings.toggleArmorOverlay.wasPressed()) PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.armorOverlay);
 	}
 	public static boolean shouldHideHUD() {
-		return Hide.shouldHideHud(HideHudTypes.zoom) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveBack) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveFront);
+		return Hide.shouldHideHud(HideHudTypes.zoom) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveBack) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveFront) || Hide.shouldHideHud(HideHudTypes.holdPerspectiveTop);
 	}
 	public static boolean shouldHideHand() {
 		return Hide.shouldHideHand(HideHudTypes.zoom);

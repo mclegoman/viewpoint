@@ -54,17 +54,17 @@ public class ZoomConfigScreen extends AbstractConfigScreen {
 
 				@Override
 				protected void applyValue() {
-					PerspectiveConfig.config.zoomLevel.setValue((int) ((value) * 100), false);
+					Zoom.setZoomLevel((float) ((value) * 100), false);
 				}
 			}, 1);
-			double zoomIncrementSize = (double) (PerspectiveConfig.config.zoomIncrementSize.value() - 1) / 9;
+			double zoomIncrementSize = (double) (PerspectiveConfig.config.zoomIncrementSize.value() - 0.1) / 9.9;
 			SliderWidget zoomIncrementSizeWidget = new ConfigSliderWidget(zoomGridAdder.getGridWidget().getX(), zoomGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "zoom.increment_size", new Object[]{Text.literal(String.valueOf(PerspectiveConfig.config.zoomIncrementSize.value()))}, false), zoomIncrementSize) {
 				protected void updateMessage() {
 					setMessage(Translation.getConfigTranslation(Data.getVersion().getID(), "zoom.increment_size", new Object[]{Text.literal(String.valueOf(PerspectiveConfig.config.zoomIncrementSize.value()))}, false));
 				}
 
 				protected void applyValue() {
-					PerspectiveConfig.config.zoomIncrementSize.setValue((int) ((value) * 9) + 1, false);
+					Zoom.setIncrementSize((float) (((value) * 9.9) + 0.1), false);
 				}
 			};
 			zoomIncrementSizeWidget.setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.getVersion().getID(), "zoom.increment_size", true)));

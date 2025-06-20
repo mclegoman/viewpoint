@@ -14,6 +14,7 @@ import com.mclegoman.viewpoint.client.panorama.Panorama;
 import com.mclegoman.viewpoint.client.perspective.Perspective;
 import com.mclegoman.viewpoint.client.toasts.PerspectiveToast;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
+import com.mclegoman.viewpoint.luminance.client.util.MessageOverlay;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class Tick {
@@ -27,6 +28,7 @@ public class Tick {
 				Panorama.tick();
 				Hide.tick();
 				PerspectiveToast.Helper.tick();
+				MessageOverlay.tick();
 			}
 		});
 	}

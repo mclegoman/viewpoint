@@ -10,5 +10,6 @@ package com.mclegoman.viewpoint.client.hide;
 public enum HideHudTypes {
 	zoom,
 	holdPerspectiveBack,
-	holdPerspectiveFront;
+	holdPerspectiveFront,
+	holdPerspectiveTop;
 }

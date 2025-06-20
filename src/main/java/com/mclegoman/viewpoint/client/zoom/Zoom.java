@@ -135,21 +135,25 @@ public class Zoom {
 	public static float getZoomLevel() {
 		return MathHelper.clamp(getRawZoomLevel(), 0.0F, 100.0F);
 	}
-	public static int getRawZoomLevel() {
+	public static float getRawZoomLevel() {
 		return PerspectiveConfig.config.zoomLevel.value();
 	}
-	public static int getDefaultZoomLevel() {
+	public static float getDefaultZoomLevel() {
 		return PerspectiveConfig.config.zoomLevel.getDefaultValue();
 	}
-	public static void zoom(int amount, int multiplier) {
+	public static void setZoomLevel(float value, boolean serialize) {
+		PerspectiveConfig.config.zoomLevel.setValue(MathHelper.clamp(Math.round(value * 10.0F) / 10.0F, 0.0F, 100.0F), serialize);
+	}
+	public static void setIncrementSize(float value, boolean serialize) {
+		PerspectiveConfig.config.zoomIncrementSize.setValue(MathHelper.clamp(Math.round(value * 10.0F) / 10.0F, 0.1F, 10.0F), serialize);
+	}
+	public static void zoom(float amount, float multiplier) {
 		try {
 			boolean updated = false;
-			for (int i = 0; i < multiplier; i++) {
-				if (!(getRawZoomLevel() <= 0) || !(getRawZoomLevel() >= 100)) {
-					PerspectiveConfig.config.zoomLevel.setValue(MathHelper.clamp(getRawZoomLevel() + amount, 0, 100), false);
-					updated = true;
-					hasUpdated = true;
-				}
+			if (!(getRawZoomLevel() <= 0) || !(getRawZoomLevel() >= 100)) {
+				setZoomLevel(getRawZoomLevel() + (amount * multiplier), false);
+				updated = true;
+				hasUpdated = true;
 			}
 			if (updated) setOverlay();
 		} catch (Exception error) {
@@ -203,7 +207,7 @@ public class Zoom {
 			return Identifiers.LOGARITHMIC;
 		}
 		public static float getLimitFOV(float input) {
-			return MathHelper.clamp(input, 0.1F, 179.9F);
+			return MathHelper.clamp(input, 0.1F, 179.99F);
 		}
 		public static void updateMultiplier() {
 			Multiplier.setMultiplier((float) (1.0F - (Math.log(Zoom.getZoomLevel() + 1.0F) / Math.log(100.0 + 1.0F))));
@@ -214,7 +218,7 @@ public class Zoom {
 			return Identifiers.LINEAR;
 		}
 		public static float getLimitFOV(float input) {
-			return MathHelper.clamp(input, 0.1F, 179.9F);
+			return MathHelper.clamp(input, 0.1F, 179.99F);
 		}
 		public static void updateMultiplier() {
 			Multiplier.setMultiplier(1.0F - (Zoom.getZoomLevel() / 100.0F));

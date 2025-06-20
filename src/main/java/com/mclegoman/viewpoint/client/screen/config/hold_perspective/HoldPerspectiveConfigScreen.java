@@ -39,9 +39,9 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 	private GridWidget createPageOne() {
 		GridWidget holdPerspectiveGrid = new GridWidget();
 		holdPerspectiveGrid.getMainPositioner().alignHorizontalCenter().margin(2);
-		GridWidget.Adder holdPerspectiveGridAdder = holdPerspectiveGrid.createAdder(2);
+		GridWidget.Adder holdPerspectiveGridAdder = holdPerspectiveGrid.createAdder(3);
 		try {
-			holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.back.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveBackMultiplier.value())}, false), ((PerspectiveConfig.config.holdPerspectiveBackMultiplier.value() - 0.5F) / 15.5F)) {
+			holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 98, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.back.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveBackMultiplier.value())}, false), ((PerspectiveConfig.config.holdPerspectiveBackMultiplier.value() - 0.5F) / 15.5F)) {
 				@Override
 				protected void updateMessage() {
 					setMessage(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.back.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveBackMultiplier.value())}, false));
@@ -51,7 +51,7 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 					PerspectiveConfig.config.holdPerspectiveBackMultiplier.setValue(Float.valueOf(String.format("%.2f", ((value * 15.5F) + 0.5F))), false);
 				}
 			}).setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.back.multiplier", true)));
-			holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.front.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value())}, false), ((PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value() - 0.5F) / 15.5F)) {
+			holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 98, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.front.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value())}, false), ((PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value() - 0.5F) / 15.5F)) {
 				@Override
 				protected void updateMessage() {
 					setMessage(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.front.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveFrontMultiplier.value())}, false));
@@ -63,7 +63,7 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 			}).setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.front.multiplier", true)));
 
 
-			holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.top.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveTopMultiplier.value())}, false), ((PerspectiveConfig.config.holdPerspectiveTopMultiplier.value() - 0.5F) / 15.5F)) {
+			holdPerspectiveGridAdder.add(new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 98, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.top.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveTopMultiplier.value())}, false), ((PerspectiveConfig.config.holdPerspectiveTopMultiplier.value() - 0.5F) / 15.5F)) {
 				@Override
 				protected void updateMessage() {
 					setMessage(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.top.multiplier", new Object[]{String.format("%.2f", PerspectiveConfig.config.holdPerspectiveTopMultiplier.value())}, false));
@@ -77,7 +77,7 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 
 
 			double holdPerspectiveMultiplierIncrementSize = (double) (PerspectiveConfig.config.holdPerspectiveMultiplierIncrementSize.value() - 1) / 9;
-			SliderWidget holdPerspectiveMultiplierIncrementSizeWidget = new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 150, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.increment_size", new Object[]{Text.literal(String.valueOf(PerspectiveConfig.config.holdPerspectiveMultiplierIncrementSize.value()))}, false), holdPerspectiveMultiplierIncrementSize) {
+			SliderWidget holdPerspectiveMultiplierIncrementSizeWidget = new ConfigSliderWidget(holdPerspectiveGridAdder.getGridWidget().getX(), holdPerspectiveGridAdder.getGridWidget().getY(), 304, 20, Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.increment_size", new Object[]{Text.literal(String.valueOf(PerspectiveConfig.config.holdPerspectiveMultiplierIncrementSize.value()))}, false), holdPerspectiveMultiplierIncrementSize) {
 				protected void updateMessage() {
 					setMessage(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.increment_size", new Object[]{Text.literal(String.valueOf(PerspectiveConfig.config.holdPerspectiveMultiplierIncrementSize.value()))}, false));
 				}
@@ -86,16 +86,19 @@ public class HoldPerspectiveConfigScreen extends AbstractConfigScreen {
 				}
 			};
 			holdPerspectiveMultiplierIncrementSizeWidget.setTooltip(Tooltip.of(Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.increment_size", true)));
-			holdPerspectiveGridAdder.add(holdPerspectiveMultiplierIncrementSizeWidget);
+			holdPerspectiveGridAdder.add(holdPerspectiveMultiplierIncrementSizeWidget, 3);
 			holdPerspectiveGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.back.hide_hud", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.holdPerspectiveBackHideHud.value(), Translation.Type.ONFF)}), (button) -> {
 				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.holdPerspectiveBackHideHud, false);
-			}).build());
+			}).width(98).build());
 			holdPerspectiveGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.front.hide_hud", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.holdPerspectiveFrontHideHud.value(), Translation.Type.ONFF)}), (button) -> {
 				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.holdPerspectiveFrontHideHud, false);
-			}).build());
+			}).width(98).build());
+			holdPerspectiveGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.top.hide_hud", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.holdPerspectiveTopHideHud.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.holdPerspectiveTopHideHud, false);
+			}).width(98).build());
 			holdPerspectiveGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hold_perspective.perspective", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.perspectiveMultiplier.value(), Translation.Type.ONFF)}), (button) -> {
 				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.perspectiveMultiplier, false);
-			}).width(300).build(), 2);
+			}).width(304).build(), 3);
 		} catch (Exception error) {
 			Data.getVersion().sendToLog(LogType.ERROR, "Error creating config/hold_perspective/page1: " + error.getLocalizedMessage());
 		}

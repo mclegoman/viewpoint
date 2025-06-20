@@ -94,6 +94,9 @@ public class Hide {
 			case holdPerspectiveFront -> {
 				return Perspective.isHoldingPerspectiveFront() && PerspectiveConfig.config.holdPerspectiveFrontHideHud.value();
 			}
+			case holdPerspectiveTop -> {
+				return (ClientData.minecraft.options.getPerspective().isFirstPerson() && Perspective.isHoldTop()) && PerspectiveConfig.config.holdPerspectiveTopHideHud.value();
+			}
 			default -> {return false;}
 		}
 	}

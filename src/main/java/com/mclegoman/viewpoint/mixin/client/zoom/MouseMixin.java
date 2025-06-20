@@ -27,7 +27,7 @@ public abstract class MouseMixin {
 		// Zoom.isZooming() checks Zoom.canZoom(), so we don't need to check it again.
 		if (Zoom.isZooming()) {
 			if (vector2i.y != 0) {
-				Zoom.zoom(vector2i.y, PerspectiveConfig.config.holdPerspectiveMultiplierIncrementSize.value());
+				Zoom.zoom(vector2i.y, PerspectiveConfig.config.zoomIncrementSize.value());
 				ci.cancel();
 			}
 		}

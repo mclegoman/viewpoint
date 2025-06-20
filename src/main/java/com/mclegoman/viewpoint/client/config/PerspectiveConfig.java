@@ -30,11 +30,11 @@ public class PerspectiveConfig extends ReflectiveConfig {
 	@SerializedName("zoom_enabled")
 	public final TrackedValue<Boolean> zoomEnabled = this.value(true);
 	@SerializedName("zoom_level")
-	@IntegerRange(min = 0, max = 100)
-	public final TrackedValue<Integer> zoomLevel = this.value(40);
+	@FloatRange(min = 0.0F, max = 100.0F)
+	public final TrackedValue<Float> zoomLevel = this.value(40.0F);
 	@SerializedName("zoom_increment_size")
-	@IntegerRange(min = 1, max = 10)
-	public final TrackedValue<Integer> zoomIncrementSize = this.value(2);
+	@FloatRange(min = 0.1F, max = 10.0F)
+	public final TrackedValue<Float> zoomIncrementSize = this.value(2.0F);
 	@SerializedName("zoom_transition")
 	public final TrackedValue<String> zoomTransition = this.value("smooth");
 	@SerializedName("zoom_smooth_speed_in")
@@ -72,6 +72,8 @@ public class PerspectiveConfig extends ReflectiveConfig {
 	public final TrackedValue<Boolean> holdPerspectiveBackHideHud = this.value(false);
 	@SerializedName("hold_perspective_front_hide_hud")
 	public final TrackedValue<Boolean> holdPerspectiveFrontHideHud = this.value(true);
+	@SerializedName("hold_perspective_top_hide_hud")
+	public final TrackedValue<Boolean> holdPerspectiveTopHideHud = this.value(true);
 	@SerializedName("star_brightness_multiplier")
 	@FloatRange(min = 0.0F, max = 2.0F)
 	public final TrackedValue<Float> starBrightnessMultiplier = this.value(1.0F);

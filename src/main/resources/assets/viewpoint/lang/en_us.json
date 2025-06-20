@@ -87,6 +87,7 @@
 	"gui.viewpoint.config.hold_perspective.top.multiplier.hover": "Sets how far away the camera is when using Hold Perspective Top.",
 	"gui.viewpoint.config.hold_perspective.back.hide_hud": "Back Hide HUD: %s",
 	"gui.viewpoint.config.hold_perspective.front.hide_hud": "Front Hide HUD: %s",
+	"gui.viewpoint.config.hold_perspective.top.hide_hud": "Top Hide HUD: %s",
 
 	"gui.viewpoint.config.hold_perspective.increment_size": "Increment Multiplier: %s",
 	"gui.viewpoint.config.hold_perspective.increment_size.hover": "Sets the multiplier of hold perspective multiplier adjustment when using the scroll wheel.",
