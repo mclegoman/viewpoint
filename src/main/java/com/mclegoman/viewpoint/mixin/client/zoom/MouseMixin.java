@@ -7,14 +7,16 @@
 
 package com.mclegoman.viewpoint.mixin.client.zoom;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import com.mclegoman.viewpoint.client.config.PerspectiveConfig;
 import com.mclegoman.viewpoint.client.data.ClientData;
 import com.mclegoman.viewpoint.client.zoom.Zoom;
 import net.minecraft.client.Mouse;
+import net.minecraft.client.input.Scroller;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Vector2i;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -22,10 +24,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(priority = 100, value = Mouse.class)
 public abstract class MouseMixin {
+	@Shadow
+	@Final
+	private Scroller scroller;
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z"), method = "onMouseScroll", cancellable = true)
-	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci, @Local(name = "vector2i") Vector2i vector2i) {
+	private void perspective$onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
 		// Zoom.isZooming() checks Zoom.canZoom(), so we don't need to check it again.
 		if (Zoom.isZooming()) {
+			Vector2i vector2i = this.scroller.update(horizontal, vertical);
 			if (vector2i.y != 0) {
 				Zoom.zoom(vector2i.y, PerspectiveConfig.config.zoomIncrementSize.value());
 				ci.cancel();
