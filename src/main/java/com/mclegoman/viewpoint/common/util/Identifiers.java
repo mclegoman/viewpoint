@@ -15,6 +15,7 @@ public class Identifiers {
     public static final Identifier ARMOR_STAND;
     public static final Identifier BEE;
     public static final Identifier CLASSIC;
+    public static final Identifier COMMAND_PANORAMA;
     public static final Identifier CONTRIBUTOR;
     public static final Identifier CONTRIBUTORS;
     public static final Identifier COW;
@@ -63,6 +64,7 @@ public class Identifiers {
         ARMOR_STAND = of("armor_stand");
         BEE = of("bee");
         CLASSIC = of("classic");
+        COMMAND_PANORAMA = of("take_panorama");
         CONTRIBUTOR = of("contributor");
         CONTRIBUTORS = of("contributors");
         COW = of("cow");

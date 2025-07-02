@@ -7,6 +7,7 @@
 
 package com.mclegoman.viewpoint.client;
 
+import com.mclegoman.viewpoint.client.commands.Commands;
 import com.mclegoman.viewpoint.luminance.client.util.MessageOverlay;
 import com.mclegoman.viewpoint.luminance.common.util.LogType;
 import com.mclegoman.viewpoint.client.appearance.Appearance;
@@ -40,6 +41,7 @@ public class ViewpointClient implements ClientModInitializer {
 			Keybindings.init();
 			PerspectiveLogo.init();
 			Tick.init();
+			Commands.init();
 		} catch (Exception error) {
 			Data.getVersion().sendToLog(LogType.ERROR, Translation.getString("Failed to run client:init: {}", error));
 		}

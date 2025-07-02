@@ -47,10 +47,14 @@ public class Panorama {
 		}
 		return fileName;
 	}
-	private static void takePanorama(int resolution, int scaleFactor) {
-		takePanorama(getFileName(), resolution, scaleFactor);
+	public static void takePanorama(int resolution, int scaleFactor) {
+		String fileName = getFileName();
+		takePanorama(fileName, fileName, resolution, scaleFactor);
 	}
-	private static void takePanorama(String resourcePackName, int resolution, int scaleFactor) {
+	public static void takePanorama(String resourcePackName, int resolution, int scaleFactor) {
+		takePanorama(resourcePackName, resourcePackName, resolution, scaleFactor);
+	}
+	public static void takePanorama(String resourcePackName, String description, int resolution, int scaleFactor) {
 		String panoramaName = getFileName(resourcePackName);
 		int scaledResolution = resolution * scaleFactor;
 		if (ClientData.minecraft.player != null) {
@@ -107,7 +111,7 @@ public class Panorama {
 					File packFile = new File(resourcePackDir + "/pack.mcmeta");
 					if (packFile.createNewFile()) {
 						FileWriter packWriter = new FileWriter(packFile);
-						packWriter.write("{\"pack\": {\"pack_format\": " + SharedConstants.getGameVersion().packVersion(ResourceType.CLIENT_RESOURCES) + ", \"supported_formats\": {\"min_inclusive\": 1, \"max_inclusive\": 2147483647}, \"description\": \"" + panoramaName + "\"}}\"}}");
+						packWriter.write("{\"pack\": {\"pack_format\": " + SharedConstants.getGameVersion().packVersion(ResourceType.CLIENT_RESOURCES) + ", \"supported_formats\": {\"min_inclusive\": 1, \"max_inclusive\": 2147483647}, \"description\": \"" + description + "\"}}\"}}");
 						packWriter.close();
 					}
 
