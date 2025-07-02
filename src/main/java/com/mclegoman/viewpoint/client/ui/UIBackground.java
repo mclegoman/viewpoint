@@ -32,7 +32,7 @@ public class UIBackground {
 			}).renderMenu(context -> {
 				context.drawTexture(RenderPipelines.GUI_TEXTURED, getUiBackgroundTextureFromConfig(), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
 				context.drawTexture(RenderPipelines.GUI_TEXTURED, Identifier.of(Data.getVersion().getID(), "textures/gui/uibackground_menu_background.png"), 0, 0, 0, 0.0F, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), 32, 32);
-		}).renderPanorama(false).renderShader(false).build());
+		}).renderPanorama(false).renderTitleScreenPanorama(true).renderShader(false).build());
 		registerUIBackground(new UIBackgroundData.Builder(Identifiers.CLASSIC).renderWorld(context -> {
 				context.fillGradient(0, 0, ClientData.minecraft.getWindow().getScaledWidth(), ClientData.minecraft.getWindow().getScaledHeight(), -1072689136, -804253680);
 			}).renderMenu(context -> {

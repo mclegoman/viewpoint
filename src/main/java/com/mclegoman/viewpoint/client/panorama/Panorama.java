@@ -30,23 +30,28 @@ public class Panorama {
 	public static void tick() {
 		if (Keybindings.takePanoScreenshot.wasPressed()) takePanorama(PerspectiveConfig.config.panoramaResolution.value(), 4);
 	}
-	private static String getFilename() {
-		String currentTime = Util.getFormattedCurrentTime();
-		String filename = currentTime;
+	private static String getFileName() {
+		return getFileName(Util.getFormattedCurrentTime());
+	}
+	private static String getFileName(String fileName) {
 		int i = 1;
 		boolean shouldReturn = false;
 		while (!shouldReturn) {
-			String filename1 = currentTime + (i == 1 ? "" : "_" + i);
-			File file = new File(ClientData.minecraft.runDirectory.getPath() + "/resourcepacks/", filename1);
+			String fileName1 = fileName + (i == 1 ? "" : "_" + i);
+			File file = new File(ClientData.minecraft.runDirectory.getPath() + "/resourcepacks/", fileName1);
 			if (!file.exists()) {
-				filename = filename1;
+				fileName = fileName1;
 				shouldReturn = true;
 			}
 			i++;
 		}
-		return filename;
+		return fileName;
 	}
 	private static void takePanorama(int resolution, int scaleFactor) {
+		takePanorama(getFileName(), resolution, scaleFactor);
+	}
+	private static void takePanorama(String resourcePackName, int resolution, int scaleFactor) {
+		String panoramaName = getFileName(resourcePackName);
 		int scaledResolution = resolution * scaleFactor;
 		if (ClientData.minecraft.player != null) {
 			int prevWidth = ClientData.minecraft.getWindow().getFramebufferWidth();
@@ -62,14 +67,11 @@ public class Panorama {
 				ClientData.minecraft.options.setPerspective(Perspective.FIRST_PERSON);
 			float startingYaw = findClosest(prevYaw);
 			try {
-				String panoramaName = getFilename();
 				File resourcePackDir = new File(ClientData.minecraft.runDirectory.getPath() + "/resourcepacks/" + panoramaName);
 				File screenshotsDir = new File(resourcePackDir + "/assets/minecraft/textures/gui/title/background");
 				if (screenshotsDir.mkdirs()) {
 					ClientData.minecraft.gameRenderer.setRenderingPanorama(true);
-					ClientData.minecraft.getWindow().setFramebufferWidth(scaledResolution);
-					ClientData.minecraft.getWindow().setFramebufferHeight(scaledResolution);
-					framebuffer.resize(scaledResolution, scaledResolution);
+					resize(framebuffer, scaledResolution);
 
 					for (int l = 0; l < 6; ++l) {
 						switch (l) {
@@ -98,8 +100,7 @@ public class Panorama {
 								ClientData.minecraft.player.setPitch(90.0F);
 							}
 						}
-						ClientData.minecraft.gameRenderer.renderWorld(RenderTickCounter.ONE);
-						ScreenshotRecorder.saveScreenshot(screenshotsDir, "panorama_" + l + ".png", ClientData.minecraft.getFramebuffer(), scaleFactor);
+						save(screenshotsDir, "panorama_" + l + ".png", framebuffer, scaleFactor, false);
 					}
 
 					// Create pack.mcmeta
@@ -109,6 +110,12 @@ public class Panorama {
 						packWriter.write("{\"pack\": {\"pack_format\": " + SharedConstants.getGameVersion().packVersion(ResourceType.CLIENT_RESOURCES) + ", \"supported_formats\": {\"min_inclusive\": 1, \"max_inclusive\": 2147483647}, \"description\": \"" + panoramaName + "\"}}\"}}");
 						packWriter.close();
 					}
+
+					// Create pack.png
+					ClientData.minecraft.player.setPitch(prevPitch);
+					ClientData.minecraft.player.setYaw(prevYaw);
+					resize(framebuffer, 64 * scaleFactor);
+					save(resourcePackDir, "pack.png", framebuffer, scaleFactor, true);
 
 					ClientData.minecraft.player.sendMessage(Translation.getTranslation(Data.getVersion().getID(), "message.take_panorama_screenshot.success", new Object[]{Text.literal(panoramaName).formatted(Formatting.UNDERLINE).styled((style) -> style.withClickEvent(new ClickEvent.OpenFile(resourcePackDir.getAbsolutePath())))}), false);
 				}
@@ -140,5 +147,14 @@ public class Panorama {
 			}
 		}
 		return closest;
+	}
+	private static void resize(Framebuffer framebuffer, int resolution) {
+		ClientData.minecraft.getWindow().setFramebufferWidth(resolution);
+		ClientData.minecraft.getWindow().setFramebufferHeight(resolution);
+		framebuffer.resize(resolution, resolution);
+	}
+	private static void save(File dir, String fileName, Framebuffer framebuffer, int scaleFactor, boolean overlay) {
+		ClientData.minecraft.gameRenderer.renderWorld(RenderTickCounter.ONE);
+		ScreenshotRecorder.saveScreenshot(dir, fileName, framebuffer, scaleFactor, overlay);
 	}
 }
