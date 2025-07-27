@@ -80,7 +80,6 @@ public class HideConfigScreen extends AbstractConfigScreen {
 			}).tooltip(() -> Tooltip.of(Translation.getConfigTranslation(Data.getVersion().getID(), "hide.hide_players", true))).build());
 			hideGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hide.show_message", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.hideShowMessage.value(), Translation.Type.ONFF)}), (button) -> {
 				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.hideShowMessage, false);
-
 			}).build());
 		} catch (Exception error) {
 			Data.getVersion().sendToLog(LogType.ERROR, "Error creating config/hide/page1: " + error.getLocalizedMessage());
@@ -103,7 +102,12 @@ public class HideConfigScreen extends AbstractConfigScreen {
 					PerspectiveConfig.config.starBrightnessMultiplier.setValue(Math.round((((float)value) * 2.0F) * 100) / 100F, false);
 				}
 			}, 2);
-			hideGridAdder.add(new EmptyWidget(20, 20), 2);
+			hideGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hide.merge_xp_and_locator_bar", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.mergeXPLocatorBar.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.mergeXPLocatorBar, false);
+			}).width(300).build(), 2);
+			hideGridAdder.add(ConfigButtonWidget.builder(() -> Translation.getConfigTranslation(Data.getVersion().getID(), "hide.bounce_panorama", new Object[]{Translation.getVariableTranslation(Data.getVersion().getID(), PerspectiveConfig.config.bouncePanoramaYaw.value(), Translation.Type.ONFF)}), (button) -> {
+				PerspectiveConfig.toggleConfigValue(PerspectiveConfig.config.bouncePanoramaYaw, false);
+			}).width(300).build(), 2);
 			hideGridAdder.add(new EmptyWidget(20, 20), 2);
 			hideGridAdder.add(new EmptyWidget(20, 20), 2);
 		} catch (Exception error) {

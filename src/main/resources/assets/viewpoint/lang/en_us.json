@@ -141,6 +141,10 @@
 
 	"gui.viewpoint.config.hide.star_brightness": "Star Brightness Multiplier: %s",
 
+	"gui.viewpoint.config.hide.merge_xp_and_locator_bar": "Overlay Locator Bar: %s",
+
+	"gui.viewpoint.config.hide.bounce_panorama": "Wobble Panorama: %s",
+
 	"gui.viewpoint.config.perspective": "Download Perspective!",
 
 	"gui.viewpoint.config.contributor": "Contributor",
