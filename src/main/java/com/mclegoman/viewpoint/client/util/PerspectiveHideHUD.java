@@ -1,0 +1,19 @@
+/*
+    Perspective
+    Author: MCLegoMan
+    Github: https://github.com/MCLegoMan/Perspective
+    License: GNU LGPLv3
+*/
+
+package com.mclegoman.viewpoint.client.util;
+
+import com.mclegoman.viewpoint.client.config.PerspectiveConfigHelper;
+import com.mclegoman.viewpoint.client.data.PerspectiveClientData;
+import com.mclegoman.viewpoint.client.perspective.PerspectivePerspective;
+import com.mclegoman.viewpoint.client.zoom.PerspectiveZoom;
+
+public class PerspectiveHideHUD {
+    public static boolean shouldHideHUD() {
+        return (PerspectiveZoom.isZooming() && (Boolean)PerspectiveConfigHelper.getConfig("zoom_hide_hud")) || (PerspectivePerspective.isHoldingPerspective() && (Boolean)PerspectiveConfigHelper.getConfig("hold_perspective_hide_hud")) || PerspectiveClientData.CLIENT.gameRenderer.isRenderingPanorama();
+    }
+}
