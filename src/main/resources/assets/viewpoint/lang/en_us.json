@@ -92,7 +92,7 @@
 	"gui.perspective.keybindings.keybinding.take_panorama_screenshot": "Take Panorama Screenshot",
 	"gui.perspective.keybindings.keybinding.toggle_shaders": "Toggle Super Secret Settings",
 	"gui.perspective.keybindings.keybinding.toggle_zoom": "Toggle Zoom",
-	"gui.perspective.keybindings.category.perspective_experimental": "Perspective: Experimental",
+	"gui.perspective.keybindings.category.perspective_experimental": "viewpoint: Experimental",
 	"gui.perspective.keybindings.keybinding.toggle_armor": "Toggle Armor",
 	"gui.perspective.keybindings.keybinding.toggle_nametags": "Toggle Nametags",
 	"gui.perspective.resource_pack.perspective_default": "Viewpoint Default",

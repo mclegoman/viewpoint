@@ -1,0 +1,17 @@
+{
+  "targets": [
+    "0"
+  ],
+  "passes": [
+    {
+      "name": "perspective:dominant_channel",
+      "intarget": "minecraft:main",
+      "outtarget": "0"
+    },
+    {
+      "name": "minecraft:blit",
+      "intarget": "0",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-## **Current Goals for Perspective:**  
+## **Current Goals for viewpoint:**  
 - **1.3.0**  
   - Test and Fix **_every_** vanilla textured entity.  
     - How should we treat panda genetics with textured entities?
