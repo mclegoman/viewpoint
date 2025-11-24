@@ -14,7 +14,7 @@ import com.mclegoman.viewpoint.luminance.common.util.LogType;
 import com.mclegoman.viewpoint.client.events.PerspectiveEvents;
 import com.mclegoman.viewpoint.client.util.IdentifierHelper;
 import com.mclegoman.viewpoint.common.util.Identifiers;
-import net.minecraft.client.util.SkinTextures;
+import net.minecraft.entity.player.PlayerSkinType;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceFinder;
 import net.minecraft.resource.ResourceManager;
@@ -46,7 +46,7 @@ public class Appearance {
 			try {
 				if (!enabled) registry.remove(uuid);
 				else {
-					Data data = new Data(UUID.fromString(uuid), slim ? SkinTextures.Model.SLIM : SkinTextures.Model.WIDE, skinTexture);
+					Data data = new Data(UUID.fromString(uuid), slim ? PlayerSkinType.SLIM : PlayerSkinType.WIDE, skinTexture);
 					registry.put(uuid, data);
 				}
 			} catch (Exception error) {
@@ -103,6 +103,6 @@ public class Appearance {
 			}
 		}
 	}
-	public record Data(UUID uuid, SkinTextures.Model model, Identifier texture) {
+	public record Data(UUID uuid, PlayerSkinType model, Identifier texture) {
 	}
 }
